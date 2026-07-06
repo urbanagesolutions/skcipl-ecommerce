@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Order Confirmed | Sabari Krishna</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-fixed": "#291800",
+                      "surface-tint": "#835500",
+                      "inverse-primary": "#ffb955",
+                      "inverse-on-surface": "#f0f0f3",
+                      "secondary-container": "#91f9a2",
+                      "on-primary-container": "#644000",
+                      "outline-variant": "#d7c3ae",
+                      "primary-container": "#f5a623",
+                      "inverse-surface": "#2f3133",
+                      "secondary-fixed-dim": "#75dc88",
+                      "on-tertiary": "#ffffff",
+                      "on-surface-variant": "#524534",
+                      "error-container": "#ffdad6",
+                      "surface-container-highest": "#e2e2e5",
+                      "surface-container-low": "#f3f3f6",
+                      "surface-container-high": "#e8e8ea",
+                      "primary-fixed-dim": "#ffb955",
+                      "on-secondary": "#ffffff",
+                      "tertiary-container": "#b9b6ae",
+                      "on-tertiary-container": "#494741",
+                      "on-secondary-fixed-variant": "#005321",
+                      "on-secondary-fixed": "#002109",
+                      "border-subtle": "#E5E7EB",
+                      "surface-dim": "#dadadc",
+                      "tertiary-fixed": "#e6e2d9",
+                      "on-primary-fixed-variant": "#633f00",
+                      "on-surface": "#1a1c1e",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed-dim": "#c9c6be",
+                      "surface-variant": "#e2e2e5",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "primary": "#835500",
+                      "error": "#ba1a1a",
+                      "warm-gray": "#636B74",
+                      "sale-red": "#E02020",
+                      "on-background": "#1a1c1e",
+                      "surface-bright": "#f9f9fc",
+                      "on-error-container": "#93000a",
+                      "on-secondary-container": "#007432",
+                      "price-green": "#1D8B42",
+                      "background": "#f9f9fc",
+                      "on-tertiary-fixed-variant": "#484741",
+                      "on-tertiary-fixed": "#1c1c17",
+                      "primary-fixed": "#ffddb4",
+                      "surface": "#f9f9fc",
+                      "secondary-fixed": "#91f9a2",
+                      "outline": "#857462",
+                      "secondary": "#006e2f",
+                      "tertiary": "#605e58",
+                      "surface-container": "#eeeef0"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "container-max": "1280px",
+                      "section-gap": "80px",
+                      "stack-lg": "32px",
+                      "gutter": "24px",
+                      "stack-sm": "8px",
+                      "stack-md": "16px"
+              },
+              "fontFamily": {
+                      "title-md": ["Public Sans"],
+                      "headline-lg": ["Public Sans"],
+                      "body-lg": ["Public Sans"],
+                      "headline-lg-mobile": ["Public Sans"],
+                      "price-display": ["Public Sans"],
+                      "label-caps": ["Public Sans"],
+                      "body-sm": ["Public Sans"],
+                      "display-lg": ["Public Sans"]
+              },
+              "fontSize": {
+                      "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "price-display": ["20px", {"lineHeight": "24px", "fontWeight": "700"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        .success-check {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: dash 1.5s ease-in-out forwards;
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: 0; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-lg overflow-x-hidden pb-24">
+<!-- Top Navigation (Shell suppressed for Transactional focus, using simplified header) -->
+<header class="flex justify-between items-center px-margin-mobile py-4 sticky top-0 z-50 bg-surface/80 backdrop-blur-xl">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">Sabari Krishna</h1>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high active:scale-95 transition-transform" onclick="window.history.back()">
+<span class="material-symbols-outlined text-on-surface">close</span>
+</button>
+</header>
+<main class="max-w-md mx-auto px-margin-mobile">
+<!-- Success State Header -->
+<section class="flex flex-col items-center justify-center py-stack-lg text-center">
+<div class="relative mb-stack-md">
+<!-- Success Animation Placeholder -->
+<div class="w-32 h-32 bg-secondary-container rounded-full flex items-center justify-center float-animation shadow-lg">
+<svg class="w-20 h-20 text-on-secondary-container" viewbox="0 0 52 52">
+<circle class="fill-none stroke-current stroke-2" cx="26" cy="26" fill="none" r="25"></circle>
+<path class="success-check fill-none stroke-current stroke-4" d="M14.1 27.2l7.1 7.2 16.7-16.8" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-2">Order Confirmed!</h2>
+<p class="font-body-sm text-on-surface-variant">We've received your order and are getting it ready for delivery.</p>
+</section>
+<!-- Order Summary Card -->
+<section class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.08)] mb-gutter border border-surface-variant/30">
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest block mb-1">Order ID</span>
+<span class="font-title-md text-title-md text-on-surface">#SK-98234-RT</span>
+</div>
+<div class="text-right">
+<span class="font-label-caps text-label-caps text-price-green bg-secondary-container/30 px-2 py-1 rounded">ON THE WAY</span>
+</div>
+</div>
+<div class="flex items-center gap-4 py-4 border-y border-surface-variant/20 mb-4">
+<div class="w-12 h-12 bg-surface-container-high rounded-lg flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<div>
+<span class="font-body-sm text-on-surface-variant block">Estimated Delivery</span>
+<span class="font-title-md text-title-md text-on-surface">Today, 4:45 PM - 5:15 PM</span>
+</div>
+</div>
+<!-- Mini Product List -->
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-lg bg-surface border border-surface-variant/30 overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close up studio shot of fresh organic farm eggs in a natural cardboard carton, bright morning sunlight hitting the textured shells, premium quality presentation for a grocery brand, soft shadows on a white wooden background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdsRshB1V0f6_jQxlBE7am8izsp8NtUAviNBveCZ6qGtP5RPWeo1-MuNJ6D34WV5cRrhjs8xAv-jdRPe7JFuKOqH33MK0amtZa3ES0l4twhkHP0zc0P_kFb6aptYftyTs5QUSJc-LYb0UdJKRaCJ8NmGw_nBBVB59z66QHNbtkMtBiP0EYKFBnx5ZY4T8N11WBNT4tfwHmP6qqo9nIeuplqoWZ8p3e43Apt781HMt-fETHXCBXqa1-Dw"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-title-md text-title-md text-on-surface truncate">Organic Farm Eggs (12pk)</h4>
+<p class="font-body-sm text-on-surface-variant">Qty: 1</p>
+</div>
+<span class="font-price-display text-price-display text-on-surface">₹180</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-lg bg-surface border border-surface-variant/30 overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="High quality photography of a glass bottle of fresh whole milk with condensation droplets on the surface, soft natural lighting, set against a clean minimalist kitchen background, healthy and pure aesthetic for a dairy product." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkrDtD2E6HK-lSnrf2HJozlTH3yJEIq98aE-UL4d7WAvSnvGgpl1oFarUXr1wrXLy-zA-XfVq4F2XNXvSm5qFg5xlpPh8Xt7AUetUL2wifgRiXxC8Vel8ZOVf72WOaEnmU31Xo9jDHplqPPJReD9gRZws8ndpccMkFH96kJHgzoTMZ9hK6U2G3IFgrcJNvDHz_BDQxbBS83i6_xunjZwfr4T6T37FEkxvjewUnbRpBS8rDhUDlaUP-oQ"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-title-md text-title-md text-on-surface truncate">Fresh Whole Milk (1L)</h4>
+<p class="font-body-sm text-on-surface-variant">Qty: 2</p>
+</div>
+<span class="font-price-display text-price-display text-on-surface">₹140</span>
+</div>
+</div>
+</section>
+<!-- Shipping & Payment Grid -->
+<div class="grid grid-cols-1 gap-gutter mb-section-gap">
+<!-- Shipping Address -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-variant/20">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary text-[20px]">location_on</span>
+<h3 class="font-title-md text-title-md">Delivery Address</h3>
+</div>
+<p class="font-body-sm text-on-surface-variant leading-relaxed">
+                    Sabari Krishna<br/>
+                    45th Premium Avenue, Green Heights<br/>
+                    Bangalore, Karnataka - 560001
+                </p>
+</div>
+<!-- Payment Summary -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-surface-variant/20">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-[20px]">payments</span>
+<h3 class="font-title-md text-title-md">Payment Summary</h3>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between font-body-sm text-on-surface-variant">
+<span>Items Total</span>
+<span>₹320.00</span>
+</div>
+<div class="flex justify-between font-body-sm text-on-surface-variant">
+<span>Delivery Fee</span>
+<span class="text-price-green">FREE</span>
+</div>
+<div class="flex justify-between font-body-sm text-on-surface-variant">
+<span>Taxes (GST)</span>
+<span>₹15.40</span>
+</div>
+<div class="pt-3 mt-1 border-t border-surface-variant/20 flex justify-between">
+<span class="font-title-md text-title-md text-on-surface">Grand Total</span>
+<span class="font-price-display text-price-display text-primary">₹335.40</span>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-2 bg-surface-container-high rounded-lg p-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">credit_card</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Paid via UPI</span>
+</div>
+</div>
+</div>
+<!-- Help Section -->
+<div class="text-center py-stack-lg mb-10">
+<p class="font-body-sm text-on-surface-variant mb-4">Need help with your order?</p>
+<div class="flex justify-center gap-6">
+<a class="flex items-center gap-2 text-primary font-title-md" href="#">
+<span class="material-symbols-outlined text-[20px]">headset_mic</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-2 text-primary font-title-md" href="#">
+<span class="material-symbols-outlined text-[20px]">receipt</span>
+<span>Download Invoice</span>
+</a>
+</div>
+</div>
+</main>
+<!-- Bottom Actions Container -->
+<div class="fixed bottom-0 left-0 w-full p-margin-mobile bg-surface/90 backdrop-blur-md z-50">
+<button class="w-full bg-primary-container text-on-primary-container py-4 rounded-full font-title-md shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2">
+            Continue Shopping
+            <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<!-- Confetti Particle Effect -->
+<canvas class="confetti-canvas" id="confetti"></canvas>
+<script>
+        // Simple Confetti Micro-interaction
+        const canvas = document.getElementById('confetti');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const colors = ['#835500', '#006e2f', '#f5a623', '#91f9a2'];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height - canvas.height;
+                this.size = Math.random() * 8 + 4;
+                this.speedY = Math.random() * 3 + 2;
+                this.speedX = Math.random() * 2 - 1;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = Math.random() * 10 - 5;
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.rotation += this.rotationSpeed;
+                if (this.y > canvas.height) {
+                    this.y = -20;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.fillStyle = this.color;
+                ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+                ctx.restore();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < 60; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        // Start animation and stop after 5 seconds to keep it elegant
+        init();
+        animate();
+        setTimeout(() => {
+            particles = [];
+        }, 5000);
+    </script>
+</body></html>

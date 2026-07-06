@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopping Cart - Sabari Krishna</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#291800",
+                    "surface-tint": "#835500",
+                    "inverse-primary": "#ffb955",
+                    "inverse-on-surface": "#f0f0f3",
+                    "secondary-container": "#91f9a2",
+                    "on-primary-container": "#644000",
+                    "outline-variant": "#d7c3ae",
+                    "primary-container": "#f5a623",
+                    "inverse-surface": "#2f3133",
+                    "secondary-fixed-dim": "#75dc88",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#524534",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#e2e2e5",
+                    "surface-container-low": "#f3f3f6",
+                    "surface-container-high": "#e8e8ea",
+                    "primary-fixed-dim": "#ffb955",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#b9b6ae",
+                    "on-tertiary-container": "#494741",
+                    "on-secondary-fixed-variant": "#005321",
+                    "on-secondary-fixed": "#002109",
+                    "border-subtle": "#E5E7EB",
+                    "surface-dim": "#dadadc",
+                    "tertiary-fixed": "#e6e2d9",
+                    "on-primary-fixed-variant": "#633f00",
+                    "on-surface": "#1a1c1e",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#c9c6be",
+                    "surface-variant": "#e2e2e5",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "primary": "#835500",
+                    "error": "#ba1a1a",
+                    "warm-gray": "#636B74",
+                    "sale-red": "#E02020",
+                    "on-background": "#1a1c1e",
+                    "surface-bright": "#f9f9fc",
+                    "on-error-container": "#93000a",
+                    "on-secondary-container": "#007432",
+                    "price-green": "#1D8B42",
+                    "background": "#f9f9fc",
+                    "on-tertiary-fixed-variant": "#484741",
+                    "on-tertiary-fixed": "#1c1c17",
+                    "primary-fixed": "#ffddb4",
+                    "surface": "#f9f9fc",
+                    "secondary-fixed": "#91f9a2",
+                    "outline": "#857462",
+                    "secondary": "#006e2f",
+                    "tertiary": "#605e58",
+                    "surface-container": "#eeeef0"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "container-max": "1280px",
+                    "section-gap": "80px",
+                    "stack-lg": "32px",
+                    "gutter": "24px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px"
+            },
+            "fontFamily": {
+                    "title-md": ["Public Sans"],
+                    "headline-lg": ["Public Sans"],
+                    "body-lg": ["Public Sans"],
+                    "headline-lg-mobile": ["Public Sans"],
+                    "price-display": ["Public Sans"],
+                    "label-caps": ["Public Sans"],
+                    "body-sm": ["Public Sans"],
+                    "display-lg": ["Public Sans"]
+            },
+            "fontSize": {
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "price-display": ["20px", {"lineHeight": "24px", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #FDF9F0; /* From Brand & Style level 0 */
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .custom-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-body-lg text-on-surface antialiased">
+<!-- TopNavBar (Simplified for Checkout Flow) -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl shadow-sm">
+<div class="flex justify-between items-center px-4 py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-3">
+<button class="active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">My Cart</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant bg-surface-container rounded-full px-3 py-1">2 Items</span>
+</div>
+</div>
+</header>
+<main class="pt-20 pb-48 px-4 max-w-md mx-auto">
+<!-- Cart Items Section -->
+<section class="space-y-4 mb-stack-lg">
+<!-- Cart Item 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.06)] relative overflow-hidden">
+<div class="w-24 h-24 flex-shrink-0 bg-white rounded-lg overflow-hidden flex items-center justify-center p-2">
+<img alt="Premium Vitality Product" class="object-contain w-full h-full" src="https://lh3.googleusercontent.com/aida/AP1WRLvPEU5xs4YDbCbp1VyHxLJ1nwrBi4fcyoJF8MBizrZuH2d957WCeYRV3GDlA_-afBufHifZrhs4s01i3_Ko6_IqzRuPQihtRyrPxmv4KaZq5oZj2ApsUrR99n-x94ov-f4J3pR9yMq7-WjmmD1PHtY5GuQIhsNuZr8t8hwnbceBH4Brr5PoZbjofgvuQ92euC8Fz4WnlZQB5ADmZwh7K0aKDGpAi9rw_HVa24zahGDL2r-Wk025tlttKtwA"/>
+</div>
+<div class="flex-grow flex flex-col justify-between py-1">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="font-title-md text-title-md text-on-surface">Cold Pressed Groundnut Oil</h3>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Variant: 1 Litre</p>
+</div>
+<div class="flex justify-between items-end">
+<div class="flex items-center bg-surface-container rounded-full border border-outline-variant/30">
+<button class="w-8 h-8 flex items-center justify-center text-primary active:scale-90">-</button>
+<span class="w-8 text-center font-title-md text-title-md">1</span>
+<button class="w-8 h-8 flex items-center justify-center text-primary active:scale-90">+</button>
+</div>
+<p class="font-price-display text-price-display text-price-green">₹280.00</p>
+</div>
+</div>
+</div>
+<!-- Cart Item 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-4 flex gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.06)] relative overflow-hidden">
+<div class="w-24 h-24 flex-shrink-0 bg-white rounded-lg overflow-hidden flex items-center justify-center p-2">
+<img alt="Premium Vitality Product" class="object-contain w-full h-full opacity-80 rotate-12" src="https://lh3.googleusercontent.com/aida/AP1WRLvPEU5xs4YDbCbp1VyHxLJ1nwrBi4fcyoJF8MBizrZuH2d957WCeYRV3GDlA_-afBufHifZrhs4s01i3_Ko6_IqzRuPQihtRyrPxmv4KaZq5oZj2ApsUrR99n-x94ov-f4J3pR9yMq7-WjmmD1PHtY5GuQIhsNuZr8t8hwnbceBH4Brr5PoZbjofgvuQ92euC8Fz4WnlZQB5ADmZwh7K0aKDGpAi9rw_HVa24zahGDL2r-Wk025tlttKtwA"/>
+</div>
+<div class="flex-grow flex flex-col justify-between py-1">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="font-title-md text-title-md text-on-surface">Pure Desi Cow Ghee</h3>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Variant: 500ml</p>
+</div>
+<div class="flex justify-between items-end">
+<div class="flex items-center bg-surface-container rounded-full border border-outline-variant/30">
+<button class="w-8 h-8 flex items-center justify-center text-primary active:scale-90">-</button>
+<span class="w-8 text-center font-title-md text-title-md">2</span>
+<button class="w-8 h-8 flex items-center justify-center text-primary active:scale-90">+</button>
+</div>
+<p class="font-price-display text-price-display text-price-green">₹1,150.00</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Upsell Section: "Add these too" -->
+<section class="mb-stack-lg">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-title-md text-title-md text-on-surface">Add these too</h2>
+<button class="text-primary font-label-caps text-label-caps">VIEW ALL</button>
+</div>
+<div class="flex gap-4 overflow-x-auto custom-scrollbar pb-4 -mx-4 px-4">
+<!-- Cross-sell Card 1 -->
+<div class="min-w-[160px] bg-white rounded-xl p-3 shadow-sm flex flex-col gap-2">
+<div class="aspect-square bg-surface-container-low rounded-lg p-2">
+<img class="w-full h-full object-contain" data-alt="A clean product shot of premium organic turmeric powder in a minimalist glass jar with a wooden lid, set against a warm beige background with soft natural sunlight, studio lighting, high contrast, clean minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXT0XPwOtFdZiNYLfD0HXzAf7dUfApy3XqMS60PcAXSLjtHUaH3CPop5W6WR-AZTnlwUC8JuVAe90ddUnrOcGsM8-ss58hX8xXK4YkHLG22reSSZmzQHm1KB2ov3oNDZ5sMTYLgAIoVVkZA49mplySMFlbF_5W0fe9PcXXASey9diw7-A4Lqr0YGNAnbZGC0GZA7-xFEiqSY7rfEiav3PACUyrXLUWHuuzCGrlaPNvNqVpllwvpojy4Q"/>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="font-body-sm text-body-sm font-bold truncate">Organic Turmeric</h4>
+<p class="text-price-green font-price-display text-[16px]">₹85.00</p>
+<button class="mt-1 w-full bg-secondary-container text-on-secondary-container font-label-caps text-label-caps py-2 rounded-lg active:scale-95 transition-transform flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[16px]">add</span> ADD
+                        </button>
+</div>
+</div>
+<!-- Cross-sell Card 2 -->
+<div class="min-w-[160px] bg-white rounded-xl p-3 shadow-sm flex flex-col gap-2">
+<div class="aspect-square bg-surface-container-low rounded-lg p-2">
+<img class="w-full h-full object-contain" data-alt="A macro photograph of raw forest honey in a clear hexagonal glass jar, golden sunlight hitting the viscous liquid to create beautiful amber reflections, set on a rustic white table, high-end food photography, clean and fresh." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKQDCBg57Lii4HPZAJIGuOGZFMkiMjA8tvxExGKncBoNIGCePr5xIkCOJQYBTLo3sbTir1pHWo8-bJuBSjdBxShYrHu4apcj10JlFa9gAQwUGM3wwcWAeo8A_kDJoSgl9gDPDeAiwM4i6gNondsE-8h8kY-ljG2rY9Sku6kjDaBxmANzrSAcEXe3mjCTggmrSt44CoHtBt04mZPUYdcv9n7rTx73IeoUOCyzyb9ULB8JCHjcZqlhtc_w"/>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="font-body-sm text-body-sm font-bold truncate">Forest Honey</h4>
+<p class="text-price-green font-price-display text-[16px]">₹420.00</p>
+<button class="mt-1 w-full bg-secondary-container text-on-secondary-container font-label-caps text-label-caps py-2 rounded-lg active:scale-95 transition-transform flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[16px]">add</span> ADD
+                        </button>
+</div>
+</div>
+<!-- Cross-sell Card 3 -->
+<div class="min-w-[160px] bg-white rounded-xl p-3 shadow-sm flex flex-col gap-2">
+<div class="aspect-square bg-surface-container-low rounded-lg p-2">
+<img class="w-full h-full object-contain" data-alt="A stack of premium copper-bottled water, soft bokeh background of a modern health-conscious kitchen, soft morning light, luxurious and clean packaging, high contrast, warm-clean atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2kbTfnU82-BZn4ntxgKrX04ZxCdbJkvCFHj-av01THCtqDcPa9UIkdUoD4btLrLStEtnEols2XTJAGjP5x2xAx5FjBIbAHul6l_8-DERPZ8Ew65pE0qBAqIwZ9RxRRIfDfYsxN9xZW2VndY57CDUx4fyoz_ho56glmU-0bDqAiZrCM6vmyL8kLCq3XqVCZziGuXcpP9bsWLW1L3aYTt_hLH76VUkK9kBaQR1sXYS6iMEM8dNR0IVmXw"/>
+</div>
+<div class="flex flex-col gap-1">
+<h4 class="font-body-sm text-body-sm font-bold truncate">Copper Bottle</h4>
+<p class="text-price-green font-price-display text-[16px]">₹750.00</p>
+<button class="mt-1 w-full bg-secondary-container text-on-secondary-container font-label-caps text-label-caps py-2 rounded-lg active:scale-95 transition-transform flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[16px]">add</span> ADD
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Bill Details -->
+<section class="bg-surface-container-lowest rounded-xl p-4 shadow-sm space-y-3">
+<h2 class="font-title-md text-title-md text-on-surface mb-2">Bill Details</h2>
+<div class="flex justify-between text-on-surface-variant font-body-sm">
+<span>Item Total</span>
+<span>₹1,430.00</span>
+</div>
+<div class="flex justify-between text-on-surface-variant font-body-sm">
+<span>Delivery Charge</span>
+<span class="text-secondary font-bold">FREE</span>
+</div>
+<div class="flex justify-between text-on-surface-variant font-body-sm">
+<span>GST &amp; Taxes</span>
+<span>₹24.00</span>
+</div>
+<div class="border-t border-outline-variant/30 pt-3 flex justify-between items-center">
+<span class="font-title-md text-title-md">Grand Total</span>
+<span class="font-price-display text-price-display">₹1,454.00</span>
+</div>
+</section>
+<!-- Health/Hygiene Trust Banner -->
+<div class="mt-6 p-4 rounded-xl border border-secondary/20 bg-secondary/5 flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary">health_and_safety</span>
+<div>
+<p class="font-label-caps text-label-caps text-secondary">100% HYGIENIC DELIVERY</p>
+<p class="text-body-sm text-on-surface-variant mt-1 leading-tight">Our delivery partners follow strict health and sanitation protocols for your safety.</p>
+</div>
+</div>
+</main>
+<!-- Pinned Bottom Order Summary & CTA -->
+<footer class="fixed bottom-0 left-0 w-full z-50 bg-surface dark:bg-surface-container-highest shadow-[0_-4px_20px_rgba(0,0,0,0.15)] rounded-t-2xl p-4">
+<div class="max-w-md mx-auto space-y-4">
+<!-- Collapsible Handle (Decorative) -->
+<div class="w-12 h-1 bg-outline-variant/30 rounded-full mx-auto mb-2"></div>
+<div class="flex justify-between items-center">
+<div>
+<p class="text-price-display font-price-display text-on-surface">₹1,454.00</p>
+<button class="text-primary font-label-caps text-[10px] tracking-widest flex items-center gap-1">
+                        VIEW DETAILED BILL <span class="material-symbols-outlined text-[12px]">expand_less</span>
+</button>
+</div>
+<button class="bg-primary-container text-on-primary-container px-8 py-4 rounded-xl font-title-md text-title-md shadow-lg active:scale-95 transition-transform flex items-center gap-2">
+                    Proceed to Checkout
+                    <span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Hidden on Mobile Checkout to focus flow, but provided as per JSON structure for top-level context) -->
+<!-- The "Destination Rule" suggests suppression for transactional sub-pages like Cart/Checkout -->
+<script>
+        // Micro-interactions
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Haptic feedback simulation
+                if (window.navigator && window.navigator.vibrate) {
+                    window.navigator.vibrate(5);
+                }
+            });
+        });
+
+        // Simple qty toggle logic simulation
+        document.querySelectorAll('.flex.items-center.bg-surface-container button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const span = e.target.parentElement.querySelector('span');
+                let val = parseInt(span.innerText);
+                if(e.target.innerText === '+') val++;
+                else if(val > 1) val--;
+                span.innerText = val;
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sabari Krishna | Pure Cow Ghee Premium</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#ffb955",
+                        "secondary-fixed-dim": "#75dc88",
+                        "surface": "#f9f9fc",
+                        "surface-bright": "#f9f9fc",
+                        "primary": "#835500",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#007432",
+                        "primary-fixed": "#ffddb4",
+                        "on-tertiary-container": "#494741",
+                        "on-surface": "#1a1c1e",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#ffb955",
+                        "tertiary-fixed": "#e6e2d9",
+                        "on-tertiary-fixed": "#1c1c17",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e2e2e5",
+                        "on-primary-container": "#644000",
+                        "tertiary": "#605e58",
+                        "outline-variant": "#d7c3ae",
+                        "tertiary-container": "#b9b6ae",
+                        "on-secondary-fixed-variant": "#005321",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#91f9a2",
+                        "secondary": "#006e2f",
+                        "surface-container-low": "#f3f3f6",
+                        "secondary-fixed": "#91f9a2",
+                        "border-subtle": "#E5E7EB",
+                        "inverse-on-surface": "#f0f0f3",
+                        "surface-container-highest": "#e2e2e5",
+                        "background": "#f9f9fc",
+                        "inverse-surface": "#2f3133",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#835500",
+                        "price-green": "#1D8B42",
+                        "surface-dim": "#dadadc",
+                        "on-background": "#1a1c1e",
+                        "on-primary-fixed-variant": "#633f00",
+                        "sale-red": "#E02020",
+                        "surface-container-high": "#e8e8ea",
+                        "error": "#ba1a1a",
+                        "outline": "#857462",
+                        "on-surface-variant": "#524534",
+                        "on-error": "#ffffff",
+                        "warm-gray": "#636B74",
+                        "surface-container": "#eeeef0",
+                        "primary-container": "#f5a623",
+                        "on-primary-fixed": "#291800",
+                        "on-tertiary-fixed-variant": "#484741",
+                        "tertiary-fixed-dim": "#c9c6be",
+                        "on-secondary-fixed": "#002109"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "gutter": "24px",
+                        "stack-md": "16px",
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "section-gap": "80px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Public Sans"],
+                        "headline-lg": ["Public Sans"],
+                        "body-sm": ["Public Sans"],
+                        "body-lg": ["Public Sans"],
+                        "title-md": ["Public Sans"],
+                        "display-lg": ["Public Sans"],
+                        "price-display": ["Public Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .zoom-container {
+            overflow: hidden;
+            position: relative;
+        }
+        .zoom-image {
+            transition: transform 0.5s ease;
+        }
+        .zoom-container:hover .zoom-image {
+            transform: scale(1.5);
+            cursor: zoom-in;
+        }
+        .tab-active {
+            border-bottom: 2px solid theme('colors.primary');
+            color: theme('colors.primary');
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-lg">
+<!-- TopNavBar -->
+<header class="sticky top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center px-gutter py-stack-md max-w-container-max mx-auto">
+<div class="flex items-center gap-stack-lg">
+<span class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed">Sabari Krishna</span>
+<nav class="hidden md:flex gap-stack-md items-center">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-title-md text-title-md" href="#">Groceries</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-title-md text-title-md" href="#">Organic</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-title-md text-title-md" href="#">Bulk Orders</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-title-md text-title-md" href="#">Offers</a>
+</nav>
+</div>
+<div class="flex-1 max-w-md mx-gutter">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-warm-gray">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search for pure ghee, organic oils..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-all active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary">favorite</span>
+</button>
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-all active:scale-95 duration-200 relative">
+<span class="material-symbols-outlined text-primary">shopping_cart</span>
+<span class="absolute top-0 right-0 bg-secondary text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">3</span>
+</button>
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-all active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary">person</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-gutter py-stack-lg">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-2 mb-stack-lg text-warm-gray font-body-sm text-body-sm">
+<a class="hover:text-primary" href="#">Home</a>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<a class="hover:text-primary" href="#">Ghee</a>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="text-on-surface font-bold">Pure Cow Ghee</span>
+</nav>
+<!-- Product Section -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-section-gap mb-section-gap">
+<!-- Left: Product Images -->
+<div class="flex flex-col md:flex-row gap-stack-md">
+<div class="flex md:flex-col gap-stack-md order-2 md:order-1">
+<div class="w-20 h-24 border-2 border-primary rounded-lg overflow-hidden cursor-pointer bg-white">
+<img class="w-full h-full object-contain" data-alt="Close up studio shot of Sabari GKS Pure Cow Ghee in its bright yellow container with detailed cow graphics, professional product photography on white background with soft shadows and warm lighting." src="https://lh3.googleusercontent.com/aida/AP1WRLtiuXBmfvuOTmtXBTA4CKw9LtVg9KP2EmKkRCCmJytm1XKAaWm0nq02SsgqvKmPG_kj-gTm3sYF6rwcP73BueHaOqrHewf1c_yJIvuE3zHemP05ADiHObZ6r9qM3snv2dHaAQJg6GhhlSU9Mtog0IhGCDJMMa-MwXV3Bg0GT2UGfB946B7uaEC409LLIi6QOdQ5WyOOxJR2Vfo97exsPciqrN3XRcbPNagw2nRTnOivwicte7B8ZABT9iJE"/>
+</div>
+<div class="w-20 h-24 border border-border-subtle hover:border-primary-container rounded-lg overflow-hidden cursor-pointer bg-white">
+<img class="w-full h-full object-contain" data-alt="Secondary angle of the Pure Cow Ghee product packaging showing the side labels and FSSAI logo, clean commercial aesthetic with high-contrast warm-tone lighting reflecting off the yellow plastic surface." src="https://lh3.googleusercontent.com/aida/AP1WRLvc9jVoJWCC5xBaL7PQq196mUiPleGDXeBxyzgjuzfc6PKwlCOAWaVFAjVtnu8oI7Pqmm0xI_vwIQkG3DIGpK7wYaDvxx_kHhDnEc7yfmF7Wll15KdDMaikhMLae3W_RLROLPtMXn9dHDIXtkI7D8sPsD0ie5_DBWS3pSxBX1_zy_lhwfiCfELHpgVyAIYcYjAUu0bhfPYpTv41M-hTwElFIeuEOhOfI2ocF5OjQolqnKgpf-7tFQK9UlM"/>
+</div>
+<div class="w-20 h-24 border border-border-subtle hover:border-primary-container rounded-lg overflow-hidden cursor-pointer bg-white">
+<img class="w-full h-full object-contain" data-alt="Informational shot of the Pure Cow Ghee packaging highlighting nutritional facts and quality badges, bright light-mode studio photography with focus on the golden textures of the brand identity." src="https://lh3.googleusercontent.com/aida/AP1WRLvPEU5xs4YDbCbp1VyHxLJ1nwrBi4fcyoJF8MBizrZuH2d957WCeYRV3GDlA_-afBufHifZrhs4s01i3_Ko6_IqzRuPQihtRyrPxmv4KaZq5oZj2ApsUrR99n-x94ov-f4J3pR9yMq7-WjmmD1PHtY5GuQIhsNuZr8t8hwnbceBH4Brr5PoZbjofgvuQ92euC8Fz4WnlZQB5ADmZwh7K0aKDGpAi9rw_HVa24zahGDL2r-Wk025tlttKtwA"/>
+</div>
+<div class="w-20 h-24 border border-border-subtle hover:border-primary-container rounded-lg overflow-hidden cursor-pointer bg-white">
+<img class="w-full h-full object-contain" data-alt="Lifestyle shot of the cow ghee container sitting on a clean kitchen countertop with soft morning light streaming through a window, emphasizing freshness and organic quality in a modern home setting." src="https://lh3.googleusercontent.com/aida/AP1WRLup3b5M3pQ7fBAkgCk36RvXN1k-GIwYNdxlw5B427pr_NCiuE-bLp3Z7KS8t9R_atdY6WHaI8WX3VqZsHbmsmfaa-Ls_noIhX5sIsS_8oxbhRvlFgG6CQmlcppsUKc-Va-iRv5-le26JDqV36oUmMqRb_OhpmFrgY6D3YjnULjm_0Ik0FmtX-dKZiHTEjHrt0kljpRU9wUDnYqFQRZFxXzx51mx7LmyMxn7P9NE39fgQw_GhT15WXFt_qP6"/>
+</div>
+</div>
+<div class="flex-1 order-1 md:order-2 bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.15)] zoom-container flex items-center justify-center p-stack-lg">
+<img class="zoom-image w-full h-[500px] object-contain" data-alt="High-resolution primary product image of Sabari GKS Pure Cow Ghee, featuring the iconic yellow bottle with premium branding, set against a pristine white background with bright professional studio lighting." src="https://lh3.googleusercontent.com/aida/AP1WRLtiuXBmfvuOTmtXBTA4CKw9LtVg9KP2EmKkRCCmJytm1XKAaWm0nq02SsgqvKmPG_kj-gTm3sYF6rwcP73BueHaOqrHewf1c_yJIvuE3zHemP05ADiHObZ6r9qM3snv2dHaAQJg6GhhlSU9Mtog0IhGCDJMMa-MwXV3Bg0GT2UGfB946B7uaEC409LLIi6QOdQ5WyOOxJR2Vfo97exsPciqrN3XRcbPNagw2nRTnOivwicte7B8ZABT9iJE"/>
+<div class="absolute top-4 left-4 bg-sale-red text-white px-3 py-1 rounded-full font-label-caps text-label-caps uppercase">18% OFF</div>
+</div>
+</div>
+<!-- Right: Product Info -->
+<div class="flex flex-col gap-stack-md">
+<div>
+<h2 class="text-primary font-bold font-title-md text-title-md mb-1">Sabari Krishna</h2>
+<h1 class="font-display-lg text-display-lg text-on-surface leading-tight mb-2">Pure Cow Ghee Premium</h1>
+<div class="flex items-center gap-2 mb-stack-md">
+<div class="flex items-center bg-secondary-container px-2 py-0.5 rounded text-on-secondary-container font-bold text-body-sm">
+<span>4.8</span>
+<span class="material-symbols-outlined text-sm ml-1" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="text-warm-gray font-body-sm text-body-sm">(1.2k verified reviews)</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-stack-md rounded-xl">
+<div class="flex items-baseline gap-3 mb-1">
+<span class="font-price-display text-price-display text-price-green">₹725</span>
+<span class="text-warm-gray line-through text-body-sm">MRP ₹890</span>
+<span class="text-sale-red font-bold text-body-sm">(Save ₹165)</span>
+</div>
+<p class="text-warm-gray text-body-sm">Inclusive of all taxes</p>
+</div>
+<div class="space-y-stack-sm">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Select Size</span>
+<div class="flex gap-stack-sm">
+<button class="px-6 py-2 rounded-full border border-primary bg-primary-fixed text-on-primary-container font-bold transition-all">500ml</button>
+<button class="px-6 py-2 rounded-full border border-border-subtle hover:border-primary transition-all font-bold">200ml</button>
+<button class="px-6 py-2 rounded-full border border-border-subtle hover:border-primary transition-all font-bold">1L</button>
+</div>
+</div>
+<div class="flex gap-stack-md items-end pt-stack-sm">
+<div class="space-y-stack-sm">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Quantity</span>
+<div class="flex items-center border border-border-subtle rounded-full px-2 py-1 bg-white">
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container rounded-full text-primary transition-all"><span class="material-symbols-outlined">remove</span></button>
+<span class="w-10 text-center font-bold">1</span>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container rounded-full text-primary transition-all"><span class="material-symbols-outlined">add</span></button>
+</div>
+</div>
+<div class="flex-1 flex gap-stack-sm">
+<button class="flex-1 bg-primary text-on-primary font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all active:scale-[0.98]">ADD TO CART</button>
+<button class="flex-1 border-2 border-primary text-primary font-bold py-4 rounded-xl hover:bg-primary/5 transition-all active:scale-[0.98]">BUY NOW</button>
+</div>
+</div>
+<!-- Pincode Checker -->
+<div class="mt-stack-md p-stack-md border border-border-subtle rounded-xl bg-white space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span class="font-bold text-body-sm">Check Delivery</span>
+</div>
+<div class="flex gap-2">
+<input class="border-none bg-surface-container-low rounded-lg px-3 py-1 text-sm focus:ring-1 focus:ring-primary" placeholder="Enter Pincode" type="text"/>
+<button class="text-primary font-bold text-sm">CHECK</button>
+</div>
+</div>
+<div class="flex items-center gap-2 text-price-green text-body-sm">
+<span class="material-symbols-outlined text-sm">local_shipping</span>
+<span>Delivery by Thursday, 24th Oct</span>
+</div>
+</div>
+<!-- Accordion: Nutritional Info -->
+<div class="mt-stack-md border-t border-border-subtle pt-stack-md">
+<details class="group">
+<summary class="flex justify-between items-center cursor-pointer list-none">
+<span class="font-bold">Nutritional Information &amp; Safety</span>
+<span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="mt-stack-sm text-body-sm text-on-surface-variant space-y-2 pb-stack-sm">
+<p>Energy: 897 kcal (per 100g)</p>
+<p>Total Fat: 99.7g | Saturated Fat: 63g</p>
+<p>Vitamin A: 10% DV</p>
+<div class="flex items-center gap-2 pt-2">
+<div class="bg-secondary p-1 rounded-sm"><span class="material-symbols-outlined text-white text-[12px]" style="font-variation-settings: 'FILL' 1;">check</span></div>
+<span class="font-bold text-secondary">FSSAI Licensed &amp; Lab Tested</span>
+</div>
+</div>
+</details>
+</div>
+</div>
+</div>
+<!-- Tabs Section -->
+<section class="mb-section-gap">
+<div class="flex border-b border-border-subtle mb-stack-md overflow-x-auto">
+<button class="px-8 py-4 font-bold tab-active whitespace-nowrap" id="tab-description" onclick="switchTab('description')">Description</button>
+<button class="px-8 py-4 text-warm-gray hover:text-primary transition-colors whitespace-nowrap" id="tab-ingredients" onclick="switchTab('ingredients')">Ingredients</button>
+<button class="px-8 py-4 text-warm-gray hover:text-primary transition-colors whitespace-nowrap" id="tab-reviews" onclick="switchTab('reviews')">Reviews (1.2k)</button>
+</div>
+<div class="prose max-w-none text-on-surface-variant leading-relaxed" id="content-description">
+<p>Sabari GKS Pure Cow Ghee is crafted using traditional methods to preserve its rich aroma, golden granular texture, and authentic taste. Sourced from the finest cow milk, our ghee is a powerhouse of vitamins A, D, E, and K, making it a healthy addition to your daily diet.</p>
+<ul class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary text-sm">verified</span> 100% Pure &amp; Natural</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary text-sm">verified</span> No Artificial Colors or Flavors</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary text-sm">verified</span> Traditional Bilona-Inspired Process</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary text-sm">verified</span> Rich in Omega-3 &amp; Antioxidants</li>
+</ul>
+</div>
+<div class="hidden text-on-surface-variant" id="content-ingredients">
+<p>Pure Cow Milk Fat (Clarified Butter). No additives, no preservatives.</p>
+</div>
+<div class="hidden" id="content-reviews">
+<div class="flex items-center gap-4 p-stack-md bg-surface-container-low rounded-xl mb-4">
+<span class="text-4xl font-bold">4.8</span>
+<div>
+<div class="flex text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star_half</span>
+</div>
+<p class="text-body-sm text-warm-gray">Based on 1,234 reviews</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Frequently Bought Together -->
+<section class="mb-section-gap">
+<h3 class="font-headline-lg text-headline-lg mb-stack-lg">Frequently Bought Together</h3>
+<div class="bg-surface-container-lowest border border-border-subtle p-gutter rounded-2xl flex flex-col md:flex-row items-center gap-stack-lg">
+<div class="flex items-center gap-gutter">
+<div class="w-32 h-32 bg-white rounded-lg p-2 shadow-sm border border-border-subtle">
+<img class="w-full h-full object-contain" data-alt="Primary product of Sabari Cow Ghee displayed as part of a bundle, with premium studio lighting on a neutral white background." src="https://lh3.googleusercontent.com/aida/AP1WRLtiuXBmfvuOTmtXBTA4CKw9LtVg9KP2EmKkRCCmJytm1XKAaWm0nq02SsgqvKmPG_kj-gTm3sYF6rwcP73BueHaOqrHewf1c_yJIvuE3zHemP05ADiHObZ6r9qM3snv2dHaAQJg6GhhlSU9Mtog0IhGCDJMMa-MwXV3Bg0GT2UGfB946B7uaEC409LLIi6QOdQ5WyOOxJR2Vfo97exsPciqrN3XRcbPNagw2nRTnOivwicte7B8ZABT9iJE"/>
+</div>
+<span class="material-symbols-outlined text-warm-gray text-3xl">add</span>
+<div class="w-32 h-32 bg-white rounded-lg p-2 shadow-sm border border-border-subtle relative">
+<div class="absolute inset-0 flex items-center justify-center opacity-20"><span class="material-symbols-outlined text-4xl">eco</span></div>
+<p class="text-[10px] text-center mt-20 font-bold">Sabari Cold Pressed Oil</p>
+</div>
+</div>
+<div class="h-16 w-px bg-border-subtle hidden md:block"></div>
+<div class="flex flex-col gap-2">
+<p class="font-bold text-lg">Bundle Price: <span class="text-price-green">₹1,240</span></p>
+<button class="bg-secondary text-white font-bold px-8 py-3 rounded-xl hover:bg-on-secondary-container transition-all">Add Bundle to Cart</button>
+</div>
+</div>
+</section>
+<!-- You May Also Like -->
+<section class="mb-section-gap">
+<div class="flex justify-between items-end mb-stack-lg">
+<h3 class="font-headline-lg text-headline-lg">You May Also Like</h3>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full border border-border-subtle flex items-center justify-center hover:bg-white transition-all"><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="w-10 h-10 rounded-full border border-border-subtle flex items-center justify-center hover:bg-white transition-all"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Product Card 1 -->
+<div class="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.15)] overflow-hidden group">
+<div class="aspect-square p-stack-md relative bg-surface-container-lowest">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="Traditional Sabari Krishna product in a sustainable container, set in a bright kitchen environment with natural sunlight highlighting the organic product textures." src="https://lh3.googleusercontent.com/aida/AP1WRLvc9jVoJWCC5xBaL7PQq196mUiPleGDXeBxyzgjuzfc6PKwlCOAWaVFAjVtnu8oI7Pqmm0xI_vwIQkG3DIGpK7wYaDvxx_kHhDnEc7yfmF7Wll15KdDMaikhMLae3W_RLROLPtMXn9dHDIXtkI7D8sPsD0ie5_DBWS3pSxBX1_zy_lhwfiCfELHpgVyAIYcYjAUu0bhfPYpTv41M-hTwElFIeuEOhOfI2ocF5OjQolqnKgpf-7tFQK9UlM"/>
+</div>
+<div class="p-stack-md">
+<h4 class="font-bold mb-1 group-hover:text-primary transition-colors">Buffalo Ghee Premium</h4>
+<div class="flex items-center justify-between mt-2">
+<span class="font-price-display text-price-display text-price-green">₹680</span>
+<button class="w-10 h-10 bg-secondary text-white rounded-full flex items-center justify-center shadow-md active:scale-90 transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.15)] overflow-hidden group">
+<div class="aspect-square p-stack-md relative bg-surface-container-lowest">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="High-quality Sabari product shot emphasizing clean label ingredients and premium food-grade packaging in a modern white studio setup." src="https://lh3.googleusercontent.com/aida/AP1WRLvPEU5xs4YDbCbp1VyHxLJ1nwrBi4fcyoJF8MBizrZuH2d957WCeYRV3GDlA_-afBufHifZrhs4s01i3_Ko6_IqzRuPQihtRyrPxmv4KaZq5oZj2ApsUrR99n-x94ov-f4J3pR9yMq7-WjmmD1PHtY5GuQIhsNuZr8t8hwnbceBH4Brr5PoZbjofgvuQ92euC8Fz4WnlZQB5ADmZwh7K0aKDGpAi9rw_HVa24zahGDL2r-Wk025tlttKtwA"/>
+</div>
+<div class="p-stack-md">
+<h4 class="font-bold mb-1 group-hover:text-primary transition-colors">Traditional Curd Ghee</h4>
+<div class="flex items-center justify-between mt-2">
+<span class="font-price-display text-price-display text-price-green">₹950</span>
+<button class="w-10 h-10 bg-secondary text-white rounded-full flex items-center justify-center shadow-md active:scale-90 transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3 & 4 simplified for demo -->
+<div class="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.15)] overflow-hidden group">
+<div class="aspect-square p-stack-md relative bg-surface-container-lowest">
+<div class="w-full h-full bg-contain bg-center bg-no-repeat group-hover:scale-105 transition-transform duration-500" data-alt="Premium organic oil in a clear glass bottle with wooden cap, warm evening sunlight creating long shadows and highlighting the golden liquid clarity." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDHDjHyKjifGon1Gr94aphwva8ZfquMw5CdJnYeOMbZLQss3nW-7mqSmQggI5DgROqLVOSEuqRZHAPgcTQQ5bph1E3VtBMIeN8_AX5KtQ_V3WUgOAs6cLrwzDs8rdb-QO3VEh7_Zd58yjbRUOKYTstoqe5k012T7_yAQ_IfKw3E2FPAzvGQGOWIH0XGzhAUy5vMHczi6_I2fxM0xj560WcAGGs7X0V0DAj9n_zpOL4JWwKYuAa1wIbBFQ')"></div>
+</div>
+<div class="p-stack-md">
+<h4 class="font-bold mb-1 group-hover:text-primary transition-colors">Cold Pressed Coconut Oil</h4>
+<div class="flex items-center justify-between mt-2">
+<span class="font-price-display text-price-display text-price-green">₹420</span>
+<button class="w-10 h-10 bg-secondary text-white rounded-full flex items-center justify-center shadow-md active:scale-90 transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.15)] overflow-hidden group">
+<div class="aspect-square p-stack-md relative bg-surface-container-lowest">
+<div class="w-full h-full bg-contain bg-center bg-no-repeat group-hover:scale-105 transition-transform duration-500" data-alt="Organic cold pressed groundnut oil bottle surrounded by raw ingredients on a rustic wooden table with bright diffused window light." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC8PoLmoCSwNK3eRKM4MYY0ArOWWfZULROy528cfJSuz1wWGmHEAuMqNGqQq1sBXWbSuPzj3xzYzKnYcBCBl9HZn1BaRUXQIh7NJMBmf7mqxu0XFTPtQcIodHaPTwchY-FtTnTyI3fEkbUMg01vHkkZ1PayIYnJWxeTRokjGlMBHdFH1HmMVK176PDB6rXa1UCVREN-Jz2jXL9nezSjfEQU7CmZLA8eoZECzKPPz8kDIKkpupPkE9aIqQ')"></div>
+</div>
+<div class="p-stack-md">
+<h4 class="font-bold mb-1 group-hover:text-primary transition-colors">Pure Groundnut Oil</h4>
+<div class="flex items-center justify-between mt-2">
+<span class="font-price-display text-price-display text-price-green">₹310</span>
+<button class="w-10 h-10 bg-secondary text-white rounded-full flex items-center justify-center shadow-md active:scale-90 transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-high border-t border-border-subtle dark:border-outline-variant w-full">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg px-gutter py-section-gap max-w-container-max mx-auto">
+<div class="space-y-stack-md">
+<span class="font-title-md text-title-md text-primary">Sabari Krishna Consumables</span>
+<p class="text-on-surface-variant max-w-sm font-body-sm text-body-sm">
+                    Pioneering health and tradition with pure, lab-tested consumables since 2012. Our mission is to bring the purity of tradition to modern kitchens.
+                </p>
+<div class="flex gap-4">
+<a class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center hover:text-primary transition-all" href="#"><span class="material-symbols-outlined">share</span></a>
+<a class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center hover:text-primary transition-all" href="#"><span class="material-symbols-outlined">mail</span></a>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-stack-md">
+<div class="space-y-stack-sm">
+<span class="font-bold text-on-surface">Quick Links</span>
+<nav class="flex flex-col gap-2 font-body-sm text-body-sm">
+<a class="text-warm-gray hover:text-on-surface hover:underline" href="#">Shipping Info</a>
+<a class="text-warm-gray hover:text-on-surface hover:underline" href="#">Contact Us</a>
+<a class="text-warm-gray hover:text-on-surface hover:underline" href="#">Track Order</a>
+<a class="text-warm-gray hover:text-on-surface hover:underline" href="#">Store Locator</a>
+</nav>
+</div>
+<div class="space-y-stack-sm">
+<span class="font-bold text-on-surface">Legal</span>
+<nav class="flex flex-col gap-2 font-body-sm text-body-sm">
+<a class="text-warm-gray hover:text-on-surface hover:underline" href="#">Privacy Policy</a>
+<a class="text-warm-gray hover:text-on-surface hover:underline" href="#">Terms of Service</a>
+<a class="text-warm-gray hover:text-on-surface hover:underline" href="#">Return Policy</a>
+</nav>
+</div>
+</div>
+</div>
+<div class="border-t border-border-subtle py-gutter text-center">
+<p class="font-body-sm text-body-sm text-warm-gray">© 2024 Sabari Krishna Consumables. FSSAI Licensed. All Rights Reserved.</p>
+</div>
+</footer>
+<script>
+        function switchTab(tabId) {
+            // Content toggle
+            const tabs = ['description', 'ingredients', 'reviews'];
+            tabs.forEach(t => {
+                document.getElementById('content-' + t).classList.add('hidden');
+                document.getElementById('tab-' + t).classList.remove('tab-active', 'text-primary', 'font-bold');
+                document.getElementById('tab-' + t).classList.add('text-warm-gray');
+            });
+            
+            document.getElementById('content-' + tabId).classList.remove('hidden');
+            document.getElementById('tab-' + tabId).classList.add('tab-active');
+            document.getElementById('tab-' + tabId).classList.remove('text-warm-gray');
+        }
+        
+        // Simple zoom effect helper for better UX interaction
+        const zoomContainer = document.querySelector('.zoom-container');
+        const zoomImage = document.querySelector('.zoom-image');
+        
+        zoomContainer.addEventListener('mousemove', (e) => {
+            const x = e.clientX - zoomContainer.offsetLeft;
+            const y = e.clientY - zoomContainer.offsetTop;
+            
+            zoomImage.style.transformOrigin = `${x}px ${y}px`;
+            zoomImage.style.transform = 'scale(2)';
+        });
+        
+        zoomContainer.addEventListener('mouseleave', () => {
+            zoomImage.style.transformOrigin = 'center';
+            zoomImage.style.transform = 'scale(1)';
+        });
+    </script>
+</body></html>

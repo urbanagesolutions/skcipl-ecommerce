@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sabari Krishna - Premium Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#75dc88",
+                    "on-tertiary-fixed": "#1c1c17",
+                    "surface-container-highest": "#e2e2e5",
+                    "on-tertiary-fixed-variant": "#484741",
+                    "primary-container": "#f5a623",
+                    "outline-variant": "#d7c3ae",
+                    "outline": "#857462",
+                    "surface-container-low": "#f3f3f6",
+                    "on-primary-fixed": "#291800",
+                    "on-surface": "#1a1c1e",
+                    "surface-container-high": "#e8e8ea",
+                    "background": "#f9f9fc",
+                    "warm-gray": "#636B74",
+                    "surface-container": "#eeeef0",
+                    "price-green": "#1D8B42",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#633f00",
+                    "on-error-container": "#93000a",
+                    "sale-red": "#E02020",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f0f3",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#e2e2e5",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#c9c6be",
+                    "primary-fixed": "#ffddb4",
+                    "inverse-surface": "#2f3133",
+                    "on-secondary-fixed": "#002109",
+                    "surface-bright": "#f9f9fc",
+                    "surface-dim": "#dadadc",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#524534",
+                    "secondary": "#006e2f",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#91f9a2",
+                    "inverse-primary": "#ffb955",
+                    "border-subtle": "#E5E7EB",
+                    "tertiary-container": "#b9b6ae",
+                    "on-primary-container": "#644000",
+                    "on-background": "#1a1c1e",
+                    "on-secondary-fixed-variant": "#005321",
+                    "secondary-container": "#91f9a2",
+                    "primary-fixed-dim": "#ffb955",
+                    "on-secondary-container": "#007432",
+                    "tertiary-fixed": "#e6e2d9",
+                    "primary": "#835500",
+                    "surface-tint": "#835500",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#f9f9fc",
+                    "tertiary": "#605e58",
+                    "on-tertiary-container": "#494741"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "8px",
+                    "container-max": "1280px",
+                    "section-gap": "80px",
+                    "margin-mobile": "16px",
+                    "stack-md": "16px",
+                    "stack-lg": "32px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Public Sans"],
+                    "title-md": ["Public Sans"],
+                    "headline-lg": ["Public Sans"],
+                    "display-lg": ["Public Sans"],
+                    "body-lg": ["Public Sans"],
+                    "price-display": ["Public Sans"],
+                    "label-caps": ["Public Sans"],
+                    "body-sm": ["Public Sans"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "price-display": ["20px", {"lineHeight": "24px", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; background-color: #FDF9F0; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .otp-input:focus { border-color: #835500; ring: 2px; ring-color: #f5a623; }
+        .auth-card { box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15); }
+        .glass-overlay { backdrop-filter: blur(8px); background-color: rgba(255, 255, 255, 0.1); }
+        .transition-auth { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen items-center justify-center p-4 md:p-gutter">
+<main class="w-full max-w-[1100px] flex flex-col md:flex-row bg-white rounded-xl overflow-hidden auth-card min-h-[700px]">
+<!-- Left: Brand Visuals Section -->
+<section class="relative hidden md:flex md:w-1/2 flex-col justify-end p-stack-lg overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="A premium close-up of golden, artisanal pure ghee in a rustic glass jar, surrounded by lush green pastoral fields and blooming marigold flowers under a warm sunset light. The image has a clean, high-contrast quick-commerce aesthetic with soft bokeh in the background, emphasizing purity, health, and natural quality. The lighting is golden and inviting, suggesting fresh organic production." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAFaxU-yxNMZWz1FbvZnJDY9Aa8GnLOcix2hvyD8NVs3NZyuGwFAARSsEIQ1fN1UvrpsjPU5wG3WTMS6mjmPth3R-8UgZq1oRXEYl1HDJq8gDBb0qeQKJQdJqwTuCGlc6fcTkaLKiIeQEY5a4wPjMojSaJLed7p1A-25ClW7rI_4mUQLKjCmjNhTxvU3yfkFWIYgAQCOl6cfR_b47i2ErxACrAxUK6j7tHe8vpJK1fQpj5hcCZcqwA3w"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+</div>
+<div class="relative z-10 text-white space-y-stack-sm mb-10">
+<h1 class="font-display-lg text-display-lg leading-tight tracking-tight">Pure Nature in Every Drop.</h1>
+<p class="font-body-lg text-body-lg opacity-90 max-w-sm">Experience the authentic taste of tradition with Sabari Krishna's premium ghee, sourced directly from healthy, nature-fed cattle.</p>
+</div>
+<div class="relative z-10 flex items-center gap-4 text-white/80">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-secondary flex items-center justify-center text-[10px] font-bold">5k+</div>
+</div>
+<span class="font-label-caps text-label-caps">Trusted by 50,000+ happy families</span>
+</div>
+</section>
+<!-- Right: Authentication Section -->
+<section class="w-full md:w-1/2 flex flex-col p-6 md:p-stack-lg bg-surface-container-lowest">
+<!-- Header & Toggle -->
+<div class="flex justify-between items-center mb-stack-lg">
+<div class="font-display-lg text-headline-lg-mobile md:text-headline-lg text-primary tracking-tight">Sabari Krishna</div>
+<a class="text-primary font-title-md text-body-sm hover:underline" href="#">Continue as Guest</a>
+</div>
+<div class="flex-1 flex flex-col justify-center max-w-md mx-auto w-full">
+<!-- Login/Signup Toggle -->
+<div class="bg-surface-container p-1 rounded-xl flex mb-stack-lg">
+<button class="flex-1 py-2 text-center font-title-md text-body-sm rounded-lg bg-white shadow-sm text-primary transition-auth" id="toggle-login">Login</button>
+<button class="flex-1 py-2 text-center font-title-md text-body-sm rounded-lg text-on-surface-variant hover:text-on-surface transition-auth" id="toggle-signup">Sign Up</button>
+</div>
+<div class="space-y-stack-md transition-auth" id="auth-form-container">
+<div class="space-y-2">
+<h2 class="font-headline-lg text-headline-lg-mobile text-on-surface" id="auth-title">Welcome Back</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant" id="auth-subtitle">Enter your details to access your account and rewards.</p>
+</div>
+<form class="space-y-stack-md" id="auth-form">
+<!-- Identity Field -->
+<div class="space-y-1">
+<label class="font-body-sm font-bold text-on-surface-variant block" for="identity">Email or Mobile Number <span class="text-primary">*</span></label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">mail</span>
+<input class="w-full pl-10 pr-4 py-3 rounded-xl border border-border-subtle focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all bg-white text-on-surface" id="identity" name="identity" placeholder="name@example.com or 10-digit mobile" type="text"/>
+</div>
+</div>
+<!-- OTP Section (Hidden by default, shown after identity submitted) -->
+<div class="hidden space-y-stack-sm animate-in fade-in duration-500" id="otp-section">
+<label class="font-body-sm font-bold text-on-surface-variant block">Verify OTP</label>
+<div class="flex justify-between gap-2">
+<input class="otp-input w-12 h-14 md:w-14 md:h-16 text-center text-xl font-bold border-2 border-border-subtle rounded-xl focus:border-primary focus:ring-0 transition-all bg-white" maxlength="1" type="text"/>
+<input class="otp-input w-12 h-14 md:w-14 md:h-16 text-center text-xl font-bold border-2 border-border-subtle rounded-xl focus:border-primary focus:ring-0 transition-all bg-white" maxlength="1" type="text"/>
+<input class="otp-input w-12 h-14 md:w-14 md:h-16 text-center text-xl font-bold border-2 border-border-subtle rounded-xl focus:border-primary focus:ring-0 transition-all bg-white" maxlength="1" type="text"/>
+<input class="otp-input w-12 h-14 md:w-14 md:h-16 text-center text-xl font-bold border-2 border-border-subtle rounded-xl focus:border-primary focus:ring-0 transition-all bg-white" maxlength="1" type="text"/>
+<input class="otp-input w-12 h-14 md:w-14 md:h-16 text-center text-xl font-bold border-2 border-border-subtle rounded-xl focus:border-primary focus:ring-0 transition-all bg-white" maxlength="1" type="text"/>
+<input class="otp-input w-12 h-14 md:w-14 md:h-16 text-center text-xl font-bold border-2 border-border-subtle rounded-xl focus:border-primary focus:ring-0 transition-all bg-white" maxlength="1" type="text"/>
+</div>
+<div class="flex justify-between text-body-sm mt-2">
+<span class="text-on-surface-variant">Didn't receive?</span>
+<button class="text-primary font-bold hover:underline" type="button">Resend OTP</button>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full bg-primary-container text-on-primary-container font-title-md py-4 rounded-xl shadow-sm hover:shadow-md active:scale-[0.98] transition-all flex items-center justify-center gap-2" id="main-cta" type="submit">
+<span>Get Verification Link</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</form>
+<!-- Divider -->
+<div class="relative flex items-center py-stack-sm">
+<div class="flex-grow border-t border-border-subtle"></div>
+<span class="flex-shrink mx-4 text-outline font-label-caps uppercase tracking-widest text-[10px]">or continue with</span>
+<div class="flex-grow border-t border-border-subtle"></div>
+</div>
+<!-- Social Login -->
+<button class="w-full bg-white border border-border-subtle text-on-surface font-title-md py-3 rounded-xl flex items-center justify-center gap-3 hover:bg-surface-container-low transition-colors active:scale-[0.98]">
+<svg class="w-5 h-5" viewbox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+<span class="text-body-sm font-semibold">Google Account</span>
+</button>
+</div>
+</div>
+<!-- Footer Links -->
+<footer class="mt-stack-lg pt-stack-md border-t border-border-subtle flex flex-wrap justify-center gap-x-gutter gap-y-2 opacity-60">
+<a class="font-body-sm text-[12px] hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-[12px] hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-body-sm text-[12px] hover:text-primary transition-colors" href="#">Help Center</a>
+</footer>
+</section>
+</main>
+<script>
+        // Form Interactivity
+        const toggleLogin = document.getElementById('toggle-login');
+        const toggleSignup = document.getElementById('toggle-signup');
+        const authTitle = document.getElementById('auth-title');
+        const authSubtitle = document.getElementById('auth-subtitle');
+        const mainCta = document.getElementById('main-cta');
+        const otpSection = document.getElementById('otp-section');
+        const authForm = document.getElementById('auth-form');
+
+        toggleLogin.addEventListener('click', () => {
+            toggleLogin.classList.add('bg-white', 'shadow-sm', 'text-primary');
+            toggleSignup.classList.remove('bg-white', 'shadow-sm', 'text-primary');
+            toggleSignup.classList.add('text-on-surface-variant');
+            authTitle.innerText = 'Welcome Back';
+            authSubtitle.innerText = 'Enter your details to access your account and rewards.';
+            mainCta.querySelector('span').innerText = 'Get Verification Link';
+            resetOTP();
+        });
+
+        toggleSignup.addEventListener('click', () => {
+            toggleSignup.classList.add('bg-white', 'shadow-sm', 'text-primary');
+            toggleLogin.classList.remove('bg-white', 'shadow-sm', 'text-primary');
+            toggleLogin.classList.add('text-on-surface-variant');
+            authTitle.innerText = 'Create Account';
+            authSubtitle.innerText = 'Join the Sabari Krishna family for exclusive organic deals.';
+            mainCta.querySelector('span').innerText = 'Register & Verify';
+            resetOTP();
+        });
+
+        function resetOTP() {
+            otpSection.classList.add('hidden');
+        }
+
+        authForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (otpSection.classList.contains('hidden')) {
+                otpSection.classList.remove('hidden');
+                mainCta.querySelector('span').innerText = 'Confirm & Sign In';
+            } else {
+                // Handle actual verification logic here
+                alert('Verification successful! Welcome to Sabari Krishna.');
+            }
+        });
+
+        // OTP Input Focus Logic
+        const otpInputs = document.querySelectorAll('.otp-input');
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('keyup', (e) => {
+                if (e.key >= 0 && e.key <= 9) {
+                    if (index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                } else if (e.key === 'Backspace') {
+                    if (index > 0) {
+                        otpInputs[index - 1].focus();
+                    }
+                }
+            });
+        });
+
+        // Simple Fade-in for the card
+        document.querySelector('main').classList.add('animate-in', 'fade-in', 'zoom-in', 'duration-700');
+    </script>
+</body></html>

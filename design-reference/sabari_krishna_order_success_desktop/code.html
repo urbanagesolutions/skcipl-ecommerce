@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Order Confirmation | Sabari Krishna</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .confetti-canvas {
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 40;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-fixed": "#291800",
+                      "surface-tint": "#835500",
+                      "inverse-primary": "#ffb955",
+                      "inverse-on-surface": "#f0f0f3",
+                      "secondary-container": "#91f9a2",
+                      "on-primary-container": "#644000",
+                      "outline-variant": "#d7c3ae",
+                      "primary-container": "#f5a623",
+                      "inverse-surface": "#2f3133",
+                      "secondary-fixed-dim": "#75dc88",
+                      "on-tertiary": "#ffffff",
+                      "on-surface-variant": "#524534",
+                      "error-container": "#ffdad6",
+                      "surface-container-highest": "#e2e2e5",
+                      "surface-container-low": "#f3f3f6",
+                      "surface-container-high": "#e8e8ea",
+                      "primary-fixed-dim": "#ffb955",
+                      "on-secondary": "#ffffff",
+                      "tertiary-container": "#b9b6ae",
+                      "on-tertiary-container": "#494741",
+                      "on-secondary-fixed-variant": "#005321",
+                      "on-secondary-fixed": "#002109",
+                      "border-subtle": "#E5E7EB",
+                      "surface-dim": "#dadadc",
+                      "tertiary-fixed": "#e6e2d9",
+                      "on-primary-fixed-variant": "#633f00",
+                      "on-surface": "#1a1c1e",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed-dim": "#c9c6be",
+                      "surface-variant": "#e2e2e5",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "primary": "#835500",
+                      "error": "#ba1a1a",
+                      "warm-gray": "#636B74",
+                      "sale-red": "#E02020",
+                      "on-background": "#1a1c1e",
+                      "surface-bright": "#f9f9fc",
+                      "on-error-container": "#93000a",
+                      "on-secondary-container": "#007432",
+                      "price-green": "#1D8B42",
+                      "background": "#f9f9fc",
+                      "on-tertiary-fixed-variant": "#484741",
+                      "on-tertiary-fixed": "#1c1c17",
+                      "primary-fixed": "#ffddb4",
+                      "surface": "#f9f9fc",
+                      "secondary-fixed": "#91f9a2",
+                      "outline": "#857462",
+                      "secondary": "#006e2f",
+                      "tertiary": "#605e58",
+                      "surface-container": "#eeeef0"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "container-max": "1280px",
+                      "section-gap": "80px",
+                      "stack-lg": "32px",
+                      "gutter": "24px",
+                      "stack-sm": "8px",
+                      "stack-md": "16px"
+              },
+              "fontFamily": {
+                      "title-md": ["Public Sans"],
+                      "headline-lg": ["Public Sans"],
+                      "body-lg": ["Public Sans"],
+                      "headline-lg-mobile": ["Public Sans"],
+                      "price-display": ["Public Sans"],
+                      "label-caps": ["Public Sans"],
+                      "body-sm": ["Public Sans"],
+                      "display-lg": ["Public Sans"]
+              },
+              "fontSize": {
+                      "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "price-display": ["20px", {"lineHeight": "24px", "fontWeight": "700"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-surface text-on-surface font-body-lg overflow-x-hidden">
+<!-- TopNavBar (Fixed Shell) -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-sm">
+<nav class="flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-8">
+<span class="font-headline-lg text-headline-lg font-bold text-primary">Sabari Krishna</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="font-title-md text-title-md text-on-surface-variant hover:text-primary transition-colors" href="#">Shop</a>
+<a class="font-title-md text-title-md text-on-surface-variant hover:text-primary transition-colors" href="#">Bulk Order</a>
+<a class="font-title-md text-title-md text-on-surface-variant hover:text-primary transition-colors" href="#">About Us</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low rounded-full border-none focus:ring-2 focus:ring-primary w-64" placeholder="Search products..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-surface-container-high rounded-full active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary">shopping_cart</span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-full active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary">account_circle</span>
+</button>
+</div>
+</div>
+</nav>
+</header>
+<main class="pt-32 pb-section-gap px-margin-mobile md:px-gutter max-w-[900px] mx-auto">
+<!-- Success Animation & Header -->
+<div class="text-center mb-stack-lg animate-in fade-in slide-in-from-bottom-4 duration-1000">
+<div class="inline-flex items-center justify-center w-24 h-24 bg-secondary-container text-on-secondary-container rounded-full mb-6 shadow-lg shadow-secondary-container/20">
+<span class="material-symbols-outlined !text-5xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-2">Thank you for your order!</h1>
+<p class="text-on-surface-variant font-body-lg">We've received your order and are preparing it with care. A confirmation email has been sent to your inbox.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Order ID & Quick Info Card -->
+<div class="md:col-span-12 bg-surface-container-lowest p-8 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col md:flex-row justify-between items-center gap-6 mb-stack-sm border border-outline-variant/20">
+<div class="flex items-start gap-4">
+<div class="p-3 bg-primary-container rounded-lg">
+<span class="material-symbols-outlined text-on-primary-container">local_shipping</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-primary uppercase">Order ID</p>
+<p class="font-title-md text-title-md">#SK-99081</p>
+</div>
+</div>
+<div class="h-px w-full md:h-12 md:w-px bg-outline-variant/30"></div>
+<div class="text-center md:text-left">
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase">Estimated Delivery</p>
+<p class="font-title-md text-title-md text-price-green">Friday, Oct 27, 2023</p>
+</div>
+<button class="flex items-center gap-2 px-6 py-3 border border-outline text-on-surface rounded-full font-title-md hover:bg-surface-container-high transition-all active:scale-95">
+<span class="material-symbols-outlined">download</span>
+                    Download Invoice
+                </button>
+</div>
+<!-- Left Column: Details -->
+<div class="md:col-span-7 flex flex-col gap-gutter">
+<!-- Order Summary -->
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/10">
+<h3 class="font-title-md text-title-md mb-stack-md flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">list_alt</span>
+                        Order Details
+                    </h3>
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 bg-surface-container rounded-lg flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="High-resolution, bright and airy studio photography of a premium 1kg packet of organic Basmati rice with elegant Sabari Krishna branding. The packaging is set against a clean, warm-toned beige background that evokes health and quality. Soft lighting highlights the texture of the rice grains shown in a small window of the bag." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBG0NAS8mxv2cuAj2zAIBabSG7Ym7YI-pKA6Cn3B0RiCazpO0etF44IiInTu5I3pz-TZjBNLSpJxlf_Yz7T4Geia-bOHJsPCtn9yXdhk6FAxxLjlH-urUNSaddaRR3VAq__uQGPZ66tUHxsf0N9nv7jfIo90VDHSlbY3ztzfh5X0s9dW6yNoBHhNpjPxvp5TX2T0sKeF0k6Cs_ZdyERUvPDmp4X4jQcLmNhh0NBd387iOkhaEnNGVyxow"/>
+</div>
+<div class="flex-grow">
+<p class="font-title-md text-body-lg font-semibold">Premium Organic Basmati Rice</p>
+<p class="text-body-sm text-on-surface-variant">Qty: 2 • 1kg each</p>
+</div>
+<p class="font-price-display text-price-display">₹540.00</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 bg-surface-container rounded-lg flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Professional commercial photography of cold-pressed virgin coconut oil in a high-end glass bottle. The label features the Sabari Krishna logo. The bottle is placed on a white reflective surface with organic green leaves in the soft-focus background, representing purity and freshness. Natural morning sunlight creates long, soft shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCP_B2AYg6e5NdmqpFCXiN1GDN5rpDyW9VMwJNM3WOoElrRwmodP8MsFST7cpf12bXkM3puMzOyIgZxCkHTfBjCIzWMLhrNCgy0-lMFIvzCNuuivC5EwdngIDBypIxD-kURentetZLewlCHXLx3Bh9OqGzFyXcVXIDjGP-1bnYovhOGPOfoqIGpRTScOgAZsMYoHGvRPoOa-Tgz8YFAZOoLSdLGTzlZcyq_00pJ5Wg00dLemtl5PUjlsQ"/>
+</div>
+<div class="flex-grow">
+<p class="font-title-md text-body-lg font-semibold">Cold Pressed Virgin Coconut Oil</p>
+<p class="text-body-sm text-on-surface-variant">Qty: 1 • 500ml</p>
+</div>
+<p class="font-price-display text-price-display">₹385.00</p>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant/30 space-y-3">
+<div class="flex justify-between text-on-surface-variant">
+<span>Subtotal</span>
+<span>₹925.00</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Shipping</span>
+<span class="text-price-green">Free</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>GST (18%)</span>
+<span>₹166.50</span>
+</div>
+<div class="flex justify-between font-title-md text-headline-lg-mobile pt-3 border-t border-dashed border-outline-variant/50">
+<span>Total Amount</span>
+<span class="text-primary font-bold">₹1,091.50</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Shipping & Actions -->
+<div class="md:col-span-5 flex flex-col gap-gutter">
+<!-- Shipping Address -->
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/10">
+<h3 class="font-title-md text-title-md mb-stack-md flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">location_on</span>
+                        Shipping Address
+                    </h3>
+<div class="text-on-surface-variant space-y-1">
+<p class="font-semibold text-on-surface">Arjun Sharma</p>
+<p>No 42, Sunrise Apartment, 3rd Cross</p>
+<p>Koramangala 4th Block</p>
+<p>Bengaluru, Karnataka - 560034</p>
+<p class="pt-2 text-on-surface"><span class="font-semibold">Phone:</span> +91 98765 43210</p>
+</div>
+</div>
+<!-- Payment Method -->
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/10">
+<h3 class="font-title-md text-title-md mb-stack-md flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+                        Payment Method
+                    </h3>
+<div class="flex items-center gap-3">
+<div class="w-10 h-6 bg-surface-container-high rounded flex items-center justify-center text-[10px] font-bold text-on-surface-variant border border-outline-variant">
+                            VISA
+                        </div>
+<p class="text-on-surface-variant">Ending in •••• 4242</p>
+</div>
+</div>
+<!-- Primary Action -->
+<a class="w-full bg-primary text-on-primary py-5 rounded-full font-title-md text-center shadow-lg shadow-primary/25 hover:bg-on-primary-fixed-variant transition-all active:scale-[0.98] flex items-center justify-center gap-3" href="#">
+                    Continue Shopping
+                    <span class="material-symbols-outlined">arrow_forward</span>
+</a>
+<p class="text-center text-body-sm text-on-surface-variant">
+                    Need help? <a class="text-primary font-semibold hover:underline" href="#">Contact Support</a>
+</p>
+</div>
+</div>
+</main>
+<!-- Success Confetti Overlay -->
+<canvas class="confetti-canvas" id="confetti"></canvas>
+<script>
+        // Micro-interaction for the Download Button
+        document.querySelector('button:contains("Download Invoice")')?.addEventListener('click', function() {
+            this.classList.add('animate-pulse');
+            setTimeout(() => this.classList.remove('animate-pulse'), 2000);
+        });
+
+        // Simple Confetti Animation
+        const canvas = document.getElementById('confetti');
+        const ctx = canvas.getContext('2d');
+        let pieces = [];
+        const numberOfPieces = 150;
+        const colors = ['#835500', '#f5a623', '#006e2f', '#91f9a2', '#ffffff'];
+
+        function updateCanvasSize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', updateCanvasSize);
+        updateCanvasSize();
+
+        class Piece {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height - canvas.height;
+                this.rotation = Math.random() * 360;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.diameter = Math.random() * 10 + 5;
+                this.speed = Math.random() * 3 + 2;
+                this.rotationSpeed = Math.random() * 10 - 5;
+            }
+
+            update() {
+                this.y += this.speed;
+                this.rotation += this.rotationSpeed;
+                if (this.y > canvas.height) {
+                    this.y = -20;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.fillStyle = this.color;
+                ctx.fillRect(-this.diameter / 2, -this.diameter / 2, this.diameter, this.diameter);
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < numberOfPieces; i++) {
+            pieces.push(new Piece());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            pieces.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        // Run confetti for 5 seconds then fade out
+        animate();
+        setTimeout(() => {
+            canvas.style.transition = 'opacity 2s ease';
+            canvas.style.opacity = '0';
+            setTimeout(() => {
+                canvas.remove();
+            }, 2000);
+        }, 5000);
+
+        // Helper for selector
+        function contains(selector, text) {
+            var elements = document.querySelectorAll(selector);
+            return Array.from(elements).filter(function(element) {
+                return RegExp(text).test(element.textContent);
+            })[0];
+        }
+    </script>
+</body></html>

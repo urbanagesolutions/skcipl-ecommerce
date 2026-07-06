@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>404 - Goodness Missing | Sabari Krishna</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#75dc88",
+                    "on-tertiary-fixed": "#1c1c17",
+                    "surface-container-highest": "#e2e2e5",
+                    "on-tertiary-fixed-variant": "#484741",
+                    "primary-container": "#f5a623",
+                    "outline-variant": "#d7c3ae",
+                    "outline": "#857462",
+                    "surface-container-low": "#f3f3f6",
+                    "on-primary-fixed": "#291800",
+                    "on-surface": "#1a1c1e",
+                    "surface-container-high": "#e8e8ea",
+                    "background": "#f9f9fc",
+                    "warm-gray": "#636B74",
+                    "surface-container": "#eeeef0",
+                    "price-green": "#1D8B42",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#633f00",
+                    "on-error-container": "#93000a",
+                    "sale-red": "#E02020",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f0f3",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#e2e2e5",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#c9c6be",
+                    "primary-fixed": "#ffddb4",
+                    "inverse-surface": "#2f3133",
+                    "on-secondary-fixed": "#002109",
+                    "surface-bright": "#f9f9fc",
+                    "surface-dim": "#dadadc",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#524534",
+                    "secondary": "#006e2f",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#91f9a2",
+                    "inverse-primary": "#ffb955",
+                    "border-subtle": "#E5E7EB",
+                    "tertiary-container": "#b9b6ae",
+                    "on-primary-container": "#644000",
+                    "on-background": "#1a1c1e",
+                    "on-secondary-fixed-variant": "#005321",
+                    "secondary-container": "#91f9a2",
+                    "primary-fixed-dim": "#ffb955",
+                    "on-secondary-container": "#007432",
+                    "tertiary-fixed": "#e6e2d9",
+                    "primary": "#835500",
+                    "surface-tint": "#835500",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#f9f9fc",
+                    "tertiary": "#605e58",
+                    "on-tertiary-container": "#494741"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "8px",
+                    "container-max": "1280px",
+                    "section-gap": "80px",
+                    "margin-mobile": "16px",
+                    "stack-md": "16px",
+                    "stack-lg": "32px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Public Sans"],
+                    "title-md": ["Public Sans"],
+                    "headline-lg": ["Public Sans"],
+                    "display-lg": ["Public Sans"],
+                    "body-lg": ["Public Sans"],
+                    "price-display": ["Public Sans"],
+                    "label-caps": ["Public Sans"],
+                    "body-sm": ["Public Sans"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "price-display": ["20px", {"lineHeight": "24px", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #fdf9f0; /* Overriding with the brand's warm surface base from Level 0 */
+            font-family: 'Public Sans', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .glass-header {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-on-surface">
+<!-- TopNavBar: Authority Source JSON - Filtered: Hidden if task-focused, but kept minimal for brand identity -->
+<header class="fixed top-0 left-0 w-full h-20 z-50 bg-white/80 glass-header flex items-center shadow-md px-margin-mobile md:px-gutter">
+<div class="max-w-container-max mx-auto w-full flex justify-between items-center">
+<h1 class="font-display-lg text-display-lg text-primary tracking-tight">Sabari Krishna</h1>
+<div class="flex items-center gap-stack-md">
+<button class="material-symbols-outlined p-2 text-on-surface-variant hover:text-primary transition-colors duration-200">shopping_cart</button>
+<button class="material-symbols-outlined p-2 text-on-surface-variant hover:text-primary transition-colors duration-200">account_circle</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center pt-20 px-margin-mobile overflow-hidden relative">
+<!-- Atmospheric Background Elements -->
+<div class="absolute top-1/4 left-10 w-32 h-32 bg-primary-container/10 rounded-full blur-3xl"></div>
+<div class="absolute bottom-1/4 right-10 w-48 h-48 bg-secondary-container/10 rounded-full blur-3xl"></div>
+<div class="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 items-center gap-stack-lg z-10">
+<!-- Illustration Section -->
+<div class="flex justify-center md:justify-end order-1 md:order-2">
+<div class="relative w-full max-w-[400px] aspect-square floating-animation">
+<!-- Glassmorphism Card for the Illustration -->
+<div class="absolute inset-0 bg-white rounded-[2rem] shadow-[0px_4px_20px_rgba(0,0,0,0.08)] overflow-hidden border border-white/20">
+<img class="w-full h-full object-cover" data-alt="A premium 3D isometric illustration of a pristine, ceramic kitchen jar with a golden lid, sitting on a warm wooden countertop. Beside it, a stylized, friendly minimal cow character peeks out with a gentle expression. The scene is bathed in soft, high-key morning light, utilizing a palette of warm ambers, clean whites, and fresh forest greens to evoke a sense of organic vitality and modern quick-commerce polish." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVQ2eFK1dIaJl-xLcVjzKaNx5YG6IB3eaWX4xsVqJ1q4EHOmDbpudaFlPmmlzzOOrazS8wIvKbfNDWYHGM4rEBqPosAO-mlsniNnXfH6hTGYt_XWkf1QGQopaA_uSd7xpS7fQOzsary5p-0c8u9t1RaHHhw6dwl16au4yuPhNRrRvfne07ARy3AOb5K7SDHp0uOvmCkD5zWXZDMxDTRAso9811byd9mpNNIu7siXv7EVpCMUhIVlOXZQ"/>
+</div>
+<!-- Decorative Element: Floating Badge -->
+<div class="absolute -top-4 -right-4 bg-primary-container text-on-primary-container px-4 py-2 rounded-xl font-label-caps text-label-caps shadow-lg rotate-12">
+                        404 ERROR
+                    </div>
+</div>
+</div>
+<!-- Content Section -->
+<div class="text-center md:text-left order-2 md:order-1 space-y-stack-md">
+<div class="space-y-stack-sm">
+<h2 class="font-display-lg text-display-lg text-on-surface leading-tight">
+                        Oops! This page is missing its goodness
+                    </h2>
+<p class="font-body-lg text-body-lg text-warm-gray max-w-md mx-auto md:mx-0">
+                        It seems the vitality you were looking for has moved to a different pasture. Let's get you back to the fresh essentials.
+                    </p>
+</div>
+<div class="flex flex-col sm:flex-row items-center gap-stack-md pt-stack-md">
+<!-- Primary CTA -->
+<a class="w-full sm:w-auto bg-primary text-white font-title-md text-title-md px-8 py-4 rounded-xl shadow-[0px_4px_20px_rgba(245,166,35,0.25)] hover:scale-105 active:scale-95 transition-all duration-200 text-center flex items-center justify-center gap-2" href="/">
+<span class="material-symbols-outlined">home</span>
+                        Back to Home
+                    </a>
+<!-- Secondary Ghost CTA -->
+<button class="w-full sm:w-auto border-2 border-outline text-on-surface font-title-md text-title-md px-8 py-4 rounded-xl hover:bg-surface-container-low transition-colors duration-200 text-center flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">search</span>
+                        Search Store
+                    </button>
+</div>
+<!-- Subtle Help Text -->
+<p class="font-body-sm text-body-sm text-on-surface-variant pt-stack-lg">
+                    Looking for something specific? 
+                    <a class="text-primary font-bold hover:underline" href="#">Contact our health experts</a>
+</p>
+</div>
+</div>
+</main>
+<!-- Footer: Authority Source JSON -->
+<footer class="w-full py-stack-lg px-margin-mobile md:px-gutter max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center border-t border-border-subtle bg-surface-container-highest dark:bg-surface-dim mt-section-gap">
+<div class="flex flex-col items-center md:items-start gap-stack-sm mb-stack-md md:mb-0">
+<span class="font-display-lg text-display-lg text-primary">Sabari Krishna</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center md:text-left">
+                © 2024 Sabari Krishna E-commerce. All rights reserved.
+            </p>
+</div>
+<div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Shipping Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Return Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Us</a>
+</div>
+</footer>
+<!-- No BottomNavBar on 404 (Task-Focused) as per Shell Visibility Rule -->
+<script>
+        // Micro-interaction for the search button
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                // Subtle interaction logic can be added here
+            });
+        });
+
+        // Simple mouse trail effect for atmospheric polish
+        window.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 20;
+            const y = (e.clientY / window.innerHeight) * 20;
+            const floatingEl = document.querySelector('.floating-animation');
+            if(floatingEl) {
+                floatingEl.style.transform = `translate(${x}px, ${y}px)`;
+            }
+        });
+    </script>
+</body></html>

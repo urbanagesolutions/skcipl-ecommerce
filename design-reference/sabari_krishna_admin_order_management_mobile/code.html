@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Order Management | FMCG Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "tertiary": "#605e58",
+                "on-tertiary-fixed": "#1c1c17",
+                "on-tertiary-container": "#494741",
+                "error-container": "#ffdad6",
+                "warm-gray": "#636B74",
+                "border-subtle": "#E5E7EB",
+                "on-primary-container": "#644000",
+                "secondary-container": "#91f9a2",
+                "tertiary-fixed": "#e6e2d9",
+                "on-secondary-fixed": "#002109",
+                "inverse-on-surface": "#f0f0f3",
+                "outline-variant": "#d7c3ae",
+                "surface-tint": "#835500",
+                "error": "#ba1a1a",
+                "on-surface": "#1a1c1e",
+                "on-primary": "#ffffff",
+                "on-secondary-container": "#007432",
+                "on-secondary": "#ffffff",
+                "on-background": "#1a1c1e",
+                "on-secondary-fixed-variant": "#005321",
+                "on-primary-fixed-variant": "#633f00",
+                "primary-fixed-dim": "#ffb955",
+                "secondary-fixed-dim": "#75dc88",
+                "surface-dim": "#dadadc",
+                "surface-container-lowest": "#ffffff",
+                "surface-container-low": "#f3f3f6",
+                "background": "#f9f9fc",
+                "primary": "#835500",
+                "on-error-container": "#93000a",
+                "tertiary-fixed-dim": "#c9c6be",
+                "primary-container": "#f5a623",
+                "on-error": "#ffffff",
+                "sale-red": "#E02020",
+                "surface": "#f9f9fc",
+                "surface-container-high": "#e8e8ea",
+                "inverse-surface": "#2f3133",
+                "surface-variant": "#e2e2e5",
+                "on-primary-fixed": "#291800",
+                "surface-container-highest": "#e2e2e5",
+                "on-surface-variant": "#524534",
+                "surface-bright": "#f9f9fc",
+                "outline": "#857462",
+                "tertiary-container": "#b9b6ae",
+                "surface-container": "#eeeef0",
+                "secondary": "#006e2f",
+                "inverse-primary": "#ffb955",
+                "secondary-fixed": "#91f9a2",
+                "price-green": "#1D8B42",
+                "on-tertiary-fixed-variant": "#484741",
+                "on-tertiary": "#ffffff",
+                "primary-fixed": "#ffddb4"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "section-gap": "80px",
+                "stack-lg": "32px",
+                "stack-sm": "8px",
+                "stack-md": "16px",
+                "container-max": "1280px",
+                "margin-mobile": "16px",
+                "gutter": "24px"
+            },
+            "fontFamily": {
+                "headline-lg": ["Public Sans"],
+                "body-sm": ["Public Sans"],
+                "price-display": ["Public Sans"],
+                "body-lg": ["Public Sans"],
+                "title-md": ["Public Sans"],
+                "headline-lg-mobile": ["Public Sans"],
+                "display-lg": ["Public Sans"],
+                "label-caps": ["Public Sans"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .bottom-sheet-transition {
+            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        
+        .sheet-overlay {
+            transition: opacity 0.3s ease;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-lg overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-surface/80 px-4 h-16 flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="shopping_cart">shopping_cart</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">Orders</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-sale-red rounded-full"></span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high ring-1 ring-border-subtle">
+<img class="w-full h-full object-cover" data-alt="A close-up, high-quality portrait of a professional male logistics manager in a modern distribution center. The background features blurred industrial shelving and soft, cool-toned warehouse lighting. The subject is wearing a clean charcoal polo shirt, looking confident and approachable. The overall visual style is clean, sharp, and business-focused." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtwNEHbBZ_Rs0lvCAJicXYBN6D6S94OqREQzb7YZ1DjdBMbox2jlcdt9IjdecXaC8ye3Du1p4tHkkYYc5Ez-KrQi1ykVRnV7iiHRrWe-jKIaU4ol-IZW5cywoZiu793o6_aO7pG9QaOTziMRdJPzO3k4rme8I_myy0qkcrus0vBDemv4Z96qzlFB6f7tdwDUfQXTPZmGxf_-xWi6inU5P8gvveZYyZ0OuLXDEd1EZeIpjMneCG6iuadw"/>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-16 pb-24 min-h-screen">
+<!-- Sticky Header Search & Filters -->
+<div class="sticky top-16 z-40 bg-background/95 backdrop-blur px-4 pt-4 pb-2 space-y-4">
+<!-- Search Bar -->
+<div class="relative group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-low border-none rounded-xl text-body-lg focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search order ID or customer..." type="text"/>
+</div>
+<!-- Horizontal Scroll Tabs -->
+<div class="flex overflow-x-auto no-scrollbar gap-2 pb-2 -mx-4 px-4">
+<button class="flex-none px-6 py-2 rounded-full bg-primary text-on-primary font-title-md text-sm">All</button>
+<button class="flex-none px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-title-md text-sm">Pending</button>
+<button class="flex-none px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-title-md text-sm">Processing</button>
+<button class="flex-none px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-title-md text-sm">Out for Delivery</button>
+<button class="flex-none px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant font-title-md text-sm">Delivered</button>
+</div>
+</div>
+<!-- Order List Cards -->
+<div class="px-4 space-y-3 mt-2">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-border-subtle active:scale-[0.98] transition-transform cursor-pointer" onclick="openSheet('ORD-7721')">
+<div class="flex justify-between items-start mb-3">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">ORDER ID</span>
+<h3 class="font-title-md text-title-md text-on-surface">ORD-7721</h3>
+</div>
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-label-caps text-[10px]">PROCESSING</span>
+</div>
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-warm-gray" data-icon="person">person</span>
+</div>
+<div>
+<p class="font-title-md text-sm text-on-surface">Harrington Retailers</p>
+<p class="font-body-sm text-on-surface-variant">12 items • 15 mins ago</p>
+</div>
+</div>
+<div class="flex justify-between items-center pt-3 border-t border-border-subtle">
+<p class="font-price-display text-price-display text-price-green">$1,240.50</p>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-border-subtle active:scale-[0.98] transition-transform cursor-pointer" onclick="openSheet('ORD-7720')">
+<div class="flex justify-between items-start mb-3">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">ORDER ID</span>
+<h3 class="font-title-md text-title-md text-on-surface">ORD-7720</h3>
+</div>
+<span class="px-3 py-1 bg-tertiary-container text-on-tertiary-container rounded-full font-label-caps text-[10px]">PENDING</span>
+</div>
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-warm-gray" data-icon="person">person</span>
+</div>
+<div>
+<p class="font-title-md text-sm text-on-surface">Apex Distribution</p>
+<p class="font-body-sm text-on-surface-variant">45 items • 42 mins ago</p>
+</div>
+</div>
+<div class="flex justify-between items-center pt-3 border-t border-border-subtle">
+<p class="font-price-display text-price-display text-price-green">$4,890.00</p>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-border-subtle active:scale-[0.98] transition-transform cursor-pointer" onclick="openSheet('ORD-7719')">
+<div class="flex justify-between items-start mb-3">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">ORDER ID</span>
+<h3 class="font-title-md text-title-md text-on-surface">ORD-7719</h3>
+</div>
+<span class="px-3 py-1 bg-surface-container-highest text-on-surface-variant rounded-full font-label-caps text-[10px]">OUT FOR DELIVERY</span>
+</div>
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-warm-gray" data-icon="local_shipping">local_shipping</span>
+</div>
+<div>
+<p class="font-title-md text-sm text-on-surface">Fresh Mart South</p>
+<p class="font-body-sm text-on-surface-variant">8 items • 1 hr ago</p>
+</div>
+</div>
+<div class="flex justify-between items-center pt-3 border-t border-border-subtle">
+<p class="font-price-display text-price-display text-price-green">$675.20</p>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm border border-border-subtle active:scale-[0.98] transition-transform cursor-pointer" onclick="openSheet('ORD-7718')">
+<div class="flex justify-between items-start mb-3">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">ORDER ID</span>
+<h3 class="font-title-md text-title-md text-on-surface">ORD-7718</h3>
+</div>
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-label-caps text-[10px]">PROCESSING</span>
+</div>
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-warm-gray" data-icon="person">person</span>
+</div>
+<div>
+<p class="font-title-md text-sm text-on-surface">Main Street Groceries</p>
+<p class="font-body-sm text-on-surface-variant">22 items • 3 hrs ago</p>
+</div>
+</div>
+<div class="flex justify-between items-center pt-3 border-t border-border-subtle">
+<p class="font-price-display text-price-display text-price-green">$2,100.00</p>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 bg-surface px-6 h-20 flex justify-between items-center shadow-[0_-4px_20px_rgba(0,0,0,0.05)] md:hidden">
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-[10px]">HOME</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary font-bold">
+<span class="material-symbols-outlined" data-icon="shopping_cart" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+<span class="font-label-caps text-[10px]">ORDERS</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-caps text-[10px]">STOCK</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-label-caps text-[10px]">REPORTS</span>
+</button>
+</nav>
+<!-- Bottom Sheet Overlay -->
+<div class="fixed inset-0 bg-black/40 z-[60] opacity-0 pointer-events-none sheet-overlay" id="sheetOverlay" onclick="closeSheet()"></div>
+<!-- Bottom Sheet Component -->
+<div class="fixed bottom-0 left-0 right-0 z-[70] bg-surface-container-lowest rounded-t-[32px] bottom-sheet-transition translate-y-full max-h-[795px] overflow-y-auto" id="bottomSheet">
+<!-- Handle -->
+<div class="w-12 h-1.5 bg-surface-container-high rounded-full mx-auto mt-4 mb-6"></div>
+<div class="px-6 pb-12">
+<header class="flex justify-between items-start mb-8">
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface" id="sheetOrderID">ORD-7721</h2>
+<p class="text-on-surface-variant font-body-lg">Placed on Oct 24, 2023 • 10:45 AM</p>
+</div>
+<button class="p-2 bg-surface-container-high rounded-full" onclick="closeSheet()">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</header>
+<!-- Status Picker -->
+<div class="mb-8">
+<p class="font-title-md text-on-surface-variant mb-4">Update Order Status</p>
+<div class="grid grid-cols-2 gap-3">
+<button class="p-4 rounded-2xl border-2 border-primary bg-primary-container/10 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="sync">sync</span>
+<span class="font-title-md text-sm">Processing</span>
+</button>
+<button class="p-4 rounded-2xl border-2 border-border-subtle flex items-center gap-3 opacity-60">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="local_shipping">local_shipping</span>
+<span class="font-title-md text-sm">Shipped</span>
+</button>
+</div>
+</div>
+<!-- Items Breakdown -->
+<div class="space-y-6">
+<div class="flex justify-between items-center">
+<p class="font-title-md text-on-surface">Order Items (12)</p>
+<button class="text-primary font-title-md text-sm">Add Item</button>
+</div>
+<div class="space-y-4">
+<!-- Item 1 -->
+<div class="flex gap-4 items-center">
+<div class="w-16 h-16 rounded-xl bg-surface-container-low overflow-hidden flex-none">
+<img class="w-full h-full object-cover" data-alt="A clean product shot of premium organic whole milk in a glass bottle. Set against a pure white background with soft studio lighting. Minimalist branding. High quality food photography style with fresh reflections on the glass." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaTY-3m02TD0q5qWqHO9pwKdcJfWIsgqAHrkOtF5Tll1OVA_HwApNm3ZpbgOc_N0bladKcJKLOMeVZzxlMicYGkGV8r68lXfR3Zz4j0chI74f_8-Dt7P8iqZ4NQP6HmVsStpk2_x0A1VD8kO7Nnbr6hF-vFhSNM2e33YWnj3sGkl3nxIF803yjXD4nyIuRD3ZxxP6m_hQlqkEUEF9jIL0Rtu2pzaLe53pGow40hyyN6NTWRBbVTg9JJg"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-title-md text-sm">Organic Whole Milk 1L</h4>
+<p class="text-on-surface-variant text-sm">SKU: FM-229 • Qty: 24</p>
+</div>
+<p class="font-title-md text-on-surface">$312.00</p>
+</div>
+<!-- Item 2 -->
+<div class="flex gap-4 items-center">
+<div class="w-16 h-16 rounded-xl bg-surface-container-low overflow-hidden flex-none">
+<img class="w-full h-full object-cover" data-alt="Close-up of golden brown organic wheat bread loaves displayed on a rustic wooden board. Warm, soft morning light highlighting the texture of the crust and flour dusting. High-end bakery atmosphere, clean and appetizing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdiU2YrzRKcdusQHfm9mvEoIUaK7HAUOi1WSQqRcDQUKEdpt7UVuJVw5TkjC3OxiuSl02apr4GWpv-HXWzL1CtfRJAfqS-1ZNCEawS4U_aWT0IBjGVinAaFZ-LLRff5EuywPwF1ZLNsjsFcY0C0yD8HfbQtpH98bvHA34N2qOEtKXy2nqydU3m5xzFVsjsRmhtvDpuk0QGhMDkPuX-hkAtDUSL9kN6Gi7g1R8DH40mXGRMGc5K2SsJkg"/>
+</div>
+<div class="flex-grow">
+<h4 class="font-title-md text-sm">Artisan Sourdough</h4>
+<p class="text-on-surface-variant text-sm">SKU: FM-104 • Qty: 15</p>
+</div>
+<p class="font-title-md text-on-surface">$105.00</p>
+</div>
+</div>
+</div>
+<!-- Summary Table -->
+<div class="mt-8 pt-6 border-t border-border-subtle space-y-3">
+<div class="flex justify-between font-body-lg text-on-surface-variant">
+<span>Subtotal</span>
+<span>$1,180.50</span>
+</div>
+<div class="flex justify-between font-body-lg text-on-surface-variant">
+<span>Tax (GST 5%)</span>
+<span>$60.00</span>
+</div>
+<div class="flex justify-between font-title-md text-xl text-on-surface pt-2">
+<span>Total Amount</span>
+<span class="text-price-green">$1,240.50</span>
+</div>
+</div>
+<!-- CTA -->
+<button class="w-full mt-8 py-4 bg-primary text-on-primary rounded-2xl font-title-md shadow-lg shadow-primary/20 active:scale-[0.99] transition-transform">
+                Confirm Update
+            </button>
+</div>
+</div>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-secondary text-on-secondary rounded-full flex items-center justify-center shadow-xl z-30">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+<script>
+        const sheet = document.getElementById('bottomSheet');
+        const overlay = document.getElementById('sheetOverlay');
+        const orderIdDisplay = document.getElementById('sheetOrderID');
+
+        function openSheet(orderID) {
+            orderIdDisplay.textContent = orderID;
+            overlay.classList.remove('pointer-events-none');
+            overlay.classList.add('opacity-100');
+            sheet.classList.remove('translate-y-full');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSheet() {
+            overlay.classList.add('pointer-events-none');
+            overlay.classList.remove('opacity-100');
+            sheet.classList.add('translate-y-full');
+            document.body.style.overflow = '';
+        }
+
+        // Swipe down to close simulation
+        let startY = 0;
+        sheet.addEventListener('touchstart', e => startY = e.touches[0].clientY);
+        sheet.addEventListener('touchmove', e => {
+            const currentY = e.touches[0].clientY;
+            const diff = currentY - startY;
+            if (diff > 50) closeSheet();
+        });
+    </script>
+</body></html>

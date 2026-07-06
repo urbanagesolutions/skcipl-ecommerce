@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Marketplace Sync | FMCG Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#605e58",
+                    "on-tertiary-fixed": "#1c1c17",
+                    "on-tertiary-container": "#494741",
+                    "error-container": "#ffdad6",
+                    "warm-gray": "#636B74",
+                    "border-subtle": "#E5E7EB",
+                    "on-primary-container": "#644000",
+                    "secondary-container": "#91f9a2",
+                    "tertiary-fixed": "#e6e2d9",
+                    "on-secondary-fixed": "#002109",
+                    "inverse-on-surface": "#f0f0f3",
+                    "outline-variant": "#d7c3ae",
+                    "surface-tint": "#835500",
+                    "error": "#ba1a1a",
+                    "on-surface": "#1a1c1e",
+                    "on-primary": "#ffffff",
+                    "on-secondary-container": "#007432",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#1a1c1e",
+                    "on-secondary-fixed-variant": "#005321",
+                    "on-primary-fixed-variant": "#633f00",
+                    "primary-fixed-dim": "#ffb955",
+                    "secondary-fixed-dim": "#75dc88",
+                    "surface-dim": "#dadadc",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f3f3f6",
+                    "background": "#f9f9fc",
+                    "primary": "#835500",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#c9c6be",
+                    "primary-container": "#f5a623",
+                    "on-error": "#ffffff",
+                    "sale-red": "#E02020",
+                    "surface": "#f9f9fc",
+                    "surface-container-high": "#e8e8ea",
+                    "inverse-surface": "#2f3133",
+                    "surface-variant": "#e2e2e5",
+                    "on-primary-fixed": "#291800",
+                    "surface-container-highest": "#e2e2e5",
+                    "on-surface-variant": "#524534",
+                    "surface-bright": "#f9f9fc",
+                    "outline": "#857462",
+                    "tertiary-container": "#b9b6ae",
+                    "surface-container": "#eeeef0",
+                    "secondary": "#006e2f",
+                    "inverse-primary": "#ffb955",
+                    "secondary-fixed": "#91f9a2",
+                    "price-green": "#1D8B42",
+                    "on-tertiary-fixed-variant": "#484741",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#ffddb4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-gap": "80px",
+                    "stack-lg": "32px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "container-max": "1280px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Public Sans"],
+                    "body-sm": ["Public Sans"],
+                    "price-display": ["Public Sans"],
+                    "body-lg": ["Public Sans"],
+                    "title-md": ["Public Sans"],
+                    "headline-lg-mobile": ["Public Sans"],
+                    "display-lg": ["Public Sans"],
+                    "label-caps": ["Public Sans"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "price-display": ["20px", {"lineHeight": "24px", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #FDF9F0; /* From Brand Guidance: Warm background base */
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="font-body-lg text-on-background overflow-x-hidden">
+<!-- SideNavBar (Shared Component) -->
+<aside class="flex flex-col h-full border-r border-border-subtle dark:border-outline-variant bg-surface-container-lowest dark:bg-surface-dim shadow-sm h-screen w-64 fixed left-0 top-0 overflow-y-auto z-[60]">
+<div class="p-6">
+<h1 class="font-title-md text-title-md font-bold text-primary dark:text-primary-fixed mb-1">FMCG Admin</h1>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest font-bold">Management Suite</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined">inventory_2</span> Products
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined">warehouse</span> Inventory
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined">shopping_cart</span> Orders
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined">group</span> Customers
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined">campaign</span> Marketing
+            </a>
+<!-- Active Navigation State for Marketplace Sync -->
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-lg font-semibold font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">sync</span> Marketplace Sync
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined">assessment</span> Reports
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined">badge</span> Staff
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+            </a>
+</nav>
+<div class="p-4 border-t border-border-subtle">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a high-level corporate manager in a modern office. The lighting is crisp and professional, using soft-box techniques to highlight features against a blurred background of a glass-walled conference room. The overall aesthetic is clean, trustworthy, and reflects a premium quick-commerce enterprise environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfDNoeoDO9y6S5vDJbZ0tc2Y-dN2Oun4FUU1T257KAMNIHmImwS9bjRT-A_eui2_9LIO2ShEnOu3ETj3g2eZaBbIiXpyEHuGWuRW2l7DCIETo55HXK-dT_JT7Mx0bROUCvah5gvtm7C37WQfWm7LRYaMa652zuwCDivponh5DL6hwe2ynEc-gN7aYM9jG_u90d8PcMi6QlwdgG-h6YGqPQC0M9VneqatooDnFAog0BXblao2MRlHoBXw"/>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Admin User</p>
+<p class="text-xs text-on-surface-variant">Global Operations</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar (Shared Component) -->
+<header class="flex justify-between items-center h-16 px-8 sticky top-0 z-50 backdrop-blur-md bg-surface/80 dark:bg-surface-dim/80 shadow-sm">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md focus-within:ring-2 focus-within:ring-primary/20 transition-all rounded-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container rounded-full border-none focus:ring-0 text-sm font-body-sm" placeholder="Search marketplaces, orders, or logs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-sale-red rounded-full"></span>
+</button>
+<div class="flex items-center gap-2 cursor-pointer group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">account_circle</span>
+<span class="font-body-sm text-sm font-bold text-on-surface">Admin Profile</span>
+</div>
+</div>
+</header>
+<section class="p-8 max-w-[1280px] mx-auto">
+<!-- Breadcrumbs & Title -->
+<div class="mb-10">
+<nav class="flex items-center gap-2 text-xs font-label-caps text-on-surface-variant mb-2">
+<span>DASHBOARD</span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-primary">MARKETPLACE SYNC</span>
+</nav>
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Marketplace Sync</h2>
+<p class="text-on-surface-variant font-body-lg">Manage real-time inventory and order synchronization across platforms.</p>
+</div>
+<button class="bg-primary text-on-primary px-6 py-3 rounded-lg font-bold flex items-center gap-2 hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined">add</span>
+                        Connect New Marketplace
+                    </button>
+</div>
+</div>
+<!-- Stats Overview (Atmospheric Bento-ish) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+<div class="bg-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-border-subtle group hover:border-primary/30 transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-secondary-container text-on-secondary-container rounded-lg">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<span class="text-xs font-label-caps text-price-green bg-secondary-container/30 px-2 py-1 rounded">HEALTHY SYNC</span>
+</div>
+<p class="text-on-surface-variant font-label-caps mb-1">TOTAL ORDERS TODAY</p>
+<p class="text-4xl font-display-lg text-on-surface">25 <span class="text-lg font-body-sm text-price-green font-normal">+12%</span></p>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-border-subtle group hover:border-primary/30 transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary-container/20 text-primary rounded-lg">
+<span class="material-symbols-outlined">hub</span>
+</div>
+</div>
+<p class="text-on-surface-variant font-label-caps mb-1">ACTIVE CHANNELS</p>
+<p class="text-4xl font-display-lg text-on-surface">03 <span class="text-lg font-body-sm text-on-surface-variant font-normal">/ 05</span></p>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] border border-border-subtle group hover:border-primary/30 transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-tertiary-container/20 text-tertiary rounded-lg">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+</div>
+<p class="text-on-surface-variant font-label-caps mb-1">AVERAGE SYNC LATENCY</p>
+<p class="text-4xl font-display-lg text-on-surface">4.2 <span class="text-lg font-body-sm text-on-surface-variant font-normal">min</span></p>
+</div>
+</div>
+<!-- Marketplace Grid -->
+<div class="bento-grid">
+<!-- Amazon Card -->
+<div class="bg-white rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.15)] border border-border-subtle overflow-hidden flex flex-col hover:translate-y-[-4px] transition-transform duration-300">
+<div class="p-6 flex-1">
+<div class="flex justify-between items-start mb-6">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-surface-container">
+<img class="w-8 h-auto object-contain" data-alt="The official Amazon marketplace logo featuring the iconic black text and golden yellow arrow smile, presented cleanly on a white background with a modern, high-contrast digital look. The image is professional and sharp, representing a top-tier e-commerce integration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFtFkj7XLUO9zuV4KCG6VUq9wm7g_1WBkqnqQI_wY_R_NcKKz3Ma-NbI8BUccIX8qM___gB0L1epMnR3Bu16LUPODljIoCkpgyqI_J0VUGCyG1_iq5btzuLE3-RNkFTtM4yPGRjOmVO0kT7DqoBgCmEnjmdxoYmQtOcWb6Swc6mI5u1gmgoSEazH9f7o8W0LIBioSoCIP0LKfEhUQ6tQrI5RS8NFBvVIhvbmaAYBwUULEgis7uYunFqQ"/>
+</div>
+<div class="flex items-center gap-2 bg-secondary-container/40 px-3 py-1 rounded-full">
+<span class="w-2 h-2 rounded-full bg-price-green animate-pulse"></span>
+<span class="text-xs font-bold text-on-secondary-container uppercase tracking-tight">Connected</span>
+</div>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-4">Amazon Marketplace</h3>
+<div class="space-y-3 border-t border-surface-variant pt-4">
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant font-body-sm">Last Synced</span>
+<span class="text-on-surface font-semibold">2 mins ago</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant font-body-sm">Orders Today</span>
+<span class="text-on-surface font-semibold">12</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant font-body-sm">Inventory Level</span>
+<span class="text-price-green font-bold">Optimal</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low flex gap-2">
+<button class="flex-1 bg-primary text-on-primary py-2.5 rounded-lg font-bold text-sm flex items-center justify-center gap-2 hover:bg-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+                            Sync Now
+                        </button>
+<button class="w-11 h-11 border border-outline rounded-lg flex items-center justify-center hover:bg-surface-variant transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+<!-- Flipkart Card -->
+<div class="bg-white rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.15)] border border-border-subtle overflow-hidden flex flex-col hover:translate-y-[-4px] transition-transform duration-300">
+<div class="p-6 flex-1">
+<div class="flex justify-between items-start mb-6">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-surface-container">
+<img class="w-8 h-auto object-contain" data-alt="The Flipkart brand logo, featuring the blue and yellow shopping bag icon with the 'f' mark, designed for a modern UI integration. The visual style is clean and tech-forward, showcasing its integration into a high-performance management dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZioBXRtNIiWpsQrZxatMrVovWujSbGN6m5LmqRRNx3iS0WnRKy-feC7Pk3CA9J_zJBDe-I5sx8buBn1EZ31LFqvKf_bPz38PkLLAtdgyBQc0dUIFoYzNVfyHr-Wj5ZKALNNN2yBUFDSL8myuCMFt5VFMs7Cjz0ccCfe9W5Ncf_PRkyRrUxQ3UT6wDcXW3JNTAhHlohQN6phxn5jkameg5FG6KNki9_rTb3Ssi29qPRY9W3o_E2OmJZA"/>
+</div>
+<div class="flex items-center gap-2 bg-secondary-container/40 px-3 py-1 rounded-full">
+<span class="w-2 h-2 rounded-full bg-price-green"></span>
+<span class="text-xs font-bold text-on-secondary-container uppercase tracking-tight">Connected</span>
+</div>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-4">Flipkart India</h3>
+<div class="space-y-3 border-t border-surface-variant pt-4">
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant font-body-sm">Last Synced</span>
+<span class="text-on-surface font-semibold">1 hour ago</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant font-body-sm">Orders Today</span>
+<span class="text-on-surface font-semibold">8</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant font-body-sm">Inventory Level</span>
+<span class="text-primary font-bold">Low (3 items)</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low flex gap-2">
+<button class="flex-1 bg-primary text-on-primary py-2.5 rounded-lg font-bold text-sm flex items-center justify-center gap-2 hover:bg-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+                            Sync Now
+                        </button>
+<button class="w-11 h-11 border border-outline rounded-lg flex items-center justify-center hover:bg-surface-variant transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+<!-- ONDC Card -->
+<div class="bg-white rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.15)] border border-border-subtle overflow-hidden flex flex-col hover:translate-y-[-4px] transition-transform duration-300">
+<div class="p-6 flex-1">
+<div class="flex justify-between items-start mb-6">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-surface-container">
+<img class="w-8 h-auto object-contain" data-alt="A combined logo for ONDC and MyStore, focusing on the open network for digital commerce identity. Minimalist typography and a vibrant color palette of orange and blue, emphasizing the democratic and decentralized nature of the marketplace in a sleek digital environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5W2iUb-kUncxA2I6dilOQKsMySME2_P_sa-a8C1y-Nz398W5Qyy54RR-4lbJLQ5K3iXtpelIk1C_fOYjiVm9AY6ansC9KedUMRctkBadwM6E8qhhV02sCnLwW8vAYpGGu1Bd9PDtmWgdk8Uad3Lwad75pS_V0v2gxUqtvUPEPr4vSuDulNrapY0PjWPbPrR9FyiK3y2xyx71ByDL0IS00xT1NPeHKe2NnB8oCV-3soOahswxQy_Xirw"/>
+</div>
+<div class="flex items-center gap-2 bg-secondary-container/40 px-3 py-1 rounded-full">
+<span class="w-2 h-2 rounded-full bg-price-green animate-pulse"></span>
+<span class="text-xs font-bold text-on-secondary-container uppercase tracking-tight">Connected</span>
+</div>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-4">ONDC / MyStore</h3>
+<div class="space-y-3 border-t border-surface-variant pt-4">
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant font-body-sm">Last Synced</span>
+<span class="text-on-surface font-semibold">10 mins ago</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant font-body-sm">Orders Today</span>
+<span class="text-on-surface font-semibold">5</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant font-body-sm">Inventory Level</span>
+<span class="text-price-green font-bold">Optimal</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low flex gap-2">
+<button class="flex-1 bg-primary text-on-primary py-2.5 rounded-lg font-bold text-sm flex items-center justify-center gap-2 hover:bg-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+                            Sync Now
+                        </button>
+<button class="w-11 h-11 border border-outline rounded-lg flex items-center justify-center hover:bg-surface-variant transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+<!-- Coming Soon: Meesho -->
+<div class="bg-surface-container-low rounded-xl border border-dashed border-outline-variant flex flex-col grayscale opacity-60 relative overflow-hidden group">
+<div class="absolute inset-0 bg-white/40 z-10"></div>
+<div class="p-6 flex-1 z-20">
+<div class="flex justify-between items-start mb-6">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-surface-variant/50">
+<img class="w-8 h-auto object-contain" data-alt="The Meesho brand logo in grayscale, representing a social commerce platform. The image should be subtle, showing the stylized letter 'm' and typography, fits for a 'coming soon' integration placeholder in a professional admin suite." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtqjx4HJydSggDGm8m98g0hFj84vv6H8YjOLXLniDucOyvKhlFoQt2vKrJbfL9McdrO2mIUJsxywCrMjIZC5MoeEZvHmyMM90mxVycSfBq7Fn0Cuw8XRaUTgvIsPQQg7O8xD2TMcYVP0BWZPvFk7iItPuZUrteIgmCVMI9VcdWGoVxOz3Qy9Dm7IonCWHxVU5cS_Fhplh75hlp1G6KFLR3kMWJrtcl1pKknorv-4Ee7jad0QOxR0U72w"/>
+</div>
+<div class="bg-tertiary-container/50 px-3 py-1 rounded-full">
+<span class="text-xs font-bold text-on-tertiary-container uppercase tracking-tight">Coming Soon</span>
+</div>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2">Meesho</h3>
+<p class="text-sm text-on-surface-variant">Expand your reach into social commerce. Connection module under development.</p>
+</div>
+<div class="p-4 bg-surface-container-low/50 z-20">
+<button class="w-full border border-outline py-2.5 rounded-lg font-bold text-sm text-on-surface-variant flex items-center justify-center gap-2 cursor-not-allowed" disabled="">
+                            Notify Me
+                        </button>
+</div>
+</div>
+<!-- Coming Soon: Blinkit -->
+<div class="bg-surface-container-low rounded-xl border border-dashed border-outline-variant flex flex-col grayscale opacity-60 relative overflow-hidden group">
+<div class="absolute inset-0 bg-white/40 z-10"></div>
+<div class="p-6 flex-1 z-20">
+<div class="flex justify-between items-start mb-6">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-surface-variant/50">
+<img class="w-8 h-auto object-contain" data-alt="The Blinkit logo in grayscale, representing a lightning-fast quick-commerce delivery service. The visual should feel modern and high-speed, currently presented as a deactivated placeholder for a future integration." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqwrFcl6MaacYMxXSvew2JLB-C5E257tRn3Vf3R5kUGlICgbaKoiyzvw9WvYgC-isR-fiHsbp_o8OtGL2oSLT4C9ln8LWRBD05HJSPsn_uNYuef3aFdUxKkpicU2ku2JbClkt9F5FrptbbB4XnJ7oVnuT4zDBm_Ih_KpYEZiSlHXHPkPRfKSVrvLSelvW4jez1Yo3brhRe9HIwmbzsYs29vSUNsgZ80J2uY2kJgtfJtBzpZlgoKfmMoA"/>
+</div>
+<div class="bg-tertiary-container/50 px-3 py-1 rounded-full">
+<span class="text-xs font-bold text-on-tertiary-container uppercase tracking-tight">Coming Soon</span>
+</div>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2">Blinkit</h3>
+<p class="text-sm text-on-surface-variant">Hyper-local 10-minute delivery sync. Beta testing in progress.</p>
+</div>
+<div class="p-4 bg-surface-container-low/50 z-20">
+<button class="w-full border border-outline py-2.5 rounded-lg font-bold text-sm text-on-surface-variant flex items-center justify-center gap-2 cursor-not-allowed" disabled="">
+                            Notify Me
+                        </button>
+</div>
+</div>
+</div>
+<!-- Detailed Log View (Simplified for Dashboard Cleanliness) -->
+<div class="mt-section-gap">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-title-md text-title-md text-on-surface">Recent Synchronization Activity</h3>
+<button class="text-primary font-bold text-sm hover:underline">View Detailed Logs</button>
+</div>
+<div class="bg-white rounded-xl shadow-sm border border-border-subtle overflow-hidden">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low border-b border-border-subtle">
+<th class="px-6 py-4 font-label-caps text-on-surface-variant text-xs">Marketplace</th>
+<th class="px-6 py-4 font-label-caps text-on-surface-variant text-xs">Event</th>
+<th class="px-6 py-4 font-label-caps text-on-surface-variant text-xs">Status</th>
+<th class="px-6 py-4 font-label-caps text-on-surface-variant text-xs">Items Affected</th>
+<th class="px-6 py-4 font-label-caps text-on-surface-variant text-xs">Timestamp</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle">
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 bg-surface-container rounded-sm flex items-center justify-center text-[10px] font-bold">AZ</div>
+<span class="text-sm font-semibold">Amazon</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">Inventory Update</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-1.5 text-price-green text-xs font-bold">
+<span class="material-symbols-outlined text-[16px]">check_circle</span> SUCCESS
+                                    </span>
+</td>
+<td class="px-6 py-4 text-sm">142 SKUs</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Today, 02:45 PM</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 bg-surface-container rounded-sm flex items-center justify-center text-[10px] font-bold">FK</div>
+<span class="text-sm font-semibold">Flipkart</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">Order Fetch</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-1.5 text-price-green text-xs font-bold">
+<span class="material-symbols-outlined text-[16px]">check_circle</span> SUCCESS
+                                    </span>
+</td>
+<td class="px-6 py-4 text-sm">8 New Orders</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Today, 02:12 PM</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 bg-surface-container rounded-sm flex items-center justify-center text-[10px] font-bold">MS</div>
+<span class="text-sm font-semibold">MyStore</span>
+</div>
+</td>
+<td class="px-6 py-4 text-sm">Price Sync</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-1.5 text-primary text-xs font-bold">
+<span class="material-symbols-outlined text-[16px]">sync</span> IN PROGRESS
+                                    </span>
+</td>
+<td class="px-6 py-4 text-sm">45 SKUs</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">Just now</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Footer (Shared Component) -->
+<footer class="flex justify-between items-center px-8 py-4 bg-surface-container-low dark:bg-surface-container-lowest border-t border-border-subtle mt-section-gap font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant">
+<p>v2.4.0 FMCG Corp Support</p>
+<div class="flex gap-6">
+<a class="hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Knowledge Base</a>
+<a class="hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">System Status</a>
+<a class="hover:text-primary transition-colors opacity-80 hover:opacity-100" href="#">Contact Tech Support</a>
+</div>
+</footer>
+</main>
+<script>
+        // Micro-interaction for sync buttons
+        document.querySelectorAll('button').forEach(btn => {
+            if (btn.innerText.includes('Sync Now')) {
+                btn.addEventListener('click', function() {
+                    const icon = this.querySelector('.material-symbols-outlined');
+                    icon.classList.add('animate-spin');
+                    const originalText = this.innerHTML;
+                    this.innerHTML = `<span class="material-symbols-outlined animate-spin text-[18px]">sync</span> Syncing...`;
+                    this.disabled = true;
+                    
+                    setTimeout(() => {
+                        this.innerHTML = `<span class="material-symbols-outlined text-[18px]">check_circle</span> Updated`;
+                        this.classList.remove('bg-primary');
+                        this.classList.add('bg-price-green');
+                        
+                        setTimeout(() => {
+                            this.innerHTML = originalText;
+                            this.classList.remove('bg-price-green');
+                            this.classList.add('bg-primary');
+                            this.disabled = false;
+                        }, 2000);
+                    }, 1500);
+                });
+            }
+        });
+    </script>
+</body></html>

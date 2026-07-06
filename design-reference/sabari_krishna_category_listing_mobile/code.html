@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sabari Krishna - Premium Ghee & Oils</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-pill {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Custom hide scrollbar */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Animation for quick-add */
+        @keyframes ripple {
+            0% { transform: scale(0.95); opacity: 1; }
+            100% { transform: scale(1.05); opacity: 0; }
+        }
+        .ripple-effect:active {
+            transform: scale(0.95);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "price-green": "#1D8B42",
+                        "on-secondary-container": "#007432",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "secondary": "#006e2f",
+                        "on-primary-fixed-variant": "#633f00",
+                        "background": "#f9f9fc",
+                        "outline": "#857462",
+                        "surface-container": "#eeeef0",
+                        "secondary-container": "#91f9a2",
+                        "surface-container-highest": "#e2e2e5",
+                        "surface-container-high": "#e8e8ea",
+                        "inverse-primary": "#ffb955",
+                        "on-tertiary-fixed-variant": "#484741",
+                        "border-subtle": "#E5E7EB",
+                        "on-tertiary-fixed": "#1c1c17",
+                        "tertiary-fixed": "#e6e2d9",
+                        "outline-variant": "#d7c3ae",
+                        "inverse-surface": "#2f3133",
+                        "on-secondary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#835500",
+                        "tertiary-fixed-dim": "#c9c6be",
+                        "secondary-fixed-dim": "#75dc88",
+                        "on-surface": "#1a1c1e",
+                        "tertiary": "#605e58",
+                        "on-secondary-fixed-variant": "#005321",
+                        "surface-variant": "#e2e2e5",
+                        "on-secondary-fixed": "#002109",
+                        "inverse-on-surface": "#f0f0f3",
+                        "primary-container": "#f5a623",
+                        "primary": "#835500",
+                        "secondary-fixed": "#91f9a2",
+                        "on-background": "#1a1c1e",
+                        "surface": "#f9f9fc",
+                        "on-primary-container": "#644000",
+                        "sale-red": "#E02020",
+                        "on-tertiary-container": "#494741",
+                        "on-surface-variant": "#524534",
+                        "surface-container-low": "#f3f3f6",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#291800",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#ffddb4",
+                        "warm-gray": "#636B74",
+                        "primary-fixed-dim": "#ffb955",
+                        "surface-bright": "#f9f9fc",
+                        "tertiary-container": "#b9b6ae",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#dadadc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "12px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "32px",
+                        "section-gap": "80px",
+                        "margin-mobile": "16px",
+                        "stack-md": "16px",
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "stack-sm": "8px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Public Sans"],
+                        "body-lg": ["Public Sans"],
+                        "display-lg": ["Public Sans"],
+                        "body-sm": ["Public Sans"],
+                        "headline-lg-mobile": ["Public Sans"],
+                        "label-caps": ["Public Sans"],
+                        "price-display": ["Public Sans"],
+                        "headline-lg": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "price-display": ["20px", {"lineHeight": "24px", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-lg overflow-x-hidden">
+<!-- TopNavBar: Sticky Mobile Shell -->
+<header class="bg-surface/80 dark:bg-surface-container-highest/80 backdrop-blur-md shadow-sm fixed top-0 left-0 right-0 z-[60] h-16 flex items-center px-margin-mobile">
+<div class="flex justify-between items-center w-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">menu</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">Sabari Krishna</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant">search</button>
+<div class="relative">
+<span class="material-symbols-outlined text-on-surface-variant">shopping_cart</span>
+<span class="absolute -top-1 -right-1 bg-secondary text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">2</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Toolbar: Sticky Filter/Sort -->
+<nav class="fixed top-16 left-0 right-0 z-50 bg-surface border-b border-border-subtle">
+<div class="flex w-full h-12">
+<button class="flex-1 flex items-center justify-center gap-2 text-body-sm font-bold border-r border-border-subtle hover:bg-surface-container-low transition-colors" onclick="openBottomSheet('sort-sheet')">
+<span class="material-symbols-outlined text-[18px]">sort</span>
+                Sort
+            </button>
+<button class="flex-1 flex items-center justify-center gap-2 text-body-sm font-bold hover:bg-surface-container-low transition-colors" onclick="openBottomSheet('filter-sheet')">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                Filter
+            </button>
+</div>
+<!-- Horizontal Category Pills -->
+<div class="flex gap-2 overflow-x-auto no-scrollbar px-margin-mobile py-3">
+<span class="bg-primary-container text-on-primary-container px-4 py-1.5 rounded-full text-body-sm font-bold whitespace-nowrap">All Ghee</span>
+<span class="bg-surface-container text-on-surface-variant px-4 py-1.5 rounded-full text-body-sm whitespace-nowrap">Pure Cow Ghee</span>
+<span class="bg-surface-container text-on-surface-variant px-4 py-1.5 rounded-full text-body-sm whitespace-nowrap">A2 Vedic Ghee</span>
+<span class="bg-surface-container text-on-surface-variant px-4 py-1.5 rounded-full text-body-sm whitespace-nowrap">Refined Oils</span>
+<span class="bg-surface-container text-on-surface-variant px-4 py-1.5 rounded-full text-body-sm whitespace-nowrap">Cold Pressed</span>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="mt-40 mb-20 px-margin-mobile">
+<!-- Header Info -->
+<div class="mb-6">
+<p class="text-on-surface-variant text-body-sm mb-1">Showing results for</p>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Premium Ghee <span class="text-on-surface-variant font-normal">(24 Items)</span></h2>
+</div>
+<!-- 2-Column Responsive Product Grid -->
+<div class="grid grid-cols-2 gap-4" id="product-grid">
+<!-- Product Card 1 -->
+<div class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col group border border-transparent hover:border-primary/20 transition-all active:scale-95">
+<div class="relative bg-white pt-[100%]">
+<div class="absolute top-2 left-2 z-10">
+<span class="bg-sale-red text-white text-[10px] font-label-caps px-2 py-0.5 rounded-sm">15% OFF</span>
+</div>
+<img alt="Pure Cow Ghee 1L Pack" class="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/AP1WRLtiuXBmfvuOTmtXBTA4CKw9LtVg9KP2EmKkRCCmJytm1XKAaWm0nq02SsgqvKmPG_kj-gTm3sYF6rwcP73BueHaOqrHewf1c_yJIvuE3zHemP05ADiHObZ6r9qM3snv2dHaAQJg6GhhlSU9Mtog0IhGCDJMMa-MwXV3Bg0GT2UGfB946B7uaEC409LLIi6QOdQ5WyOOxJR2Vfo97exsPciqrN3XRcbPNagw2nRTnOivwicte7B8ZABT9iJE"/>
+</div>
+<div class="p-3 flex flex-col flex-grow">
+<div class="flex items-center gap-1 mb-1">
+<span class="material-symbols-outlined text-[14px] text-primary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[12px] font-bold text-on-surface">4.8</span>
+<span class="text-[12px] text-on-surface-variant">(1.2k)</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface leading-tight mb-2 line-clamp-2">Pure Cow Ghee Premium - 1 Litre</h3>
+<div class="mt-auto">
+<div class="flex items-baseline gap-1.5 mb-2">
+<span class="text-price-green font-price-display text-price-display">₹649</span>
+<span class="text-on-surface-variant text-[12px] line-through">₹765</span>
+</div>
+<button class="w-full bg-secondary text-white py-2 rounded-lg text-body-sm font-bold flex items-center justify-center gap-1 active:opacity-90 ripple-effect">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                            ADD
+                        </button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col group border border-transparent hover:border-primary/20 transition-all active:scale-95">
+<div class="relative bg-white pt-[100%]">
+<img alt="Pure Cow Ghee 500ml Pack" class="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/AP1WRLvc9jVoJWCC5xBaL7PQq196mUiPleGDXeBxyzgjuzfc6PKwlCOAWaVFAjVtnu8oI7Pqmm0xI_vwIQkG3DIGpK7wYaDvxx_kHhDnEc7yfmF7Wll15KdDMaikhMLae3W_RLROLPtMXn9dHDIXtkI7D8sPsD0ie5_DBWS3pSxBX1_zy_lhwfiCfELHpgVyAIYcYjAUu0bhfPYpTv41M-hTwElFIeuEOhOfI2ocF5OjQolqnKgpf-7tFQK9UlM"/>
+</div>
+<div class="p-3 flex flex-col flex-grow">
+<div class="flex items-center gap-1 mb-1">
+<span class="material-symbols-outlined text-[14px] text-primary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[12px] font-bold text-on-surface">4.9</span>
+<span class="text-[12px] text-on-surface-variant">(856)</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface leading-tight mb-2 line-clamp-2">Pure Cow Ghee Premium - 500 ML</h3>
+<div class="mt-auto">
+<div class="flex items-baseline gap-1.5 mb-2">
+<span class="text-price-green font-price-display text-price-display">₹340</span>
+<span class="text-on-surface-variant text-[12px] line-through">₹399</span>
+</div>
+<button class="w-full bg-secondary text-white py-2 rounded-lg text-body-sm font-bold flex items-center justify-center gap-1 active:opacity-90 ripple-effect">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                            ADD
+                        </button>
+</div>
+</div>
+</div>
+<!-- Repeated for Grid feel -->
+<!-- Product Card 3 -->
+<div class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col group active:scale-95 transition-all">
+<div class="relative bg-white pt-[100%]">
+<img alt="Pure Cow Ghee" class="absolute inset-0 w-full h-full object-contain p-4" src="https://lh3.googleusercontent.com/aida/AP1WRLtiuXBmfvuOTmtXBTA4CKw9LtVg9KP2EmKkRCCmJytm1XKAaWm0nq02SsgqvKmPG_kj-gTm3sYF6rwcP73BueHaOqrHewf1c_yJIvuE3zHemP05ADiHObZ6r9qM3snv2dHaAQJg6GhhlSU9Mtog0IhGCDJMMa-MwXV3Bg0GT2UGfB946B7uaEC409LLIi6QOdQ5WyOOxJR2Vfo97exsPciqrN3XRcbPNagw2nRTnOivwicte7B8ZABT9iJE"/>
+</div>
+<div class="p-3 flex flex-col flex-grow">
+<div class="flex items-center gap-1 mb-1">
+<span class="material-symbols-outlined text-[14px] text-primary-container" style="font-variation-settings: 'FILL' 1;">star_half</span>
+<span class="text-[12px] font-bold text-on-surface">4.5</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2 line-clamp-2">Heritage Special Ghee - 1L</h3>
+<div class="mt-auto">
+<div class="flex items-baseline gap-1.5 mb-2">
+<span class="text-price-green font-price-display text-price-display">₹680</span>
+</div>
+<button class="w-full bg-secondary text-white py-2 rounded-lg text-body-sm font-bold flex items-center justify-center gap-1 active:opacity-90 ripple-effect">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                            ADD
+                        </button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col group active:scale-95 transition-all">
+<div class="relative bg-white pt-[100%]">
+<div class="absolute top-2 left-2 z-10">
+<span class="bg-on-secondary-container text-white text-[10px] font-label-caps px-2 py-0.5 rounded-sm">NEW</span>
+</div>
+<img alt="A2 Cow Ghee" class="absolute inset-0 w-full h-full object-contain p-4" src="https://lh3.googleusercontent.com/aida/AP1WRLvc9jVoJWCC5xBaL7PQq196mUiPleGDXeBxyzgjuzfc6PKwlCOAWaVFAjVtnu8oI7Pqmm0xI_vwIQkG3DIGpK7wYaDvxx_kHhDnEc7yfmF7Wll15KdDMaikhMLae3W_RLROLPtMXn9dHDIXtkI7D8sPsD0ie5_DBWS3pSxBX1_zy_lhwfiCfELHpgVyAIYcYjAUu0bhfPYpTv41M-hTwElFIeuEOhOfI2ocF5OjQolqnKgpf-7tFQK9UlM"/>
+</div>
+<div class="p-3 flex flex-col flex-grow">
+<div class="flex items-center gap-1 mb-1">
+<span class="material-symbols-outlined text-[14px] text-primary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[12px] font-bold text-on-surface">5.0</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-2 line-clamp-2">Organic A2 Desi Ghee - 500ML</h3>
+<div class="mt-auto">
+<div class="flex items-baseline gap-1.5 mb-2">
+<span class="text-price-green font-price-display text-price-display">₹499</span>
+</div>
+<button class="w-full bg-secondary text-white py-2 rounded-lg text-body-sm font-bold flex items-center justify-center gap-1 active:opacity-90 ripple-effect">
+<span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                            ADD
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Infinite Scroll Loader -->
+<div class="flex flex-col items-center justify-center py-stack-lg" id="loader">
+<div class="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin mb-2"></div>
+<p class="text-on-surface-variant text-body-sm font-medium">Brewing more fresh items...</p>
+</div>
+</main>
+<!-- Bottom Sheets / Modals -->
+<!-- Sort Sheet -->
+<div class="fixed inset-0 z-[100] hidden" id="sort-sheet">
+<div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeBottomSheet('sort-sheet')"></div>
+<div class="absolute bottom-0 left-0 right-0 bg-surface rounded-t-[24px] p-stack-md transition-transform translate-y-full animate-slide-up">
+<div class="w-12 h-1.5 bg-surface-container-highest rounded-full mx-auto mb-6"></div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-4">Sort By</h3>
+<div class="flex flex-col gap-2">
+<label class="flex items-center justify-between p-4 bg-surface-container-low rounded-xl">
+<span class="text-body-lg font-bold">Relevance</span>
+<input checked="" class="text-primary focus:ring-primary h-5 w-5" name="sort" type="radio"/>
+</label>
+<label class="flex items-center justify-between p-4 rounded-xl">
+<span class="text-body-lg">Price: Low to High</span>
+<input class="text-primary focus:ring-primary h-5 w-5" name="sort" type="radio"/>
+</label>
+<label class="flex items-center justify-between p-4 rounded-xl">
+<span class="text-body-lg">Price: High to Low</span>
+<input class="text-primary focus:ring-primary h-5 w-5" name="sort" type="radio"/>
+</label>
+<label class="flex items-center justify-between p-4 rounded-xl">
+<span class="text-body-lg">Customer Rating</span>
+<input class="text-primary focus:ring-primary h-5 w-5" name="sort" type="radio"/>
+</label>
+</div>
+<button class="w-full bg-primary text-white py-4 rounded-xl font-bold mt-6" onclick="closeBottomSheet('sort-sheet')">Apply Selection</button>
+</div>
+</div>
+<!-- Filter Sheet -->
+<div class="fixed inset-0 z-[100] hidden" id="filter-sheet">
+<div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeBottomSheet('filter-sheet')"></div>
+<div class="absolute bottom-0 left-0 right-0 bg-surface h-[80vh] rounded-t-[24px] flex flex-col">
+<div class="p-stack-md border-b border-border-subtle flex items-center justify-between">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile">Filters</h3>
+<button class="material-symbols-outlined" onclick="closeBottomSheet('filter-sheet')">close</button>
+</div>
+<div class="flex-grow overflow-y-auto p-stack-md">
+<div class="mb-6">
+<h4 class="font-title-md mb-3">Pack Size</h4>
+<div class="flex flex-wrap gap-2">
+<button class="border border-outline px-4 py-2 rounded-lg text-body-sm active:bg-primary-fixed">100ml</button>
+<button class="border border-primary bg-primary-fixed/30 px-4 py-2 rounded-lg text-body-sm font-bold">500ml</button>
+<button class="border border-primary bg-primary-fixed/30 px-4 py-2 rounded-lg text-body-sm font-bold">1 Litre</button>
+<button class="border border-outline px-4 py-2 rounded-lg text-body-sm">2 Litres</button>
+<button class="border border-outline px-4 py-2 rounded-lg text-body-sm">5 Litres</button>
+</div>
+</div>
+<div class="mb-6">
+<h4 class="font-title-md mb-3">Brand</h4>
+<div class="space-y-3">
+<label class="flex items-center gap-3">
+<input checked="" class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-body-lg">Sabari Krishna</span>
+</label>
+<label class="flex items-center gap-3">
+<input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-body-lg">Heritage Series</span>
+</label>
+<label class="flex items-center gap-3">
+<input class="rounded border-outline text-primary focus:ring-primary" type="checkbox"/>
+<span class="text-body-lg">Organic Selections</span>
+</label>
+</div>
+</div>
+</div>
+<div class="p-stack-md border-t border-border-subtle flex gap-4">
+<button class="flex-1 border border-outline py-4 rounded-xl font-bold">Clear All</button>
+<button class="flex-1 bg-primary text-white py-4 rounded-xl font-bold" onclick="closeBottomSheet('filter-sheet')">Show 24 Items</button>
+</div>
+</div>
+</div>
+<!-- Footer: Simplified for Mobile Context -->
+<footer class="bg-surface-container-lowest border-t border-border-subtle pb-stack-lg pt-6 px-margin-mobile">
+<div class="flex flex-col gap-4 items-center text-center">
+<h2 class="font-headline-lg text-primary">Sabari Krishna</h2>
+<div class="flex gap-4 text-body-sm text-on-surface-variant flex-wrap justify-center">
+<a href="#">About Us</a>
+<a href="#">Privacy Policy</a>
+<a href="#">Terms</a>
+<a href="#">Contact</a>
+</div>
+<p class="text-[10px] text-on-surface-variant/70 mt-4 leading-relaxed max-w-xs">
+                © 2024 Sabari Krishna Consumables India Private Limited. CIN: U15400TN2022PTC154321. FSSAI Lic. No. 12422999000432
+            </p>
+</div>
+</footer>
+<!-- Bottom Navigation Bar: Mandatory for top-level destination mobile -->
+<nav class="fixed bottom-0 left-0 right-0 z-[60] bg-surface/90 backdrop-blur-md shadow-[0_-2px_10px_rgba(0,0,0,0.05)] border-t border-surface-container flex items-center justify-around h-16 md:hidden">
+<button class="flex flex-col items-center justify-center gap-1 text-primary">
+<span class="material-symbols-outlined active-pill">home</span>
+<span class="text-[10px] font-bold">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-[10px]">Categories</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="text-[10px]">Orders</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px]">Profile</span>
+</button>
+</nav>
+<script>
+        // Bottom Sheet Logic
+        function openBottomSheet(id) {
+            const sheet = document.getElementById(id);
+            sheet.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+            const content = sheet.querySelector('.absolute.bottom-0');
+            setTimeout(() => {
+                content.classList.remove('translate-y-full');
+                content.classList.add('translate-y-0');
+            }, 10);
+        }
+
+        function closeBottomSheet(id) {
+            const sheet = document.getElementById(id);
+            const content = sheet.querySelector('.absolute.bottom-0');
+            content.classList.add('translate-y-full');
+            content.classList.remove('translate-y-0');
+            setTimeout(() => {
+                sheet.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }, 300);
+        }
+
+        // Infinite Scroll Simulation
+        let page = 1;
+        window.onscroll = function(ev) {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
+                // Mimic loading
+                if(page < 5) {
+                    page++;
+                    appendProducts();
+                } else {
+                    document.getElementById('loader').innerHTML = '<p class="text-on-surface-variant text-body-sm italic">You\'ve reached the end of the harvest!</p>';
+                }
+            }
+        };
+
+        function appendProducts() {
+            const grid = document.getElementById('product-grid');
+            const templates = [
+                { title: 'Pure Cow Ghee - 200 ML', price: '₹145', oldPrice: '₹165', img: 'https://lh3.googleusercontent.com/aida/AP1WRLvc9jVoJWCC5xBaL7PQq196mUiPleGDXeBxyzgjuzfc6PKwlCOAWaVFAjVtnu8oI7Pqmm0xI_vwIQkG3DIGpK7wYaDvxx_kHhDnEc7yfmF7Wll15KdDMaikhMLae3W_RLROLPtMXn9dHDIXtkI7D8sPsD0ie5_DBWS3pSxBX1_zy_lhwfiCfELHpgVyAIYcYjAUu0bhfPYpTv41M-hTwElFIeuEOhOfI2ocF5OjQolqnKgpf-7tFQK9UlM' },
+                { title: 'Signature Heritage Ghee - 1L', price: '₹720', oldPrice: '', img: 'https://lh3.googleusercontent.com/aida/AP1WRLtiuXBmfvuOTmtXBTA4CKw9LtVg9KP2EmKkRCCmJytm1XKAaWm0nq02SsgqvKmPG_kj-gTm3sYF6rwcP73BueHaOqrHewf1c_yJIvuE3zHemP05ADiHObZ6r9qM3snv2dHaAQJg6GhhlSU9Mtog0IhGCDJMMa-MwXV3Bg0GT2UGfB946B7uaEC409LLIi6QOdQ5WyOOxJR2Vfo97exsPciqrN3XRcbPNagw2nRTnOivwicte7B8ZABT9iJE' }
+            ];
+            
+            templates.forEach(prod => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl shadow-md overflow-hidden flex flex-col group active:scale-95 transition-all opacity-0 translate-y-4";
+                card.innerHTML = `
+                    <div class="relative bg-white pt-[100%]">
+                        <img src="${prod.img}" class="absolute inset-0 w-full h-full object-contain p-4" alt="${prod.title}">
+                    </div>
+                    <div class="p-3 flex flex-col flex-grow">
+                        <div class="flex items-center gap-1 mb-1">
+                            <span class="material-symbols-outlined text-[14px] text-primary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+                            <span class="text-[12px] font-bold text-on-surface">4.7</span>
+                        </div>
+                        <h3 class="font-title-md text-title-md text-on-surface mb-2 line-clamp-2">${prod.title}</h3>
+                        <div class="mt-auto">
+                            <div class="flex items-baseline gap-1.5 mb-2">
+                                <span class="text-price-green font-price-display text-price-display">${prod.price}</span>
+                                ${prod.oldPrice ? `<span class="text-on-surface-variant text-[12px] line-through">${prod.oldPrice}</span>` : ''}
+                            </div>
+                            <button class="w-full bg-secondary text-white py-2 rounded-lg text-body-sm font-bold flex items-center justify-center gap-1 ripple-effect">
+                                <span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                                ADD
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+                // Trigger entry animation
+                setTimeout(() => {
+                    card.classList.remove('opacity-0', 'translate-y-4');
+                    card.classList.add('opacity-100', 'translate-y-0');
+                }, 50);
+            });
+        }
+    </script>
+<style>
+        @keyframes slide-up {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .animate-slide-up {
+            animation: slide-up 0.3s ease-out;
+        }
+    </style>
+</body></html>

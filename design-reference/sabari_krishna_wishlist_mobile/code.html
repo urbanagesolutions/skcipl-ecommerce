@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Wishlist - Sabari Krishna</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "sale-red": "#E02020",
+                        "on-tertiary-fixed": "#1c1c17",
+                        "on-primary-container": "#644000",
+                        "secondary-fixed-dim": "#75dc88",
+                        "surface-tint": "#835500",
+                        "on-surface": "#1a1c1e",
+                        "on-secondary-fixed": "#002109",
+                        "surface-variant": "#e2e2e5",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#ffddb4",
+                        "on-tertiary-fixed-variant": "#484741",
+                        "secondary-fixed": "#91f9a2",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#f9f9fc",
+                        "inverse-on-surface": "#f0f0f3",
+                        "surface-container-highest": "#e2e2e5",
+                        "surface-container": "#eeeef0",
+                        "on-background": "#1a1c1e",
+                        "surface-container-high": "#e8e8ea",
+                        "on-primary-fixed": "#291800",
+                        "border-subtle": "#E5E7EB",
+                        "tertiary-container": "#b9b6ae",
+                        "on-tertiary": "#ffffff",
+                        "price-green": "#1D8B42",
+                        "outline": "#857462",
+                        "tertiary-fixed": "#e6e2d9",
+                        "surface-dim": "#dadadc",
+                        "secondary-container": "#91f9a2",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#ffb955",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#2f3133",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#c9c6be",
+                        "secondary": "#006e2f",
+                        "on-tertiary-container": "#494741",
+                        "warm-gray": "#636B74",
+                        "outline-variant": "#d7c3ae",
+                        "surface-container-low": "#f3f3f6",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#605e58",
+                        "on-primary-fixed-variant": "#633f00",
+                        "on-secondary-fixed-variant": "#005321",
+                        "primary-container": "#f5a623",
+                        "on-surface-variant": "#524534",
+                        "primary": "#835500",
+                        "primary-fixed-dim": "#ffb955",
+                        "on-secondary-container": "#007432",
+                        "background": "#FDF9F0",
+                        "surface": "#FDF9F0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "section-gap": "80px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Public Sans"],
+                        "price-display": ["Public Sans"],
+                        "title-md": ["Public Sans"],
+                        "label-caps": ["Public Sans"],
+                        "body-lg": ["Public Sans"],
+                        "headline-lg-mobile": ["Public Sans"],
+                        "body-sm": ["Public Sans"],
+                        "headline-lg": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "price-display": ["20px", {"lineHeight": "24px", "fontWeight": "700"}],
+                        "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #FDF9F0;
+            color: #1a1c1e;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .product-card-shadow {
+            box-shadow: 0px 4px 20px rgba(26, 28, 30, 0.15);
+        }
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="font-body-lg text-body-lg">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm">
+<div class="flex items-center justify-between px-margin-mobile h-16 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="account_circle">account_circle</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Sabari Krishna</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high/50 transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 pb-32 px-margin-mobile min-h-screen">
+<!-- Wishlist Header -->
+<div class="mb-stack-lg">
+<div class="flex items-baseline justify-between">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Your Wishlist</h2>
+<span class="font-body-sm text-body-sm text-warm-gray">6 Items</span>
+</div>
+<p class="font-body-sm text-body-sm text-warm-gray mt-1">Saved for your next healthy meal.</p>
+</div>
+<!-- Product Grid (2 Columns) -->
+<div class="grid grid-cols-2 gap-gutter">
+<!-- Product Card 1 -->
+<div class="product-card-shadow bg-surface-container-lowest rounded-xl overflow-hidden relative flex flex-col group">
+<button class="absolute top-2 right-2 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-lowest shadow-sm text-warm-gray active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[18px]" data-icon="close">close</span>
+</button>
+<div class="aspect-square bg-white p-4 relative">
+<span class="absolute top-2 left-2 bg-sale-red text-white font-label-caps text-label-caps px-2 py-1 rounded-sm z-10">SALE</span>
+<img class="w-full h-full object-contain" data-alt="High-quality professional studio photography of organic Hass avocados on a pristine white background. The lighting is soft and diffused, emphasizing the bumpy dark green texture of the skin. The overall aesthetic is clean, fresh, and premium, aligned with a modern health-focused quick commerce brand. Minimalist composition with a light-mode color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZadfBl1lo9f1r-Cf4xI85zByQiYbT9eBVjva9xEiv98S0DB-P_tEbysMsEp39kveW5hfYd-mzwd18A_T_vOvt9TRhbq2GkZQtgmD_Ma_g3mwdGIPye2slmvsjj3tVMOw0xRqMy3t9OahR9Aa7jBt81x9SF9FlYC0XnF_hSYHfuBA6COlmMerdPtGH9AB7JcXsnsMOlKv8oKUSx5q3FBBk1HRXirzJ4OASCsQoD4uRn5vocODdMJwQ7w"/>
+</div>
+<div class="p-3 flex flex-col flex-grow">
+<span class="font-label-caps text-label-caps text-warm-gray mb-1">ORGANIC</span>
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-1">Hass Avocado</h3>
+<div class="mt-stack-sm flex items-baseline gap-2">
+<span class="font-price-display text-price-display text-price-green">₹149</span>
+<span class="font-body-sm text-body-sm text-warm-gray line-through">₹199</span>
+</div>
+<button class="mt-4 w-full py-2 bg-secondary text-on-secondary rounded-lg font-title-md text-sm transition-transform active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="shopping_cart">shopping_cart</span>
+                        Move to Cart
+                    </button>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="product-card-shadow bg-surface-container-lowest rounded-xl overflow-hidden relative flex flex-col">
+<button class="absolute top-2 right-2 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-lowest shadow-sm text-warm-gray active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[18px]" data-icon="close">close</span>
+</button>
+<div class="aspect-square bg-white p-4">
+<img class="w-full h-full object-contain" data-alt="A premium bottle of cold-pressed extra virgin olive oil with a minimalist label, set against a bright, clean white background. The bottle is clear glass, showing the rich golden-green liquid. The lighting highlights the clarity and purity of the oil. This shot is intended for a high-end food delivery app, emphasizing quality and hygiene." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvEQVzlbUVBI3whsgt_5cSu346SwlKGqnBr6gPqhNNogTJfvH6aE4CC3Jo2GZfg72y0aqbAQEASyinksoCPkQSWULlhtKQ_45wo9_jFPqMy-uCsNdnUKImtt2BMNzQNgkWAGz4PHlwExKaXq8sNyfl0O0MzTiduFFW8cgIYaXiQAhSqTauC3cz9yMeTxg357637VmNgPg4Y7Phh6rF0nDLUVlfUpK5kL-8m25GR9jEcdwanNgIqg2WpQ"/>
+</div>
+<div class="p-3 flex flex-col flex-grow">
+<span class="font-label-caps text-label-caps text-warm-gray mb-1">COLD PRESSED</span>
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-1">Extra Virgin Olive Oil</h3>
+<div class="mt-stack-sm">
+<span class="font-price-display text-price-display text-price-green">₹899</span>
+</div>
+<button class="mt-4 w-full py-2 bg-secondary text-on-secondary rounded-lg font-title-md text-sm transition-transform active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="shopping_cart">shopping_cart</span>
+                        Move to Cart
+                    </button>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="product-card-shadow bg-surface-container-lowest rounded-xl overflow-hidden relative flex flex-col">
+<button class="absolute top-2 right-2 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-lowest shadow-sm text-warm-gray active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[18px]" data-icon="close">close</span>
+</button>
+<div class="aspect-square bg-white p-4">
+<img class="w-full h-full object-contain" data-alt="Freshly harvested organic baby spinach leaves displayed artistically in a light white ceramic bowl. The leaves are vibrant green, crisp, and still have tiny water droplets on them to signify freshness. The background is a clean, bright white, highlighting the natural color of the greens. High-end food photography style with soft natural lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjSwbV6OZZ__WNm0PY3D60E23QRPRWZlmWg9UmqEypiOND_VpYq6D2iCR5qLbx3j8W7DCGSVG6BBsY1i-g6WOdFT7mxYCtrOuaMyLdStufaoVHBhAMKZoMRrQYmWmoyBI_nk2nNwwHXB9ZzbYU1NMCrd_o4f-QZ3xvqtne6j8P4Zzew0TGst39jcaS750fGEk0n0EPtdsZ36oHpKr65nXfb9KEiVfnyRZsnZCc5xjc43mXRY0DF6UWHw"/>
+</div>
+<div class="p-3 flex flex-col flex-grow">
+<span class="font-label-caps text-label-caps text-warm-gray mb-1">HYDROPONIC</span>
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-1">Baby Spinach 250g</h3>
+<div class="mt-stack-sm">
+<span class="font-price-display text-price-display text-price-green">₹55</span>
+</div>
+<button class="mt-4 w-full py-2 bg-secondary text-on-secondary rounded-lg font-title-md text-sm transition-transform active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="shopping_cart">shopping_cart</span>
+                        Move to Cart
+                    </button>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="product-card-shadow bg-surface-container-lowest rounded-xl overflow-hidden relative flex flex-col">
+<button class="absolute top-2 right-2 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-surface-container-lowest shadow-sm text-warm-gray active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[18px]" data-icon="close">close</span>
+</button>
+<div class="aspect-square bg-white p-4 relative">
+<span class="absolute top-2 left-2 bg-sale-red text-white font-label-caps text-label-caps px-2 py-1 rounded-sm z-10">20% OFF</span>
+<img class="w-full h-full object-contain" data-alt="A punnet of ripe, bright red organic strawberries with fresh green stems, photographed in high definition on a pure white background. The lighting is crisp and bright, making the fruit look juicy and delicious. The style is modern commerce photography, focusing on freshness and organic quality. Colors are vibrant and saturated." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUaDsOiAUpKrk-Aa-X8egf0zidYaw8Oj_2cfywj6faR5NqGFYiub_62J22iQHfayzChTKNPnIMlbNUMCboCG0TPOcLfA3qDKLMdPaSDtAxDzQvwu5wwirBHve7bWpGxNlsGN3icaU3Vo8Sc4o9wguWn9c23qvnxf1AYd4idFtgBObsyRZ4d2kneaiIelfuNZvC7DJWScc9ygK6EQX8zQ_FujhMS1GoM0Fx57CStMpC-UqO9A598P8dNw"/>
+</div>
+<div class="p-3 flex flex-col flex-grow">
+<span class="font-label-caps text-label-caps text-warm-gray mb-1">BERRIES</span>
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-1">Fresh Strawberries</h3>
+<div class="mt-stack-sm flex items-baseline gap-2">
+<span class="font-price-display text-price-display text-price-green">₹160</span>
+<span class="font-body-sm text-body-sm text-warm-gray line-through">₹200</span>
+</div>
+<button class="mt-4 w-full py-2 bg-secondary text-on-secondary rounded-lg font-title-md text-sm transition-transform active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="shopping_cart">shopping_cart</span>
+                        Move to Cart
+                    </button>
+</div>
+</div>
+</div>
+<!-- Atmospheric Background Element -->
+<div class="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none opacity-40">
+
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface border-t border-border-subtle dark:border-outline-variant shadow-lg safe-area-bottom">
+<div class="flex justify-around items-center h-16 px-margin-mobile">
+<!-- Home -->
+<a class="flex flex-col items-center justify-center text-warm-gray dark:text-on-tertiary-fixed-variant hover:opacity-80 transition-opacity active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</a>
+<!-- Orders -->
+<a class="flex flex-col items-center justify-center text-warm-gray dark:text-on-tertiary-fixed-variant hover:opacity-80 transition-opacity active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="package_2">package_2</span>
+<span class="font-label-caps text-label-caps">Orders</span>
+</a>
+<!-- Wishlist (Active) -->
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim font-bold active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="font-label-caps text-label-caps">Wishlist</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-warm-gray dark:text-on-tertiary-fixed-variant hover:opacity-80 transition-opacity active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</a>
+</div>
+</nav>
+<script>
+        // Micro-interactions: Handle product removal
+        document.querySelectorAll('.product-card-shadow button:first-child').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const card = e.target.closest('.product-card-shadow');
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.9)';
+                card.style.transition = 'all 0.3s ease-in-out';
+                setTimeout(() => {
+                    card.style.display = 'none';
+                    // Update count (demo purposes)
+                    const countEl = document.querySelector('.font-body-sm.text-warm-gray');
+                    if (countEl) {
+                        const current = parseInt(countEl.textContent);
+                        if (!isNaN(current)) countEl.textContent = `${current - 1} Items`;
+                    }
+                }, 300);
+            });
+        });
+
+        // Cart Interaction
+        document.querySelectorAll('button:has(span[data-icon="shopping_cart"])').forEach(button => {
+            button.addEventListener('click', function() {
+                const originalContent = this.innerHTML;
+                this.style.backgroundColor = '#1D8B42'; // Price Green feedback
+                this.innerHTML = '<span class="material-symbols-outlined text-[18px]">check_circle</span> Added';
+                setTimeout(() => {
+                    this.style.backgroundColor = '';
+                    this.innerHTML = originalContent;
+                }, 1500);
+            });
+        });
+    </script>
+</body></html>

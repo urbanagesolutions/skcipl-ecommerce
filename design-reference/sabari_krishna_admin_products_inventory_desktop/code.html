@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Products & Inventory | FMCG Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#605e58",
+                        "on-tertiary-fixed": "#1c1c17",
+                        "on-tertiary-container": "#494741",
+                        "error-container": "#ffdad6",
+                        "warm-gray": "#636B74",
+                        "border-subtle": "#E5E7EB",
+                        "on-primary-container": "#644000",
+                        "secondary-container": "#91f9a2",
+                        "tertiary-fixed": "#e6e2d9",
+                        "on-secondary-fixed": "#002109",
+                        "inverse-on-surface": "#f0f0f3",
+                        "outline-variant": "#d7c3ae",
+                        "surface-tint": "#835500",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1a1c1e",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#007432",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#1a1c1e",
+                        "on-secondary-fixed-variant": "#005321",
+                        "on-primary-fixed-variant": "#633f00",
+                        "primary-fixed-dim": "#ffb955",
+                        "secondary-fixed-dim": "#75dc88",
+                        "surface-dim": "#dadadc",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f3f3f6",
+                        "background": "#f9f9fc",
+                        "primary": "#835500",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#c9c6be",
+                        "primary-container": "#f5a623",
+                        "on-error": "#ffffff",
+                        "sale-red": "#E02020",
+                        "surface": "#f9f9fc",
+                        "surface-container-high": "#e8e8ea",
+                        "inverse-surface": "#2f3133",
+                        "surface-variant": "#e2e2e5",
+                        "on-primary-fixed": "#291800",
+                        "surface-container-highest": "#e2e2e5",
+                        "on-surface-variant": "#524534",
+                        "surface-bright": "#f9f9fc",
+                        "outline": "#857462",
+                        "tertiary-container": "#b9b6ae",
+                        "surface-container": "#eeeef0",
+                        "secondary": "#006e2f",
+                        "inverse-primary": "#ffb955",
+                        "secondary-fixed": "#91f9a2",
+                        "price-green": "#1D8B42",
+                        "on-tertiary-fixed-variant": "#484741",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#ffddb4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "80px",
+                        "stack-lg": "32px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Public Sans"],
+                        "body-sm": ["Public Sans"],
+                        "price-display": ["Public Sans"],
+                        "body-lg": ["Public Sans"],
+                        "title-md": ["Public Sans"],
+                        "headline-lg-mobile": ["Public Sans"],
+                        "display-lg": ["Public Sans"],
+                        "label-caps": ["Public Sans"]
+                    },
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Public Sans', sans-serif; background-color: #FDF9F0; }
+        .glass-nav { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .slide-over-enter { transform: translateX(100%); transition: transform 0.3s ease-out; }
+        .slide-over-active { transform: translateX(0); }
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface overflow-x-hidden">
+<!-- Side Navigation Bar -->
+<aside class="h-screen w-64 fixed left-0 top-0 overflow-y-auto bg-surface-container-lowest dark:bg-surface-dim shadow-sm flex flex-col border-r border-border-subtle dark:border-outline-variant z-50">
+<div class="p-6">
+<h1 class="font-title-md text-title-md font-bold text-primary dark:text-primary-fixed">FMCG Admin</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Management Suite</p>
+</div>
+<nav class="flex-1 px-4 space-y-1 mt-4">
+<!-- Active Tab: Products -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-lg font-semibold transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-body-sm">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="warehouse">warehouse</span>
+<span class="font-body-sm">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-body-sm">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-body-sm">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="campaign">campaign</span>
+<span class="font-body-sm">Marketing</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="sync">sync</span>
+<span class="font-body-sm">Marketplace Sync</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-body-sm">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="badge">badge</span>
+<span class="font-body-sm">Staff</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-sm">Settings</span>
+</a>
+</nav>
+<div class="p-4 mt-auto border-t border-border-subtle">
+<div class="flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold">JD</div>
+<div>
+<p class="text-body-sm font-bold">John Doe</p>
+<p class="text-[10px] uppercase text-warm-gray tracking-wider">Inventory Manager</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-40 flex justify-between items-center h-16 px-6 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-sm">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container border-none rounded-full text-body-sm focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search products, SKUs, or batches..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-sale-red rounded-full"></span>
+</button>
+<div class="h-8 w-px bg-border-subtle mx-2"></div>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-surface-container transition-colors group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary" data-icon="account_circle">account_circle</span>
+<span class="font-body-sm font-medium">Admin Profile</span>
+</button>
+</div>
+</header>
+<!-- Product Management Toolbar -->
+<div class="p-6 space-y-6">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Products & Inventory</h2>
+<p class="font-body-sm text-on-surface-variant">Manage your catalog, stock levels, and distribution across channels.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:bg-surface-tint shadow-sm transition-all" onclick="toggleSlideOver()">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+                        Add Product
+                    </button>
+<button class="bg-white border border-border-subtle text-on-surface-variant px-6 py-2.5 rounded-lg font-semibold flex items-center gap-2 hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[20px]" data-icon="upload_file">upload_file</span>
+                        Bulk CSV Upload
+                    </button>
+</div>
+</div>
+<!-- Filters -->
+<div class="flex flex-wrap items-center gap-4 bg-white p-4 rounded-xl border border-border-subtle shadow-sm">
+<div class="flex items-center gap-2">
+<label class="text-[12px] font-bold text-warm-gray uppercase tracking-widest">Category:</label>
+<select class="border-none bg-surface-container-low rounded-lg text-body-sm focus:ring-1 focus:ring-primary min-w-[150px]">
+<option>All Categories</option>
+<option>Dairy & Ghee</option>
+<option>Spices & Masala</option>
+<option>Organic Grains</option>
+<option>Beverages</option>
+</select>
+</div>
+<div class="flex items-center gap-2">
+<label class="text-[12px] font-bold text-warm-gray uppercase tracking-widest">Stock Level:</label>
+<select class="border-none bg-surface-container-low rounded-lg text-body-sm focus:ring-1 focus:ring-primary min-w-[150px]">
+<option>All Status</option>
+<option>In Stock</option>
+<option>Low Stock</option>
+<option>Out of Stock</option>
+</select>
+</div>
+<div class="flex items-center gap-2">
+<label class="text-[12px] font-bold text-warm-gray uppercase tracking-widest">Sort By:</label>
+<select class="border-none bg-surface-container-low rounded-lg text-body-sm focus:ring-1 focus:ring-primary min-w-[150px]">
+<option>Latest Added</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+<option>Alphabetical</option>
+</select>
+</div>
+<div class="ml-auto flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</div>
+</div>
+<!-- Product Table -->
+<div class="bg-white rounded-xl border border-border-subtle shadow-sm overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-lowest border-b border-border-subtle">
+<tr>
+<th class="px-6 py-4 text-[12px] font-bold text-warm-gray uppercase tracking-widest">Product</th>
+<th class="px-6 py-4 text-[12px] font-bold text-warm-gray uppercase tracking-widest">SKU</th>
+<th class="px-6 py-4 text-[12px] font-bold text-warm-gray uppercase tracking-widest">Category</th>
+<th class="px-6 py-4 text-[12px] font-bold text-warm-gray uppercase tracking-widest">Price</th>
+<th class="px-6 py-4 text-[12px] font-bold text-warm-gray uppercase tracking-widest">Stock</th>
+<th class="px-6 py-4 text-[12px] font-bold text-warm-gray uppercase tracking-widest">Expiry</th>
+<th class="px-6 py-4 text-[12px] font-bold text-warm-gray uppercase tracking-widest">Status</th>
+<th class="px-6 py-4 text-[12px] font-bold text-warm-gray uppercase tracking-widest text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle">
+<!-- Product Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden border border-border-subtle flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A premium high-resolution commercial photograph of a traditional glass jar filled with golden, clarified butter or ghee. The jar sits on a rustic wooden table with soft natural kitchen lighting. The scene is clean, organic, and represents high-quality FMCG food products in a modern minimalist style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCn2Maq9jzdSPX9LYQQgN8QRuKlgmkOZZLLvTCR5V4-nRDrUFFUOeEDALzV89fo4_aaZKnkYoyyAN4oBucq7-GxOQsY2Uw1zCYa7qHdDtWGQphSDz-wFGoYl1h9FL5gN_UFy6BwEye1Q6VFsIOg9k8jBk17V929LKmsZXjyRdpDtDAGcYmpkzTzOneccQR_OpK-_uZ_VzDIiA6PjxvpCOoRmUmZ1zptFDhyGPcRKaseC5O-xPySKAO_6Q"/>
+</div>
+<div>
+<p class="font-body-lg font-semibold text-on-surface">Traditional Curd Ghee</p>
+<p class="text-[12px] text-warm-gray">Batch: GHE-FEB-24-09</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-body-sm text-on-surface-variant font-medium">SK-GHE-001</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-tertiary-fixed text-on-tertiary-fixed text-[11px] font-bold rounded uppercase tracking-wider">Dairy & Ghee</span>
+</td>
+<td class="px-6 py-4 font-body-sm font-bold text-on-surface">₹725.00</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="font-body-sm font-semibold">450</span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+</td>
+<td class="px-6 py-4 font-body-sm text-on-surface-variant">Oct 2025</td>
+<td class="px-6 py-4">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-primary/10 text-on-surface-variant hover:text-primary rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 hover:bg-error/10 text-on-surface-variant hover:text-error rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Product Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden border border-border-subtle flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A vibrant professional studio shot of a sealed pouch of organic turmeric powder. The bright orange-yellow powder is partially visible through a transparent window in the craft-paper packaging. The lighting is crisp and highlights the natural texture of the spice. The aesthetic is healthy, eco-friendly, and premium." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCESP9GYl5WJEeFd2KI7aeK1dkEN22wQD5T7Xhb923g2MZ6l076qWUoqpG-DpFuR9yAFkMCzCjGn0T2dJPwpGHMnvEdt8Xo-K8t-xVZXAdacqIs05Ztr2WSfW49tAV0FzYhhrQgESOQ2cdB-9q-C5i9jsH1ZVCkAALnf65AwBDMq00IUfZIXV1xMi7S33M67cf73DnEyWUm-uU6rC_VeRPAezT4jaXx80Lwxf_H5HKw4ZGtJ6_z33z4-A"/>
+</div>
+<div>
+<p class="font-body-lg font-semibold text-on-surface">Organic Turmeric</p>
+<p class="text-[12px] text-warm-gray">Batch: TRM-MAR-24-01</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-body-sm text-on-surface-variant font-medium">SK-TRM-042</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-tertiary-fixed text-on-tertiary-fixed text-[11px] font-bold rounded uppercase tracking-wider">Spices</span>
+</td>
+<td class="px-6 py-4 font-body-sm font-bold text-on-surface">₹145.00</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="font-body-sm font-semibold text-sale-red">12</span>
+<span class="w-2 h-2 rounded-full bg-sale-red animate-pulse"></span>
+</div>
+</td>
+<td class="px-6 py-4 font-body-sm text-on-surface-variant">Jan 2025</td>
+<td class="px-6 py-4">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-primary/10 text-on-surface-variant hover:text-primary rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 hover:bg-error/10 text-on-surface-variant hover:text-error rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Product Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden border border-border-subtle flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close up commercial photography of premium basmati rice grains in a burlap sack. The long slender grains are pearly white and high quality. The background is a clean white kitchen environment with soft morning light. The image conveys purity, nourishment, and bulk-commerce reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWIuQ1DpznJErFs_5AE3D6IMxn8K92YCiRL22oqdBcxwYcUUu7dXZp9_-c24vzsCIUc63Y7iE2wHNaGYIiQvrpUaYaN1wmn8cQjuVh0oZPV8QbkA6TepuWxjUBc1dA1qPavv0bSIcz-FcHjsLRYJBSUvpaxD7mzIsiwZhBJa3-C_oTweCGRubpcbr7WRwNu5Cz_RTyuPYP06eDl8Bq2aKzFj7y_8OiTlaJjERqbbbxAPuOaYvtJ-MbRQ"/>
+</div>
+<div>
+<p class="font-body-lg font-semibold text-on-surface">Premium Basmati Rice</p>
+<p class="text-[12px] text-warm-gray">Batch: RIC-JAN-24-11</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 font-body-sm text-on-surface-variant font-medium">SK-RIC-902</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-tertiary-fixed text-on-tertiary-fixed text-[11px] font-bold rounded uppercase tracking-wider">Grains</span>
+</td>
+<td class="px-6 py-4 font-body-sm font-bold text-on-surface">₹1,250.00</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="font-body-sm font-semibold">1,200</span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+</td>
+<td class="px-6 py-4 font-body-sm text-on-surface-variant">Dec 2026</td>
+<td class="px-6 py-4">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 hover:bg-primary/10 text-on-surface-variant hover:text-primary rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 hover:bg-error/10 text-on-surface-variant hover:text-error rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="px-6 py-4 bg-surface-container-lowest border-t border-border-subtle flex items-center justify-between">
+<p class="font-body-sm text-on-surface-variant">Showing 1-10 of 248 products</p>
+<div class="flex items-center gap-2">
+<button class="p-2 border border-border-subtle rounded-lg hover:bg-surface-container transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center bg-primary text-on-primary rounded-lg font-bold text-body-sm">1</button>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container rounded-lg font-medium text-body-sm">2</button>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container rounded-lg font-medium text-body-sm">3</button>
+<button class="p-2 border border-border-subtle rounded-lg hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="mt-auto flex justify-between items-center px-8 py-4 bg-surface-container-low dark:bg-surface-container-lowest border-t border-border-subtle">
+<div class="flex gap-4">
+<a class="font-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Knowledge Base</a>
+<a class="font-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">System Status</a>
+<a class="font-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Contact Tech Support</a>
+</div>
+<p class="font-body-sm text-on-surface-variant opacity-80">v2.4.0 FMCG Corp Support</p>
+</footer>
+</main>
+<!-- Slide-over Backdrop (Initially Hidden) -->
+<div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-[60] hidden opacity-0 transition-opacity duration-300" id="slide-over-backdrop" onclick="toggleSlideOver()"></div>
+<!-- Slide-over Panel (Active/Open as requested) -->
+<div class="fixed inset-y-0 right-0 w-full max-w-xl bg-white shadow-2xl z-[70] transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col" id="slide-over-panel">
+<div class="flex items-center justify-between p-6 border-b border-border-subtle bg-surface-container-low">
+<div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Add New Product</h3>
+<p class="text-body-sm text-on-surface-variant">Fill in the details to list a new item in your inventory.</p>
+</div>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors" onclick="toggleSlideOver()">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto no-scrollbar p-6 space-y-8">
+<!-- Product Basics -->
+<section class="space-y-4">
+<h4 class="text-[12px] font-bold text-primary uppercase tracking-[0.2em]">Basic Information</h4>
+<div class="grid grid-cols-2 gap-4">
+<div class="col-span-2 space-y-2">
+<label class="font-body-sm font-bold text-on-surface">Product Name <span class="text-primary">*</span></label>
+<input class="w-full rounded-lg border-warm-gray/30 focus:border-primary focus:ring-1 focus:ring-primary py-2.5" placeholder="e.g. Traditional Curd Ghee" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-body-sm font-bold text-on-surface">Category</label>
+<select class="w-full rounded-lg border-warm-gray/30 focus:border-primary focus:ring-1 focus:ring-primary py-2.5">
+<option>Select Category</option>
+<option>Dairy & Ghee</option>
+<option>Spices & Masala</option>
+<option>Grains</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="font-body-sm font-bold text-on-surface">SKU ID</label>
+<input class="w-full rounded-lg border-warm-gray/30 focus:border-primary focus:ring-1 focus:ring-primary py-2.5" placeholder="SK-GHE-001" type="text"/>
+</div>
+</div>
+</section>
+<!-- Pricing & Inventory -->
+<section class="space-y-4">
+<h4 class="text-[12px] font-bold text-primary uppercase tracking-[0.2em]">Pricing & Stock</h4>
+<div class="grid grid-cols-3 gap-4">
+<div class="space-y-2">
+<label class="font-body-sm font-bold text-on-surface">Price (₹)</label>
+<input class="w-full rounded-lg border-warm-gray/30 focus:border-primary focus:ring-1 focus:ring-primary py-2.5" placeholder="725" type="number"/>
+</div>
+<div class="space-y-2">
+<label class="font-body-sm font-bold text-on-surface">MRP (₹)</label>
+<input class="w-full rounded-lg border-warm-gray/30 focus:border-primary focus:ring-1 focus:ring-primary py-2.5" placeholder="850" type="number"/>
+</div>
+<div class="space-y-2">
+<label class="font-body-sm font-bold text-on-surface">Initial Stock</label>
+<input class="w-full rounded-lg border-warm-gray/30 focus:border-primary focus:ring-1 focus:ring-primary py-2.5" placeholder="500" type="number"/>
+</div>
+</div>
+</section>
+<!-- Image Upload -->
+<section class="space-y-2">
+<label class="font-body-sm font-bold text-on-surface">Product Image</label>
+<div class="border-2 border-dashed border-border-subtle rounded-xl p-8 flex flex-col items-center justify-center gap-3 bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-warm-gray group-hover:text-primary transition-colors text-[40px]" data-icon="cloud_upload">cloud_upload</span>
+<div class="text-center">
+<p class="font-body-sm font-bold text-on-surface">Click to upload or drag & drop</p>
+<p class="text-[12px] text-warm-gray">SVG, PNG, JPG (max. 800x800px)</p>
+</div>
+</div>
+</section>
+<!-- Variants -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<h4 class="text-[12px] font-bold text-primary uppercase tracking-[0.2em]">Variants</h4>
+<button class="text-primary text-body-sm font-bold flex items-center gap-1">+ Add Variant</button>
+</div>
+<div class="flex flex-wrap gap-2">
+<div class="px-4 py-2 bg-secondary-container text-on-secondary-container rounded-lg font-bold flex items-center gap-2">
+                        500ml <span class="material-symbols-outlined text-[16px] cursor-pointer" data-icon="close">close</span>
+</div>
+<div class="px-4 py-2 bg-secondary-container text-on-secondary-container rounded-lg font-bold flex items-center gap-2">
+                        1L <span class="material-symbols-outlined text-[16px] cursor-pointer" data-icon="close">close</span>
+</div>
+</div>
+</section>
+<!-- Logistics & Compliance -->
+<section class="space-y-4">
+<h4 class="text-[12px] font-bold text-primary uppercase tracking-[0.2em]">Compliance & SEO</h4>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="font-body-sm font-bold text-on-surface">Batch Number</label>
+<input class="w-full rounded-lg border-warm-gray/30 focus:border-primary focus:ring-1 focus:ring-primary py-2.5" placeholder="B-2024-X" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-body-sm font-bold text-on-surface">Expiry Date</label>
+<input class="w-full rounded-lg border-warm-gray/30 focus:border-primary focus:ring-1 focus:ring-primary py-2.5" type="date"/>
+</div>
+<div class="space-y-2">
+<label class="font-body-sm font-bold text-on-surface">FSSAI License No.</label>
+<input class="w-full rounded-lg border-warm-gray/30 focus:border-primary focus:ring-1 focus:ring-primary py-2.5" placeholder="10023043000523" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-body-sm font-bold text-on-surface">SEO Keywords</label>
+<input class="w-full rounded-lg border-warm-gray/30 focus:border-primary focus:ring-1 focus:ring-primary py-2.5" placeholder="pure ghee, organic, dairy" type="text"/>
+</div>
+</div>
+</section>
+</div>
+<div class="p-6 border-t border-border-subtle bg-surface-container-lowest flex items-center gap-4">
+<button class="flex-1 px-6 py-3 border border-border-subtle rounded-lg font-bold text-on-surface-variant hover:bg-surface-container transition-colors" onclick="toggleSlideOver()">Discard</button>
+<button class="flex-[2] px-6 py-3 bg-primary text-on-primary rounded-lg font-bold hover:bg-surface-tint shadow-lg transition-all">Save Product</button>
+</div>
+</div>
+<script>
+        const slideOverPanel = document.getElementById('slide-over-panel');
+        const slideOverBackdrop = document.getElementById('slide-over-backdrop');
+
+        function toggleSlideOver() {
+            const isOpen = slideOverPanel.classList.contains('translate-x-0');
+            if (isOpen) {
+                slideOverPanel.classList.remove('translate-x-0');
+                slideOverPanel.classList.add('translate-x-full');
+                slideOverBackdrop.classList.add('hidden');
+                slideOverBackdrop.classList.remove('opacity-100');
+                document.body.classList.remove('overflow-hidden');
+            } else {
+                slideOverPanel.classList.remove('translate-x-full');
+                slideOverPanel.classList.add('translate-x-0');
+                slideOverBackdrop.classList.remove('hidden');
+                setTimeout(() => slideOverBackdrop.classList.add('opacity-100'), 10);
+                document.body.classList.add('overflow-hidden');
+            }
+        }
+
+        // Open by default as per user request for visual demonstration
+        window.addEventListener('DOMContentLoaded', () => {
+            // Short delay to allow transitions to feel smooth if rendered in a live view
+            setTimeout(toggleSlideOver, 500);
+        });
+    </script>
+</body></html>

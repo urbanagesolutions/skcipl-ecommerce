@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sabari Assistant | AI Chatbot</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#75dc88",
+                    "on-tertiary-fixed": "#1c1c17",
+                    "surface-container-highest": "#e2e2e5",
+                    "on-tertiary-fixed-variant": "#484741",
+                    "primary-container": "#f5a623",
+                    "outline-variant": "#d7c3ae",
+                    "outline": "#857462",
+                    "surface-container-low": "#f3f3f6",
+                    "on-primary-fixed": "#291800",
+                    "on-surface": "#1a1c1e",
+                    "surface-container-high": "#e8e8ea",
+                    "background": "#f9f9fc",
+                    "warm-gray": "#636B74",
+                    "surface-container": "#eeeef0",
+                    "price-green": "#1D8B42",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#633f00",
+                    "on-error-container": "#93000a",
+                    "sale-red": "#E02020",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f0f0f3",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#e2e2e5",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#c9c6be",
+                    "primary-fixed": "#ffddb4",
+                    "inverse-surface": "#2f3133",
+                    "on-secondary-fixed": "#002109",
+                    "surface-bright": "#f9f9fc",
+                    "surface-dim": "#dadadc",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#524534",
+                    "secondary": "#006e2f",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#91f9a2",
+                    "inverse-primary": "#ffb955",
+                    "border-subtle": "#E5E7EB",
+                    "tertiary-container": "#b9b6ae",
+                    "on-primary-container": "#644000",
+                    "on-background": "#1a1c1e",
+                    "on-secondary-fixed-variant": "#005321",
+                    "secondary-container": "#91f9a2",
+                    "primary-fixed-dim": "#ffb955",
+                    "on-secondary-container": "#007432",
+                    "tertiary-fixed": "#e6e2d9",
+                    "primary": "#835500",
+                    "surface-tint": "#835500",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#f9f9fc",
+                    "tertiary": "#605e58",
+                    "on-tertiary-container": "#494741"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "8px",
+                    "container-max": "1280px",
+                    "section-gap": "80px",
+                    "margin-mobile": "16px",
+                    "stack-md": "16px",
+                    "stack-lg": "32px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Public Sans"],
+                    "title-md": ["Public Sans"],
+                    "headline-lg": ["Public Sans"],
+                    "display-lg": ["Public Sans"],
+                    "body-lg": ["Public Sans"],
+                    "price-display": ["Public Sans"],
+                    "label-caps": ["Public Sans"],
+                    "body-sm": ["Public Sans"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "price-display": ["20px", {"lineHeight": "24px", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #FDF9F0;
+            font-family: 'Public Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .chat-glow {
+            box-shadow: 0 10px 40px -10px rgba(131, 85, 0, 0.15);
+        }
+        .pulse-effect::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 9999px;
+            background-color: #f5a623;
+            opacity: 0.6;
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.6; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-on-surface">
+<!-- TopNavBar -->
+<header class="bg-white/80 dark:bg-surface-container/80 backdrop-blur-xl shadow-md docked full-width top-0 sticky z-40 h-20">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-gutter max-w-container-max mx-auto h-full">
+<div class="font-display-lg text-display-lg text-primary dark:text-primary-fixed tracking-tight">Sabari Krishna</div>
+<div class="hidden md:flex gap-8">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-caps text-label-caps" href="#">Home</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-caps text-label-caps" href="#">Shop</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-caps text-label-caps" href="#">Wholesale</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 font-label-caps text-label-caps" href="#">About</a>
+</div>
+<div class="flex items-center gap-stack-md">
+<div class="relative hidden sm:block">
+<input class="bg-surface-container-low border-none rounded-full px-6 py-2 w-64 focus:ring-2 focus:ring-primary-container outline-none text-body-sm font-body-sm" placeholder="Search premium spices..." type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer active:scale-95 transition-transform">shopping_cart</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer active:scale-95 transition-transform">account_circle</span>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-lg">
+<!-- Dashboard / Background Content -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<div class="md:col-span-8">
+<div class="bg-white rounded-xl p-stack-lg shadow-sm mb-stack-lg">
+<h1 class="font-headline-lg text-headline-lg mb-stack-md">Welcome back, Sabari Krishna</h1>
+<p class="text-on-surface-variant font-body-lg text-body-lg max-w-2xl">Manage your premium orders and explore new arrivals in our spice and organic collection. Your quick-commerce experience starts here.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-stack-md">
+<div class="bg-primary-container/10 p-stack-md rounded-xl border border-primary-container/20">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">package_2</span>
+<span class="font-title-md text-title-md">Active Orders</span>
+</div>
+<p class="font-display-lg text-display-lg text-primary">02</p>
+</div>
+<div class="bg-secondary-container/10 p-stack-md rounded-xl border border-secondary-container/20">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">military_tech</span>
+<span class="font-title-md text-title-md">Loyalty Points</span>
+</div>
+<p class="font-display-lg text-display-lg text-secondary">1,250</p>
+</div>
+</div>
+</div>
+<div class="md:col-span-4 flex flex-col gap-stack-md">
+<div class="bg-white p-stack-md rounded-xl shadow-sm border border-border-subtle overflow-hidden relative h-64">
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-cover bg-center opacity-40" data-alt="A macro close-up of vibrant high-quality saffron threads and cinnamon sticks, softly lit with golden afternoon sunlight. The composition is artistic and minimalist, emphasizing the organic textures and rich colors of premium spices. The background is a soft creamy white, matching the brand's warm-clean modern aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCFPQVKxbl-sP8bYNONXKBeu-Lw8ik0BC45llJe9WL1D3yxhcOmVVg18FX0hxhafAYQ68lvttPt8oYdT8It74RaPFfCcq7cDLI0wfcUGDK8MdjgAIKffsAE-o60Hhm7vz8YosbeUvZZVNdIMkVO6oPqEVi4utgbFiqEfb_Unqyv0k4hJ53phXHRsfj-fQrmkiq-bKxUkdiharWxtZz3CNoDT9fFe1HrrhKJ_APoTH-Wlp5_0d65PwcEPQ')"></div>
+</div>
+<div class="relative z-10 flex flex-col justify-end h-full">
+<span class="bg-sale-red text-white text-label-caps font-label-caps px-2 py-1 rounded w-fit mb-2">NEW ARRIVAL</span>
+<h3 class="font-title-md text-title-md text-on-surface">Kashmiri Saffron</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Pure, Organic, &amp; Ethical</p>
+</div>
+</div>
+<div class="bg-surface-container-highest p-stack-md rounded-xl flex flex-col gap-stack-sm">
+<p class="font-label-caps text-label-caps text-on-surface-variant">QUICK ACCESS</p>
+<button class="flex items-center gap-3 w-full p-2 hover:bg-white rounded-lg transition-colors group">
+<span class="material-symbols-outlined text-warm-gray group-hover:text-primary">history</span>
+<span class="font-body-sm text-body-sm">Order History</span>
+</button>
+<button class="flex items-center gap-3 w-full p-2 hover:bg-white rounded-lg transition-colors group">
+<span class="material-symbols-outlined text-warm-gray group-hover:text-primary">favorite</span>
+<span class="font-body-sm text-body-sm">Wishlist</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- SideNavBar (Desktop) -->
+<aside class="fixed left-0 top-20 h-screen w-64 hidden lg:flex flex-col bg-surface-container-lowest dark:bg-surface-container-low shadow-sm p-stack-md border-r border-border-subtle z-30">
+<div class="flex items-center gap-4 mb-stack-lg p-2">
+<div class="w-12 h-12 rounded-full bg-primary-fixed-dim flex items-center justify-center text-on-primary-fixed font-bold">SK</div>
+<div>
+<p class="font-title-md text-title-md leading-tight">Sabari Krishna</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Premium Member</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-4 p-3 rounded-xl text-primary font-bold border-r-4 border-primary bg-primary-container/10 active:translate-x-1 transition-transform font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">package_2</span> My Orders
+            </a>
+<a class="flex items-center gap-4 p-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-all font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined">location_on</span> Addresses
+            </a>
+<a class="flex items-center gap-4 p-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-all font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined">favorite</span> Wishlist
+            </a>
+<a class="flex items-center gap-4 p-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-all font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined">rate_review</span> Reviews
+            </a>
+<a class="flex items-center gap-4 p-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-all font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined">person</span> Profile
+            </a>
+<a class="flex items-center gap-4 p-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-all font-title-md text-title-md" href="#">
+<span class="material-symbols-outlined">military_tech</span> Loyalty
+            </a>
+</nav>
+<div class="mt-auto p-2">
+<button class="w-full bg-surface-variant text-on-surface-variant py-3 rounded-xl font-bold active:scale-95 transition-transform">Logout</button>
+</div>
+</aside>
+<!-- AI Chatbot Widget (Expanded State) -->
+<div class="fixed bottom-24 right-margin-mobile md:right-8 w-[90vw] md:w-96 max-h-[716px] bg-white rounded-[16px] shadow-2xl flex flex-col z-[60] chat-glow border border-border-subtle overflow-hidden translate-y-0 opacity-100 transition-all duration-300" id="chatbot-widget">
+<!-- Header -->
+<div class="bg-primary p-stack-md flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div>
+<p class="text-white font-title-md text-title-md">Sabari Assistant</p>
+<p class="text-white/70 text-body-sm font-body-sm flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed"></span> Online
+                    </p>
+</div>
+</div>
+<button class="text-white hover:bg-white/10 p-2 rounded-full transition-colors" onclick="toggleChat()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Chat History -->
+<div class="flex-1 overflow-y-auto p-stack-md flex flex-col gap-stack-md scrollbar-hide bg-surface-container-lowest">
+<!-- Bot Message -->
+<div class="flex flex-col gap-1 items-start max-w-[85%]">
+<div class="bg-surface-container-high p-stack-md rounded-2xl rounded-tl-none">
+<p class="font-body-sm text-body-sm">Namaste! How can I help you today with your orders or spice selection?</p>
+</div>
+<span class="text-[10px] text-on-surface-variant ml-1">10:05 AM</span>
+</div>
+<!-- User Message -->
+<div class="flex flex-col gap-1 items-end self-end max-w-[85%]">
+<div class="bg-primary p-stack-md rounded-2xl rounded-tr-none">
+<p class="font-body-sm text-body-sm text-white">I'd like to check my latest order status.</p>
+</div>
+<span class="text-[10px] text-on-surface-variant mr-1">10:06 AM</span>
+</div>
+<!-- Bot Message with Quick Replies -->
+<div class="flex flex-col gap-3 items-start max-w-full">
+<div class="bg-surface-container-high p-stack-md rounded-2xl rounded-tl-none max-w-[85%]">
+<p class="font-body-sm text-body-sm">Sure, I can help with that. Please select an option or type your order ID.</p>
+</div>
+<div class="flex flex-wrap gap-2">
+<button class="bg-white border border-primary text-primary px-4 py-2 rounded-full text-body-sm font-semibold hover:bg-primary-container/10 transition-colors active:scale-95">Track my order</button>
+<button class="bg-white border border-primary text-primary px-4 py-2 rounded-full text-body-sm font-semibold hover:bg-primary-container/10 transition-colors active:scale-95">Return policy</button>
+<button class="bg-white border border-primary text-primary px-4 py-2 rounded-full text-body-sm font-semibold hover:bg-primary-container/10 transition-colors active:scale-95">Talk to human</button>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-stack-md border-t border-border-subtle bg-white">
+<div class="flex items-center gap-2 bg-surface-container-low rounded-xl px-4 py-2 focus-within:ring-2 focus-within:ring-primary-container transition-all">
+<input class="bg-transparent border-none focus:ring-0 w-full text-body-sm font-body-sm text-on-surface" placeholder="Type a message..." type="text"/>
+<button class="text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Floating Action Button -->
+<button class="fixed bottom-6 right-margin-mobile md:right-8 w-16 h-16 bg-primary-container text-on-primary-container rounded-full shadow-lg flex items-center justify-center z-[70] pulse-effect hover:scale-110 active:scale-95 transition-all" id="chat-fab" onclick="toggleChat()">
+<span class="material-symbols-outlined text-3xl" id="fab-icon">chat</span>
+</button>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-surface-dim mt-section-gap border-t border-border-subtle full-width">
+<div class="w-full py-stack-lg px-margin-mobile md:px-gutter max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-stack-md">
+<div class="font-display-lg text-display-lg text-primary">Sabari Krishna</div>
+<div class="flex flex-wrap justify-center gap-stack-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Shipping Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Return Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-sm text-body-sm" href="#">Contact Us</a>
+</div>
+<p class="text-on-surface-variant font-body-sm text-body-sm">© 2024 Sabari Krishna E-commerce. All rights reserved.</p>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-2 py-3 bg-white dark:bg-surface-container-highest md:hidden z-50 shadow-lg border-t border-border-subtle">
+<div class="flex flex-col items-center justify-center text-on-surface-variant font-label-caps text-label-caps">
+<span class="material-symbols-outlined">home</span>
+<span>Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant font-label-caps text-label-caps">
+<span class="material-symbols-outlined">package_2</span>
+<span>Orders</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant font-label-caps text-label-caps">
+<span class="material-symbols-outlined">favorite</span>
+<span>Wishlist</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant font-label-caps text-label-caps">
+<span class="material-symbols-outlined">military_tech</span>
+<span>Loyalty</span>
+</div>
+<div class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-3 py-1 font-label-caps text-label-caps">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span>Profile</span>
+</div>
+</nav>
+<script>
+        let isChatOpen = true; // Set to true by default as per request showing "expanded" widget
+
+        function toggleChat() {
+            const widget = document.getElementById('chatbot-widget');
+            const fabIcon = document.getElementById('fab-icon');
+            const fab = document.getElementById('chat-fab');
+
+            if (isChatOpen) {
+                widget.style.transform = 'translateY(120%)';
+                widget.style.opacity = '0';
+                fabIcon.innerText = 'chat';
+                fab.classList.add('pulse-effect');
+                setTimeout(() => widget.classList.add('hidden'), 300);
+            } else {
+                widget.classList.remove('hidden');
+                setTimeout(() => {
+                    widget.style.transform = 'translateY(0)';
+                    widget.style.opacity = '1';
+                }, 10);
+                fabIcon.innerText = 'close';
+                fab.classList.remove('pulse-effect');
+            }
+            isChatOpen = !isChatOpen;
+        }
+
+        // Lightweight Micro-interaction: Smooth Scroll to bottom of chat
+        const chatContainer = document.querySelector('#chatbot-widget .overflow-y-auto');
+        if (chatContainer) {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+    </script>
+</body></html>

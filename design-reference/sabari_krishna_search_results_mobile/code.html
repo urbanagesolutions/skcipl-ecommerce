@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Search Results - Oils | Sabari Krishna</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-item {
+            font-variation-settings: 'FILL' 1;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#75dc88",
+                        "on-tertiary-fixed": "#1c1c17",
+                        "surface-container-highest": "#e2e2e5",
+                        "on-tertiary-fixed-variant": "#484741",
+                        "primary-container": "#f5a623",
+                        "outline-variant": "#d7c3ae",
+                        "outline": "#857462",
+                        "surface-container-low": "#f3f3f6",
+                        "on-primary-fixed": "#291800",
+                        "on-surface": "#1a1c1e",
+                        "surface-container-high": "#e8e8ea",
+                        "background": "#f9f9fc",
+                        "warm-gray": "#636B74",
+                        "surface-container": "#eeeef0",
+                        "price-green": "#1D8B42",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#633f00",
+                        "on-error-container": "#93000a",
+                        "sale-red": "#E02020",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#f0f0f3",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e2e2e5",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c9c6be",
+                        "primary-fixed": "#ffddb4",
+                        "inverse-surface": "#2f3133",
+                        "on-secondary-fixed": "#002109",
+                        "surface-bright": "#f9f9fc",
+                        "surface-dim": "#dadadc",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#524534",
+                        "secondary": "#006e2f",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#91f9a2",
+                        "inverse-primary": "#ffb955",
+                        "border-subtle": "#E5E7EB",
+                        "tertiary-container": "#b9b6ae",
+                        "on-primary-container": "#644000",
+                        "on-background": "#1a1c1e",
+                        "on-secondary-fixed-variant": "#005321",
+                        "secondary-container": "#91f9a2",
+                        "primary-fixed-dim": "#ffb955",
+                        "on-secondary-container": "#007432",
+                        "tertiary-fixed": "#e6e2d9",
+                        "primary": "#835500",
+                        "surface-tint": "#835500",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#f9f9fc",
+                        "tertiary": "#605e58",
+                        "on-tertiary-container": "#494741"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "container-max": "1280px",
+                        "section-gap": "80px",
+                        "margin-mobile": "16px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Public Sans"],
+                        "title-md": ["Public Sans"],
+                        "headline-lg": ["Public Sans"],
+                        "display-lg": ["Public Sans"],
+                        "body-lg": ["Public Sans"],
+                        "price-display": ["Public Sans"],
+                        "label-caps": ["Public Sans"],
+                        "body-sm": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "price-display": ["20px", {"lineHeight": "24px", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-sm selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="bg-white/80 dark:bg-surface-container/80 backdrop-blur-xl docked full-width top-0 sticky shadow-md z-40 transition-all duration-300">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-gutter max-w-container-max mx-auto h-20">
+<h1 class="font-display-lg text-headline-lg-mobile text-primary dark:text-primary-fixed tracking-tight">Sabari Krishna</h1>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant p-2 active:scale-95 transition-transform" data-icon="shopping_cart">shopping_cart</button>
+<button class="material-symbols-outlined text-on-surface-variant p-2 active:scale-95 transition-transform" data-icon="account_circle">account_circle</button>
+</div>
+</div>
+<!-- Integrated Search Bar -->
+<div class="px-margin-mobile pb-4">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full h-12 pl-12 pr-10 bg-surface-container-low border-none rounded-full font-body-lg focus:ring-2 focus:ring-primary focus:bg-white transition-all shadow-inner" placeholder="Search for fresh produce..." type="text" value="Oils"/>
+<button class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-sale-red transition-colors" data-icon="close">close</button>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto min-h-screen">
+<!-- Results Header -->
+<section class="px-margin-mobile py-stack-md flex justify-between items-center">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Search Results</p>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile mt-1">'Oils' <span class="font-normal text-on-surface-variant">(12 items)</span></h2>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-border-subtle active:scale-95 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-size: 20px;">filter_list</span>
+<span class="font-title-md text-body-sm">Filter</span>
+</button>
+</section>
+<!-- Product Grid (2-column) -->
+<section class="px-margin-mobile grid grid-cols-2 gap-x-4 gap-y-stack-lg">
+<!-- Product 1 -->
+<div class="animate-fade-in group" style="animation-delay: 0.1s;">
+<div class="relative aspect-square bg-white rounded-xl overflow-hidden shadow-sm border border-border-subtle">
+<div class="absolute top-2 left-2 z-10 bg-sale-red text-white font-label-caps text-[10px] px-2 py-0.5 rounded-full uppercase">Organic</div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="High-quality close-up of a 1-liter glass bottle of cold-pressed virgin coconut oil sitting on a clean white marble surface. The lighting is bright and natural, casting soft shadows. A small green leaf is placed next to the bottle to emphasize organic freshness. The style is premium quick-commerce with high-contrast clarity and a warm-clean atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgvEdda64pH8u6UualEp87zIwZKHtq_gaGmoAdKpIOsVuKVP_FEJZWqCl6DVILFoPUPvyDLLscwudohcOUDaxSPf4EsNisG0V2dWHa0-oBZEuPydWi5oQoifzz22Z5YQ1btwzg_EbDDB6ej_ZZwTRBr7pb8Cj-ygjN1X3hQueGVWwYUWwdUnNMHe12hPDGdqlQi7W5UlgZkw2bF0kcS58NiPLRbwUtv7M_Fv1st5O-ijAUNQwwjPhKxw"/>
+</div>
+<div class="mt-stack-sm px-1">
+<h3 class="font-title-md text-body-lg text-on-surface truncate">Virgin Coconut Oil</h3>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="font-price-display text-price-green">₹450</span>
+<span class="text-on-surface-variant text-[11px] line-through">₹520</span>
+</div>
+<button class="w-full mt-stack-md py-2.5 bg-secondary text-white font-title-md text-body-sm rounded-lg shadow-sm hover:bg-on-secondary-fixed-variant active:scale-[0.98] transition-all">Add to Cart</button>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="animate-fade-in group" style="animation-delay: 0.15s;">
+<div class="relative aspect-square bg-white rounded-xl overflow-hidden shadow-sm border border-border-subtle">
+<div class="absolute top-2 left-2 z-10 bg-primary-container text-on-primary-container font-label-caps text-[10px] px-2 py-0.5 rounded-full uppercase">Bestseller</div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Studio shot of a wooden bottle of premium wood-pressed groundnut oil on a pristine white background. The image is bright and crisp, highlighting the amber color of the oil. Subtle reflections on the glass bottle suggest a high-end, hygienic production process. The overall mood is reliable and high-quality, fitting a modern organic delivery aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUPB2Ld-qJbENtLmVRKq5Ul_PHNGp_xkv5lOY9QCghXmoLJ6GKQuTEy7Ag1apUWHzw9R1F5htdLepOHSgDvtbP9-P96PRdtxWC1aasxjA_vaPjMahFM73f7vzztj5qtc-lP4oQXHt40MbPWoHOOtBmmdrl3eAMkXdQlSnfBs3FEbUlQM6nS0waBuJlspwnXWghgmTE5tur9kXpbgTB6Tkomq3i2tvE4dOzZS91s_3g3i_UCkQdbgeWog"/>
+</div>
+<div class="mt-stack-sm px-1">
+<h3 class="font-title-md text-body-lg text-on-surface truncate">Pressed Groundnut Oil</h3>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="font-price-display text-price-green">₹280</span>
+<span class="text-on-surface-variant text-[12px] font-medium">1L</span>
+</div>
+<button class="w-full mt-stack-md py-2.5 bg-secondary text-white font-title-md text-body-sm rounded-lg shadow-sm hover:bg-on-secondary-fixed-variant active:scale-[0.98] transition-all">Add to Cart</button>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="animate-fade-in group" style="animation-delay: 0.2s;">
+<div class="relative aspect-square bg-white rounded-xl overflow-hidden shadow-sm border border-border-subtle">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A bottle of pure sesame oil presented in a minimalist, modern aesthetic. The bottle is clear glass, showing the rich golden-brown oil inside. The background is a soft, warm cream color with delicate shadows. The visual style is clean and appetizing, focusing on the texture and purity of the natural ingredient." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCQ5NyM2M4sqUVi13o1E6huVdImmV_EZGmL-wjtO_8AaptQIZAKlaNahqJb4qgkaZ0jQdBA1D2cdzpslajYPtYv83Nv32Qf3CixdaBTV4ys6YoKvOwVBHLM7UXRjQgNm32SwqWQ6deYPvXP8SlYYTm5NOjqjfS7KdKmDCIVhQg-FPYFU9QdgS0WaSkBpRVwPv_BVJRjYCWwxIZT8_8Jr4ZVamLAgtkk2kPJMd0rpz7iyJWYoDI-q46LA"/>
+</div>
+<div class="mt-stack-sm px-1">
+<h3 class="font-title-md text-body-lg text-on-surface truncate">Pure Sesame Oil</h3>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="font-price-display text-price-green">₹310</span>
+</div>
+<button class="w-full mt-stack-md py-2.5 bg-secondary text-white font-title-md text-body-sm rounded-lg shadow-sm hover:bg-on-secondary-fixed-variant active:scale-[0.98] transition-all">Add to Cart</button>
+</div>
+</div>
+<!-- Product 4 -->
+<div class="animate-fade-in group" style="animation-delay: 0.25s;">
+<div class="relative aspect-square bg-white rounded-xl overflow-hidden shadow-sm border border-border-subtle">
+<div class="absolute top-2 left-2 z-10 bg-sale-red text-white font-label-caps text-[10px] px-2 py-0.5 rounded-full uppercase">-15%</div>
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Bottle of cold-pressed sunflower oil against a minimalist, high-contrast white backdrop. The bright yellow oil sparkles under soft studio lighting. The composition is clean and modern, emphasizing health and hygiene. The bottle features a sleek label consistent with a premium quick-commerce platform identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeXkV_8CGo7cKdvjtN9P1LwwSZ_eAso7X8bwbZzPePqtNjQxYcxi0d3MSdjBAYEKphkKCUefEPgtNgIKMFHnShuXYGroCt36ZCoUHcRMt4qE61GKCZRD5sCG_Tt1LtCDbe5mhXygVYDfebfNoJlMDzlvC9xFYUuElnXhB4HC18zNQ7FoPxT8UO_dYkOGOp2muWN5FJp4PKfvbHQa9FahoKKYQKPW85WYXnAb835GLP_zSXZ6wH8ZTvww"/>
+</div>
+<div class="mt-stack-sm px-1">
+<h3 class="font-title-md text-body-lg text-on-surface truncate">Cold-Pressed Sunflower</h3>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="font-price-display text-price-green">₹195</span>
+<span class="text-on-surface-variant text-[11px] line-through">₹230</span>
+</div>
+<button class="w-full mt-stack-md py-2.5 bg-secondary text-white font-title-md text-body-sm rounded-lg shadow-sm hover:bg-on-secondary-fixed-variant active:scale-[0.98] transition-all">Add to Cart</button>
+</div>
+</div>
+</section>
+<!-- No More Results / Alternative State -->
+<section class="mt-section-gap px-margin-mobile pb-32">
+<div class="bg-surface-container-low rounded-2xl p-stack-lg text-center border-2 border-dashed border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-4xl mb-stack-sm" data-icon="search_off">search_off</span>
+<h3 class="font-headline-lg-mobile text-title-md text-on-surface">No more 'Oils' found</h3>
+<p class="font-body-sm text-on-surface-variant mt-2 max-w-[280px] mx-auto">We couldn't find any more matches for your specific search.</p>
+<div class="mt-stack-lg">
+<p class="font-label-caps text-label-caps text-primary uppercase text-left mb-4">Try alternative categories</p>
+<div class="flex flex-wrap gap-2">
+<a class="px-4 py-2 bg-white rounded-full text-body-sm text-on-surface border border-border-subtle shadow-sm active:scale-95 transition-all" href="#">Ghee & Vanaspati</a>
+<a class="px-4 py-2 bg-white rounded-full text-body-sm text-on-surface border border-border-subtle shadow-sm active:scale-95 transition-all" href="#">Essential Oils</a>
+<a class="px-4 py-2 bg-white rounded-full text-body-sm text-on-surface border border-border-subtle shadow-sm active:scale-95 transition-all" href="#">Body Massage Oils</a>
+<a class="px-4 py-2 bg-white rounded-full text-body-sm text-on-surface border border-border-subtle shadow-sm active:scale-95 transition-all" href="#">Mustard Oil</a>
+</div>
+</div>
+<div class="mt-stack-lg p-stack-md bg-white rounded-xl border border-border-subtle text-left">
+<h4 class="font-title-md text-body-sm">Need help?</h4>
+<p class="text-body-sm text-on-surface-variant mt-1">Our customer support can help you find specific items or brands.</p>
+<button class="mt-stack-md text-primary font-title-md text-body-sm flex items-center gap-1 active:translate-x-1 transition-transform">
+                        Chat with us <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-2 py-3 bg-white dark:bg-surface-container-highest docked full-width md:hidden z-50 shadow-lg border-t border-border-subtle">
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-all">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-caps text-[10px] mt-1">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-all">
+<span class="material-symbols-outlined" data-icon="package_2">package_2</span>
+<span class="font-label-caps text-[10px] mt-1">Orders</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-all">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-label-caps text-[10px] mt-1">Wishlist</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-all">
+<span class="material-symbols-outlined" data-icon="military_tech">military_tech</span>
+<span class="font-label-caps text-[10px] mt-1">Loyalty</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-all">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-caps text-[10px] mt-1">Profile</span>
+</button>
+</nav>
+<!-- Success Feedback Overlay (Hidden by Default) -->
+<div class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface px-6 py-3 rounded-full shadow-2xl z-50 flex items-center gap-3 opacity-0 translate-y-10 transition-all duration-300 pointer-events-none" id="cart-toast">
+<span class="material-symbols-outlined text-secondary-fixed" data-icon="check_circle">check_circle</span>
+<span class="font-title-md text-body-sm">Added to cart!</span>
+</div>
+<script>
+        // Micro-interaction: Cart Feedback
+        const cartButtons = document.querySelectorAll('button:contains("Add to Cart"), button.bg-secondary');
+        const toast = document.getElementById('cart-toast');
+
+        document.querySelectorAll('button').forEach(btn => {
+            if (btn.innerText.includes('Add to Cart')) {
+                btn.addEventListener('click', () => {
+                    toast.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+                    toast.classList.add('opacity-100', 'translate-y-0');
+                    
+                    setTimeout(() => {
+                        toast.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+                        toast.classList.remove('opacity-100', 'translate-y-0');
+                    }, 2000);
+                });
+            }
+        });
+
+        // Search Bar Focus Effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            document.querySelector('header').classList.add('bg-white');
+            document.querySelector('header').classList.remove('bg-white/80');
+        });
+        searchInput.addEventListener('blur', () => {
+            document.querySelector('header').classList.add('bg-white/80');
+            document.querySelector('header').classList.remove('bg-white');
+        });
+
+        // Simple scroll behavior for header elevation
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-lg');
+                header.classList.remove('shadow-md');
+            } else {
+                header.classList.add('shadow-md');
+                header.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+</body></html>

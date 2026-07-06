@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sabari Krishna | Account - Addresses &amp; Wishlist</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "sale-red": "#E02020",
+                    "on-tertiary-fixed": "#1c1c17",
+                    "on-primary-container": "#644000",
+                    "secondary-fixed-dim": "#75dc88",
+                    "surface-tint": "#835500",
+                    "on-surface": "#1a1c1e",
+                    "on-secondary-fixed": "#002109",
+                    "surface-variant": "#e2e2e5",
+                    "error": "#ba1a1a",
+                    "primary-fixed": "#ffddb4",
+                    "on-tertiary-fixed-variant": "#484741",
+                    "secondary-fixed": "#91f9a2",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#f9f9fc",
+                    "inverse-on-surface": "#f0f0f3",
+                    "surface-container-highest": "#e2e2e5",
+                    "surface-container": "#eeeef0",
+                    "on-background": "#1a1c1e",
+                    "surface-container-high": "#e8e8ea",
+                    "on-primary-fixed": "#291800",
+                    "border-subtle": "#E5E7EB",
+                    "tertiary-container": "#b9b6ae",
+                    "on-tertiary": "#ffffff",
+                    "price-green": "#1D8B42",
+                    "outline": "#857462",
+                    "tertiary-fixed": "#e6e2d9",
+                    "surface-dim": "#dadadc",
+                    "secondary-container": "#91f9a2",
+                    "on-error": "#ffffff",
+                    "inverse-primary": "#ffb955",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#2f3133",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#c9c6be",
+                    "secondary": "#006e2f",
+                    "on-tertiary-container": "#494741",
+                    "warm-gray": "#636B74",
+                    "outline-variant": "#d7c3ae",
+                    "surface-container-low": "#f3f3f6",
+                    "error-container": "#ffdad6",
+                    "tertiary": "#605e58",
+                    "on-primary-fixed-variant": "#633f00",
+                    "on-secondary-fixed-variant": "#005321",
+                    "primary-container": "#f5a623",
+                    "on-surface-variant": "#524534",
+                    "primary": "#835500",
+                    "primary-fixed-dim": "#ffb955",
+                    "on-secondary-container": "#007432",
+                    "background": "#f9f9fc",
+                    "surface": "#f9f9fc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "section-gap": "80px",
+                    "gutter": "24px",
+                    "container-max": "1280px",
+                    "stack-lg": "32px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Public Sans"],
+                    "price-display": ["Public Sans"],
+                    "title-md": ["Public Sans"],
+                    "label-caps": ["Public Sans"],
+                    "body-lg": ["Public Sans"],
+                    "headline-lg-mobile": ["Public Sans"],
+                    "body-sm": ["Public Sans"],
+                    "headline-lg": ["Public Sans"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "price-display": ["20px", { "lineHeight": "24px", "fontWeight": "700" }],
+                    "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                    "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                    "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                    "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                    "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                    "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      body {
+        background-color: #FDF9F0; /* From Brand Anchors Level 0 */
+        font-family: 'Public Sans', sans-serif;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .card-shadow {
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+      }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- TopNavBar -->
+<nav class="bg-white/80 dark:bg-surface-container/80 backdrop-blur-xl shadow-md docked full-width top-0 sticky z-50 h-20 flex justify-between items-center w-full px-margin-mobile md:px-gutter max-w-container-max mx-auto">
+<div class="font-display-lg text-display-lg text-primary dark:text-primary-fixed tracking-tight">Sabari Krishna</div>
+<!-- Search Bar (Desktop) -->
+<div class="hidden md:flex flex-1 max-w-md mx-8 relative">
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 px-6 focus:ring-2 focus:ring-primary/20 text-body-sm" placeholder="Search for pure essentials..." type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary text-[28px]" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<button class="active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary text-[28px]" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</nav>
+<div class="max-w-container-max mx-auto flex flex-col md:flex-row min-h-screen">
+<!-- SideNavBar -->
+<aside class="bg-surface-container-lowest dark:bg-surface-container-low h-screen w-64 hidden md:flex flex-col fixed left-0 top-20 p-stack-md shadow-sm z-40">
+<div class="flex items-center gap-3 mb-8 px-2">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-primary-container/20">
+<img class="w-full h-full object-cover" data-alt="A professional and friendly headshot of a young male entrepreneur named Sabari Krishna, wearing a smart casual linen shirt. The background is a soft-focus organic grocery store with warm amber lighting and shelves of premium glass-bottled products. The aesthetic is clean, trustworthy, and high-end quick-commerce." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIvJ2esO-ZX0GCtkh8LhgQuDGbTWw5hsEYH7BTq3_XQ8lus4H5x5MdioWNw2zC7vqMvqxusURWtkbFIVncwnEzUH4p_AD80oPz_h1WU8Is0IKKj4TyKu9vVO7PtGbA8s0q2AcrxRDqQj7X8CzxfUiG36mVCwYvvtDY70CchL6VKrIlcyFCBKEqpJ6EhIwYp4fZBES7BRuL5Bjo_7fwdwnByj51xED8ZvGYau6FJRqYkkPmaLL6comVSg"/>
+</div>
+<div>
+<div class="font-title-md text-title-md text-on-surface">Sabari Krishna</div>
+<div class="text-body-sm text-on-surface-variant">Premium Member</div>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg active:translate-x-1 transition-transform font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="package_2">package_2</span>
+<span class="font-title-md text-title-md">My Orders</span>
+</a>
+<!-- Active Tab: Addresses -->
+<a class="flex items-center gap-3 px-4 py-3 text-primary font-bold border-r-4 border-primary bg-primary-container/10 rounded-l-lg active:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+<span class="font-title-md text-title-md">Addresses</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg active:translate-x-1 transition-transform font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-title-md text-title-md">Wishlist</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg active:translate-x-1 transition-transform font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="rate_review">rate_review</span>
+<span class="font-title-md text-title-md">Reviews</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg active:translate-x-1 transition-transform font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-title-md text-title-md">Profile</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg active:translate-x-1 transition-transform font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="military_tech">military_tech</span>
+<span class="font-title-md text-title-md">Loyalty</span>
+</a>
+</nav>
+<button class="mt-auto flex items-center gap-3 px-4 py-3 text-error font-bold hover:bg-error-container/10 rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-title-md text-title-md">Logout</span>
+</button>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 p-margin-mobile md:p-gutter">
+<!-- Section: Addresses -->
+<section class="mb-section-gap" id="addresses">
+<div class="flex justify-between items-end mb-stack-lg">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Saved Addresses</h2>
+<p class="text-body-lg text-on-surface-variant">Manage your delivery locations for faster checkout</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Home Address Card -->
+<div class="bg-white rounded-xl card-shadow p-stack-md flex flex-col justify-between border-2 border-transparent hover:border-primary/20 transition-all group">
+<div>
+<div class="flex justify-between items-start mb-stack-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="home">home</span>
+<span class="font-title-md text-title-md">Home</span>
+</div>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full font-label-caps text-label-caps uppercase">Default</span>
+</div>
+<p class="text-on-surface font-bold mb-1">Sabari Krishna</p>
+<p class="text-body-sm text-on-surface-variant leading-relaxed">
+                                Flat 402, Golden Heritage Apartments,<br/>
+                                MG Road, Bangalore North,<br/>
+                                Karnataka - 560001
+                            </p>
+<p class="text-body-sm text-on-surface-variant mt-2">Mobile: +91 98765 43210</p>
+</div>
+<div class="flex gap-4 mt-stack-lg border-t border-border-subtle pt-stack-md">
+<button class="text-primary font-bold text-body-sm flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span> Edit
+                            </button>
+<button class="text-error font-bold text-body-sm flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span> Delete
+                            </button>
+</div>
+</div>
+<!-- Work Address Card -->
+<div class="bg-white rounded-xl card-shadow p-stack-md flex flex-col justify-between border-2 border-transparent hover:border-primary/20 transition-all group">
+<div>
+<div class="flex justify-between items-start mb-stack-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="work">work</span>
+<span class="font-title-md text-title-md">Work</span>
+</div>
+</div>
+<p class="text-on-surface font-bold mb-1">Sabari Krishna</p>
+<p class="text-body-sm text-on-surface-variant leading-relaxed">
+                                WeWork Prestige Central,<br/>
+                                Infantry Road, Tasker Town,<br/>
+                                Bangalore - 560001
+                            </p>
+<p class="text-body-sm text-on-surface-variant mt-2">Mobile: +91 98765 43210</p>
+</div>
+<div class="flex gap-4 mt-stack-lg border-t border-border-subtle pt-stack-md">
+<button class="text-primary font-bold text-body-sm flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span> Edit
+                            </button>
+<button class="text-error font-bold text-body-sm flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span> Delete
+                            </button>
+<button class="ml-auto text-on-surface-variant text-body-sm font-medium hover:text-primary transition-colors">Set as Default</button>
+</div>
+</div>
+<!-- Add New Address (Dashed) -->
+<button class="border-2 border-dashed border-outline-variant rounded-xl p-stack-md flex flex-col items-center justify-center gap-stack-sm text-on-surface-variant hover:border-primary hover:text-primary transition-all bg-surface-container-lowest/50 group">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-[32px]" data-icon="add">add</span>
+</div>
+<span class="font-title-md text-title-md">Add New Address</span>
+</button>
+</div>
+</section>
+<!-- Section: Wishlist -->
+<section id="wishlist">
+<div class="flex justify-between items-end mb-stack-lg">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">My Wishlist</h2>
+<p class="text-body-lg text-on-surface-variant">Products you've saved for later</p>
+</div>
+<button class="bg-primary text-white px-6 py-2.5 rounded-lg font-bold shadow-md hover:bg-surface-tint active:scale-95 transition-all text-body-sm">
+                        Add All to Cart
+                    </button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Product 1: Ghee -->
+<div class="bg-white rounded-xl card-shadow overflow-hidden group flex flex-col h-full">
+<div class="relative aspect-square bg-white flex items-center justify-center p-4">
+<span class="absolute top-2 left-2 z-10 bg-sale-red text-white px-2 py-0.5 rounded font-label-caps text-label-caps uppercase">Sale</span>
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="A premium glass jar of golden, artisanal A2 cow ghee set against a clean, white background with soft shadows. The ghee has a rich, grainy texture visible through the glass. The scene is illuminated by warm, bright morning sunlight, highlighting the purity and organic quality of the product. Modern minimalist branding is visible on the label." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9u_-ULXV_zAfokgA4EZcqoHKPqsA7fAtXBMd3BnsCpVuc9E_JMeKnjYTkt2m_MXQRXX0B8KXn2xvutcg55aralXAnnPM-agcfLou8CXVrhF9f2yb3syKwVgtxHiN6WCICpj8ub2LZ1Ur7ARZecj6yoBdNhUxGwlF5cHi611qbQvLTuoyKdQI4tOBWcGNbvCS_tQIFwZjWSFbnHv5bWJgED48snttTZv-amUr-4E8sajzcXHO7PLHuVw"/>
+<button class="absolute top-2 right-2 z-10 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center text-error shadow-sm hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="close" style="font-variation-settings: 'FILL' 1;">close</span>
+</button>
+</div>
+<div class="p-stack-md flex-1 flex flex-col">
+<div class="flex items-center gap-1 mb-1">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-body-sm text-secondary font-medium">In Stock</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-stack-sm">Pure A2 Cow Ghee - 500ml</h3>
+<div class="mt-auto">
+<div class="flex items-baseline gap-2 mb-stack-md">
+<span class="font-price-display text-price-display text-price-green">₹650</span>
+<span class="text-body-sm text-on-surface-variant line-through">₹750</span>
+</div>
+<button class="w-full bg-secondary text-white py-2.5 rounded-lg font-bold flex items-center justify-center gap-2 hover:bg-on-secondary-container transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="shopping_cart">shopping_cart</span>
+                                    Move to Cart
+                                </button>
+</div>
+</div>
+</div>
+<!-- Product 2: Honey -->
+<div class="bg-white rounded-xl card-shadow overflow-hidden group flex flex-col h-full">
+<div class="relative aspect-square bg-white flex items-center justify-center p-4">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="A sleek glass bottle of raw, unfiltered wild forest honey. The honey has a deep amber hue with beautiful clarity. It is placed on a pristine white surface with a slight reflection. Lighting is high-key and soft, creating a premium wellness feel. Small organic details like a honeycomb piece next to the jar emphasize the natural sourcing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUWAfvA8LFvE11faCHeQkkP20PbmGiGmNVkhFUzOROFL06sbS6-o8dRYvddOGyjJ8xQDzSJceNdX747D30gI27ffb-HzVpgGfz1PWOHFlX_uxLkGVH7kcg_C99WL4csD8hfO5Mx_V6-40I-1imY2hOsyXD-z-x-WV7Pg_7WfTrMKQkw1Emyngv6H7yFnw9ZA17vP6O1FVVH4tpoVlhYJROG4kmYvPn4UdY1_xxZB1kUciAhvGhhiQORA"/>
+<button class="absolute top-2 right-2 z-10 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center text-error shadow-sm hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="close" style="font-variation-settings: 'FILL' 1;">close</span>
+</button>
+</div>
+<div class="p-stack-md flex-1 flex flex-col">
+<div class="flex items-center gap-1 mb-1">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-body-sm text-secondary font-medium">In Stock</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-stack-sm">Raw Wild Forest Honey</h3>
+<div class="mt-auto">
+<div class="flex items-baseline gap-2 mb-stack-md">
+<span class="font-price-display text-price-display text-price-green">₹420</span>
+</div>
+<button class="w-full bg-secondary text-white py-2.5 rounded-lg font-bold flex items-center justify-center gap-2 hover:bg-on-secondary-container transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="shopping_cart">shopping_cart</span>
+                                    Move to Cart
+                                </button>
+</div>
+</div>
+</div>
+<!-- Product 3: Turmeric -->
+<div class="bg-white rounded-xl card-shadow overflow-hidden group flex flex-col h-full">
+<div class="relative aspect-square bg-white flex items-center justify-center p-4">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="A minimalist pouch of Lakadong turmeric powder with a vibrant, deep orange color. The pouch is designed with clean typography and eco-friendly paper texture. It sits on a white marble surface under bright, natural light. The scene conveys health, hygiene, and high curcumin content. A few turmeric roots are artfully arranged nearby." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAC70QU6wIOm5cM6nHZXtv5gf9ccRY-JkN-4j9gnsrtp2A_6tc2cxeEoglTMxKn0xld4fuy18PMNhPdZawqj7Sq7Q3nzaMqiRTS8f6H1-LsSoyNmrV_2CKTpQIebUptrEnaSCNPy8nx3IQIXyu3hMIKysO61O_RLwysz7YbuAfnO2PQIx_CKYqZZa0S0o-x44mhWw2-Ciwsoeej01OQUizoLpvICQddVMevV34H2xkcaaorMzokVSqr6g"/>
+<button class="absolute top-2 right-2 z-10 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center text-error shadow-sm hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="close" style="font-variation-settings: 'FILL' 1;">close</span>
+</button>
+</div>
+<div class="p-stack-md flex-1 flex flex-col">
+<div class="flex items-center gap-1 mb-1">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-body-sm text-secondary font-medium">In Stock</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-stack-sm">High Curcumin Turmeric</h3>
+<div class="mt-auto">
+<div class="flex items-baseline gap-2 mb-stack-md">
+<span class="font-price-display text-price-display text-price-green">₹180</span>
+</div>
+<button class="w-full bg-secondary text-white py-2.5 rounded-lg font-bold flex items-center justify-center gap-2 hover:bg-on-secondary-container transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]" data-icon="shopping_cart">shopping_cart</span>
+                                    Move to Cart
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-surface-dim full-width mt-section-gap border-t border-border-subtle">
+<div class="w-full py-stack-lg px-margin-mobile md:px-gutter max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-stack-lg">
+<div class="font-display-lg text-display-lg text-primary">Sabari Krishna</div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-primary transition-colors" href="#">Shipping Policy</a>
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-primary transition-colors" href="#">Return Policy</a>
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-primary transition-colors" href="#">Contact Us</a>
+</div>
+<div class="text-on-surface dark:text-on-surface-variant font-body-sm text-body-sm opacity-80">
+                © 2024 Sabari Krishna E-commerce. All rights reserved.
+            </div>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-2 py-3 bg-white dark:bg-surface-container-highest md:hidden z-50 shadow-lg border-t border-border-subtle">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="package_2">package_2</span>
+<span class="font-label-caps text-label-caps">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+<span class="font-label-caps text-label-caps">Wishlist</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-all active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="military_tech">military_tech</span>
+<span class="font-label-caps text-label-caps">Loyalty</span>
+</a>
+<!-- Active Tab Mobile: Profile/Addresses as part of Profile context -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-3 py-1 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-caps text-label-caps">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple Micro-interaction for Move to Cart
+        document.querySelectorAll('button').forEach(btn => {
+            if (btn.innerText.includes('Move to Cart')) {
+                btn.addEventListener('click', function() {
+                    const originalContent = this.innerHTML;
+                    this.innerHTML = '<span class="material-symbols-outlined animate-spin" data-icon="sync">sync</span> Adding...';
+                    this.disabled = true;
+                    setTimeout(() => {
+                        this.innerHTML = '<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span> Added!';
+                        this.classList.remove('bg-secondary');
+                        this.classList.add('bg-price-green');
+                        setTimeout(() => {
+                            this.innerHTML = originalContent;
+                            this.classList.add('bg-secondary');
+                            this.classList.remove('bg-price-green');
+                            this.disabled = false;
+                        }, 2000);
+                    }, 800);
+                });
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Search Results: Pure Ghee | Sabari Krishna</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+            background-color: #f9f9fc;
+            color: #1a1c1e;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .product-card-shadow {
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .product-card-shadow:hover {
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "secondary-fixed-dim": "#75dc88",
+                "on-tertiary-fixed": "#1c1c17",
+                "surface-container-highest": "#e2e2e5",
+                "on-tertiary-fixed-variant": "#484741",
+                "primary-container": "#f5a623",
+                "outline-variant": "#d7c3ae",
+                "outline": "#857462",
+                "surface-container-low": "#f3f3f6",
+                "on-primary-fixed": "#291800",
+                "on-surface": "#1a1c1e",
+                "surface-container-high": "#e8e8ea",
+                "background": "#f9f9fc",
+                "warm-gray": "#636B74",
+                "surface-container": "#eeeef0",
+                "price-green": "#1D8B42",
+                "on-tertiary": "#ffffff",
+                "on-primary-fixed-variant": "#633f00",
+                "on-error-container": "#93000a",
+                "sale-red": "#E02020",
+                "on-secondary": "#ffffff",
+                "inverse-on-surface": "#f0f0f3",
+                "on-primary": "#ffffff",
+                "surface-variant": "#e2e2e5",
+                "error-container": "#ffdad6",
+                "tertiary-fixed-dim": "#c9c6be",
+                "primary-fixed": "#ffddb4",
+                "inverse-surface": "#2f3133",
+                "on-secondary-fixed": "#002109",
+                "surface-bright": "#f9f9fc",
+                "surface-dim": "#dadadc",
+                "on-error": "#ffffff",
+                "on-surface-variant": "#524534",
+                "secondary": "#006e2f",
+                "error": "#ba1a1a",
+                "secondary-fixed": "#91f9a2",
+                "inverse-primary": "#ffb955",
+                "border-subtle": "#E5E7EB",
+                "tertiary-container": "#b9b6ae",
+                "on-primary-container": "#644000",
+                "on-background": "#1a1c1e",
+                "on-secondary-fixed-variant": "#005321",
+                "secondary-container": "#91f9a2",
+                "primary-fixed-dim": "#ffb955",
+                "on-secondary-container": "#007432",
+                "tertiary-fixed": "#e6e2d9",
+                "primary": "#835500",
+                "surface-tint": "#835500",
+                "surface-container-lowest": "#ffffff",
+                "surface": "#f9f9fc",
+                "tertiary": "#605e58",
+                "on-tertiary-container": "#494741"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "stack-sm": "8px",
+                "container-max": "1280px",
+                "section-gap": "80px",
+                "margin-mobile": "16px",
+                "stack-md": "16px",
+                "stack-lg": "32px",
+                "gutter": "24px"
+            },
+            "fontFamily": {
+                "headline-lg-mobile": ["Public Sans"],
+                "title-md": ["Public Sans"],
+                "headline-lg": ["Public Sans"],
+                "display-lg": ["Public Sans"],
+                "body-lg": ["Public Sans"],
+                "price-display": ["Public Sans"],
+                "label-caps": ["Public Sans"],
+                "body-sm": ["Public Sans"]
+            },
+            "fontSize": {
+                "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "price-display": ["20px", {"lineHeight": "24px", "fontWeight": "700"}],
+                "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopNavBar -->
+<header class="bg-white/80 dark:bg-surface-container/80 backdrop-blur-xl shadow-md docked full-width top-0 sticky z-50 h-20">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-gutter max-w-container-max mx-auto h-full">
+<div class="flex items-center gap-8">
+<a class="font-display-lg text-display-lg text-primary dark:text-primary-fixed tracking-tight" href="#">Sabari Krishna</a>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Shop</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Deals</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Categories</a>
+</nav>
+</div>
+<div class="flex-1 max-w-xl px-8 hidden md:block">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-3 pl-12 pr-4 focus:ring-2 focus:ring-primary-container text-body-lg font-body-lg" type="text" value="Pure Ghee"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container rounded-full transition-all active:scale-95" data-icon="search" md:hidden="">search</button>
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container rounded-full transition-all active:scale-95" data-icon="shopping_cart">shopping_cart</button>
+<button class="material-symbols-outlined text-on-surface-variant p-2 hover:bg-surface-container rounded-full transition-all active:scale-95" data-icon="account_circle">account_circle</button>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-gutter py-stack-lg">
+<!-- Search Header Section -->
+<section class="mb-stack-lg">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<nav class="flex items-center gap-2 text-body-sm font-body-sm text-on-surface-variant mb-4">
+<a class="hover:text-primary" href="#">Home</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>Search Results</span>
+</nav>
+<h1 class="font-headline-lg text-headline-lg md:text-display-lg md:font-display-lg tracking-tight">
+                        Showing 24 results for <span class="text-primary">"Pure Ghee"</span>
+</h1>
+<div class="mt-stack-sm flex items-center gap-2">
+<span class="text-body-sm font-body-sm text-on-surface-variant">Did you mean:</span>
+<button class="text-primary font-body-sm font-semibold hover:underline decoration-2 underline-offset-4">Pure Cow Ghee</button>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant px-4 py-2 rounded-lg text-body-sm font-medium hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        Sort by: Relevance
+                    </button>
+</div>
+</div>
+<!-- Active Chips -->
+<div class="flex flex-wrap gap-2 mt-stack-md">
+<div class="flex items-center gap-2 bg-primary-container/10 border border-primary-container px-3 py-1.5 rounded-full">
+<span class="text-on-primary-container text-body-sm font-medium">Query: Pure Ghee</span>
+<button class="material-symbols-outlined text-[16px] text-on-primary-container">close</button>
+</div>
+<button class="text-primary text-body-sm font-semibold px-2 hover:bg-primary-container/5 rounded">Clear All</button>
+</div>
+</section>
+<!-- Product Grid -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-section-gap">
+<!-- Product Card 1 -->
+<div class="bg-white rounded-xl product-card-shadow flex flex-col group relative overflow-hidden">
+<div class="absolute top-3 left-3 z-10 bg-sale-red text-white font-label-caps text-label-caps px-2 py-1 rounded">15% OFF</div>
+<div class="aspect-square bg-white flex items-center justify-center p-8 overflow-hidden">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="A premium glass jar of pure golden ghee set against a minimalist white background. The jar has a clean label with elegant typography. Soft, bright lighting highlights the smooth, rich texture of the clarified butter inside. The overall aesthetic is clean, organic, and high-end quick-commerce style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdT-2mAJMBpwfMyxdSloWMw03_aqRVV-hkDiI2XAlH8sTttSeC_Uq9E9qVwlNuYThMbPcFfpkICPytRcU3TDLmGJxgwiNpiwMxm3fKIm9WKhlOxCd2oJYzlM14UODGgOnnOsPbkWJoritTn9ININyRweKkEOBPOF4uD7DNxEalmjw4RQzyQw0AMFRcsN_ALc4QMrJVft6etZs5khbrq2hTth44XBUCYxQyyJG86KqEFsGqywIkFHzNzA"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex flex-col gap-1 mb-4">
+<span class="text-warm-gray font-label-caps text-label-caps tracking-wider">VEDIC DELIGHT</span>
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Pure Desi Cow Ghee - Hand-Churned Bilona Method</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-price-green text-price-display font-price-display">₹599</span>
+<span class="text-on-surface-variant text-body-sm line-through">₹699</span>
+</div>
+<div class="flex items-center gap-1 mt-2">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-[12px] font-medium text-secondary">In Stock • Incl. GST</span>
+</div>
+</div>
+<button class="mt-auto w-full bg-primary py-3 rounded-lg text-white font-semibold flex items-center justify-center gap-2 hover:bg-on-primary-container transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+                        Add to Cart
+                    </button>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-white rounded-xl product-card-shadow flex flex-col group relative overflow-hidden">
+<div class="aspect-square bg-white flex items-center justify-center p-8 overflow-hidden">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="A premium metal tin container of organic pure ghee, positioned centrally on a bright, high-key white surface. The packaging design is modern with earthy green and gold accents. Soft directional lighting creates gentle shadows, emphasizing the premium quality. Modern commercial food photography style with high clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqiixaHGIU4YGIR-CivD2z0kQGDOAzgOrKPxP6ln9BG0d78Z3hynlUW9-cM8cnA9T9-7jDiVg4Q0z63nYrGQFn5ejdsMWcMCqiV7b_Z1TH38ePVsgVSOm8oSLo6vigKIvoxirRskasqSSQYo9z9HCD3BWsSKLVxyKT3nA9fjjQouTTpppy1yat75gf3omY6eFKzZv9d7wNQKUiR4AdJsjONi7U7ARc-aTLMc76GSSIVLhvCduOGUQbTw"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex flex-col gap-1 mb-4">
+<span class="text-warm-gray font-label-caps text-label-caps tracking-wider">ORGANIC HARVEST</span>
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Organic Pure Buffalo Ghee - Grass-Fed &amp; Non-GMO</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-price-green text-price-display font-price-display">₹449</span>
+</div>
+<div class="flex items-center gap-1 mt-2">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-[12px] font-medium text-secondary">In Stock • Incl. GST</span>
+</div>
+</div>
+<button class="mt-auto w-full bg-primary py-3 rounded-lg text-white font-semibold flex items-center justify-center gap-2 hover:bg-on-primary-container transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+                        Add to Cart
+                    </button>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-white rounded-xl product-card-shadow flex flex-col group relative overflow-hidden">
+<div class="absolute top-3 left-3 z-10 bg-primary text-white font-label-caps text-label-caps px-2 py-1 rounded">BESTSELLER</div>
+<div class="aspect-square bg-white flex items-center justify-center p-8 overflow-hidden">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="A set of two glass jars containing pure golden ghee, displayed in a premium gift box. The lighting is warm and inviting, highlighting the grainy, authentic texture of the ghee through the glass. Minimalist studio background in off-white. The overall feel is luxury and traditional quality combined with modern delivery convenience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAv6bSpn3mnHO_dS_9W9iUbZeAOr5NURbiIPyN7MRFduRgi8Z0vVDZJrsUx8giznEPOqdeO7xFEbBAhOxDhePyg9B9RJXxnF2vmp48Kgn98vGZm-PJzK_59yO3GNdP3M5lcj9npdmx0vNjum90CmszaghhgtsmrcWwVKqe2VuztxW_wdz0vLV67H2N-SHdyahovgyQmqD_E506WKhX-T1ZHqKuNK89BZjo-SZp6O6JTWLsbLGmnaQy1vQ"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex flex-col gap-1 mb-4">
+<span class="text-warm-gray font-label-caps text-label-caps tracking-wider">AMRIT FLAVORS</span>
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Pure Ghee Value Pack (500ml x 2)</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-price-green text-price-display font-price-display">₹899</span>
+<span class="text-on-surface-variant text-body-sm line-through">₹999</span>
+</div>
+<div class="flex items-center gap-1 mt-2">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-[12px] font-medium text-secondary">In Stock • Incl. GST</span>
+</div>
+</div>
+<button class="mt-auto w-full bg-primary py-3 rounded-lg text-white font-semibold flex items-center justify-center gap-2 hover:bg-on-primary-container transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+                        Add to Cart
+                    </button>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-white rounded-xl product-card-shadow flex flex-col group relative overflow-hidden">
+<div class="aspect-square bg-white flex items-center justify-center p-8 overflow-hidden">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="Close-up of a premium glass container of A2 cow ghee. The golden liquid has a slightly crystallized texture, indicating purity. The setting is a clean, modern kitchen with soft focus background elements. The image is bright and airy, with a warm-clean atmosphere that evokes health and hygiene. High-end e-commerce product photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlGN2BXQ1cdRpJ2Lm9-rVebWgk6a870XEhHQCw9--nQtimps7znaFRacu-xGfTWxmHvuQs6ofw5zcXNc5FxK5F0rdVINErtxdvLO3viXPDIvIeBsA3aj7u_iCztdGywV-PSZJWPLOasQDiJRimm3vhdF746rNdGmfnZ0oWFJQxSDAA9Vd5LJumV4jxr2DmC8uvS6ZGpq5lWT7VTn449b6auxUX9-1xT2uh0tqYzGeL1AQB5Hzylh2qMg"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex flex-col gap-1 mb-4">
+<span class="text-warm-gray font-label-caps text-label-caps tracking-wider">HERITAGE FARMS</span>
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Premium A2 Cow Ghee - Cultured &amp; Slow Cooked</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-price-green text-price-display font-price-display">₹1,249</span>
+</div>
+<div class="flex items-center gap-1 mt-2">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-[12px] font-medium text-secondary">In Stock • Incl. GST</span>
+</div>
+</div>
+<button class="mt-auto w-full bg-primary py-3 rounded-lg text-white font-semibold flex items-center justify-center gap-2 hover:bg-on-primary-container transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+                        Add to Cart
+                    </button>
+</div>
+</div>
+<!-- Repeat for more results with different prompts or subtle variations -->
+<!-- Product Card 5 -->
+<div class="bg-white rounded-xl product-card-shadow flex flex-col group relative overflow-hidden">
+<div class="aspect-square bg-white flex items-center justify-center p-8 overflow-hidden">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="Top-down view of an open jar of pure ghee, showcasing its beautiful granular yellow texture. A wooden spoon rests nearby on a clean marble surface. The lighting is natural and bright, emphasizing freshness and hygiene. The color palette is composed of soft whites, greys, and the vibrant golden yellow of the ghee. Minimalist organic food styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmgoASf5O3hAsRw1KHTWCp1K5eVHFX_NJqJriIIhKVq8efKhupk4Ge6CdrjSS00w5C3zw6R1YL05Sv_t5MdFwDoydsax71R4O54gbnPEhhX84hMlPoswk2WEX8NAxKDJ4UjEr_Lf4xORJb7PbUl3GQtV-nUXCcqv854hM_2oj6SeUwAgUj3I4HagUduWiThUG7YspY3jqVxRSWCUPeUPyK2kmr-QiukiKvUz6x4vO0_iRHtq-WDAG87A"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex flex-col gap-1 mb-4">
+<span class="text-warm-gray font-label-caps text-label-caps tracking-wider">NATURE'S BEST</span>
+<h3 class="font-title-md text-title-md text-on-surface line-clamp-2">Pure Butter Ghee - Refined for High Heat Cooking</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-price-green text-price-display font-price-display">₹399</span>
+</div>
+<div class="flex items-center gap-1 mt-2">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-[12px] font-medium text-secondary">In Stock • Incl. GST</span>
+</div>
+</div>
+<button class="mt-auto w-full bg-primary py-3 rounded-lg text-white font-semibold flex items-center justify-center gap-2 hover:bg-on-primary-container transition-colors active:scale-95">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+                        Add to Cart
+                    </button>
+</div>
+</div>
+</section>
+<!-- Pagination -->
+<div class="flex justify-center items-center gap-2 mb-section-gap">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-all">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-all">3</button>
+<span class="px-2 text-on-surface-variant">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-all">6</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-surface-dim full-width mt-section-gap border-t border-border-subtle">
+<div class="w-full py-stack-lg px-margin-mobile md:px-gutter max-w-container-max mx-auto flex flex-col md:flex-row justify-between gap-8">
+<div class="flex flex-col gap-4">
+<span class="font-display-lg text-display-lg text-primary">Sabari Krishna</span>
+<p class="text-body-sm font-body-sm text-on-surface-variant max-w-xs">
+                    Premium quick-commerce experience delivering health and hygiene at the speed of thought. Freshness guaranteed.
+                </p>
+<div class="flex gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">public</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">share</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">contact_support</button>
+</div>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-8">
+<div class="flex flex-col gap-3">
+<span class="font-bold text-body-sm uppercase tracking-wider text-on-surface">Support</span>
+<a class="text-on-surface-variant text-body-sm hover:text-primary transition-colors" href="#">Contact Us</a>
+<a class="text-on-surface-variant text-body-sm hover:text-primary transition-colors" href="#">Shipping Policy</a>
+<a class="text-on-surface-variant text-body-sm hover:text-primary transition-colors" href="#">Return Policy</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="font-bold text-body-sm uppercase tracking-wider text-on-surface">Legal</span>
+<a class="text-on-surface-variant text-body-sm hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant text-body-sm hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+</div>
+<div class="w-full py-6 px-margin-mobile md:px-gutter max-w-container-max mx-auto border-t border-outline-variant flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="text-on-surface-variant text-body-sm">© 2024 Sabari Krishna E-commerce. All rights reserved.</span>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-surface-variant">credit_card</span>
+<span class="material-symbols-outlined text-on-surface-variant">account_balance_wallet</span>
+<span class="material-symbols-outlined text-on-surface-variant">contactless</span>
+</div>
+</div>
+</footer>
+<!-- Mobile Bottom Nav -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-2 py-3 bg-white dark:bg-surface-container-highest shadow-lg border-t border-border-subtle md:hidden z-50">
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-all">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-caps text-[10px]">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-xl px-3 py-1 active:scale-90 transition-all">
+<span class="material-symbols-outlined">search</span>
+<span class="font-label-caps text-[10px]">Search</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-all">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-caps text-[10px]">Cart</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-all">
+<span class="material-symbols-outlined">favorite</span>
+<span class="font-label-caps text-[10px]">Wishlist</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-all">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-[10px]">Profile</span>
+</button>
+</nav>
+<script>
+        // Simple micro-interaction for cart adding
+        document.querySelectorAll('button').forEach(button => {
+            if (button.innerText.includes('Add to Cart')) {
+                button.addEventListener('click', function() {
+                    const originalContent = this.innerHTML;
+                    this.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Adding...';
+                    this.classList.add('bg-secondary');
+                    
+                    setTimeout(() => {
+                        this.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Added!';
+                        this.classList.replace('bg-primary', 'bg-secondary');
+                        
+                        setTimeout(() => {
+                            this.innerHTML = originalContent;
+                            this.classList.replace('bg-secondary', 'bg-primary');
+                        }, 2000);
+                    }, 800);
+                });
+            }
+        });
+    </script>
+</body></html>

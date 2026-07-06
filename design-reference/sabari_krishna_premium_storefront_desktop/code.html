@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sabari Krishna Consumables | Pure & Traditional Quality</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#f3f3f6",
+                    "on-primary-fixed": "#291800",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-container": "#494741",
+                    "on-background": "#1a1c1e",
+                    "surface-tint": "#835500",
+                    "surface-container-high": "#e8e8ea",
+                    "warm-gray": "#636B74",
+                    "on-surface-variant": "#524534",
+                    "on-surface": "#1a1c1e",
+                    "inverse-surface": "#2f3133",
+                    "on-secondary-container": "#007432",
+                    "background": "#f9f9fc",
+                    "primary-fixed-dim": "#ffb955",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-highest": "#e2e2e5",
+                    "price-green": "#1D8B42",
+                    "border-subtle": "#E5E7EB",
+                    "on-tertiary-fixed-variant": "#484741",
+                    "on-tertiary-fixed": "#1c1c17",
+                    "on-error": "#ffffff",
+                    "outline": "#857462",
+                    "surface-variant": "#e2e2e5",
+                    "tertiary-fixed": "#e6e2d9",
+                    "inverse-primary": "#ffb955",
+                    "on-primary-fixed-variant": "#633f00",
+                    "primary-container": "#f5a623",
+                    "inverse-on-surface": "#f0f0f3",
+                    "tertiary": "#605e58",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "outline-variant": "#d7c3ae",
+                    "sale-red": "#E02020",
+                    "tertiary-fixed-dim": "#c9c6be",
+                    "tertiary-container": "#b9b6ae",
+                    "primary": "#835500",
+                    "on-secondary-fixed": "#002109",
+                    "secondary-fixed-dim": "#75dc88",
+                    "secondary-container": "#91f9a2",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#91f9a2",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#644000",
+                    "surface-dim": "#dadadc",
+                    "on-secondary-fixed-variant": "#005321",
+                    "secondary": "#006e2f",
+                    "surface": "#f9f9fc",
+                    "on-error-container": "#93000a",
+                    "surface-bright": "#f9f9fc",
+                    "surface-container": "#eeeef0",
+                    "primary-fixed": "#ffddb4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "16px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "stack-lg": "32px",
+                    "gutter": "24px",
+                    "stack-sm": "8px",
+                    "margin-mobile": "16px",
+                    "container-max": "1280px",
+                    "section-gap": "80px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Public Sans"],
+                    "headline-lg": ["Public Sans"],
+                    "body-lg": ["Public Sans"],
+                    "body-sm": ["Public Sans"],
+                    "display-lg": ["Public Sans"],
+                    "label-caps": ["Public Sans"],
+                    "price-display": ["Public Sans"],
+                    "title-md": ["Public Sans"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "price-display": ["20px", {"lineHeight": "24px", "fontWeight": "700"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .product-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .product-card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-[#FDF9F0] text-on-surface font-body-lg selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="bg-surface/80 dark:bg-surface-container-highest/80 backdrop-blur-md shadow-sm dark:shadow-none docked full-width top-0 sticky h-20 z-50 flex items-center">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-gutter max-w-container-max mx-auto h-20 z-50">
+<div class="flex items-center gap-stack-lg">
+<a class="flex items-center gap-2" href="#">
+<img alt="Sabari Krishna" class="h-12 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLsEqQ2ug3naNoyBoQsAiS7SiUfR_QBxIlY-WAbVPhIV_rfra-CdpvzJRxIQlnGmSvi3LpOo3nPvO2_t9EvJpkCcfVCQPMkdlo93aPHfApA3Pw0nJlcZIt0io8s8iK1uwWHur92_VWphadMdIDYjVdxz_LywUYWjSKGNxgaQi0BTREIEdsWbjg_gwvWIQfEKSVVXXzOWi0k0zU96EJVFgJr7VUuGfNr5-KiToiZzCXoTSprb0XJUjHXscj1k"/>
+<span class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed hidden md:block">Sabari Krishna</span>
+</a>
+</div>
+<!-- Search Bar -->
+<div class="hidden md:flex flex-1 max-w-xl mx-8 relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-low border-none rounded-full focus:ring-2 focus:ring-primary/20 text-body-lg" placeholder="Search for ghee, oils, groceries..." type="text"/>
+</div>
+<nav class="flex items-center gap-6">
+<div class="hidden lg:flex items-center gap-6">
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary dark:border-primary-fixed pb-1 font-body-lg text-body-lg hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Home</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-body-lg text-body-lg hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Ghee</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-body-lg text-body-lg hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Oils</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-body-lg text-body-lg hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Fashion</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-body-lg text-body-lg hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Groceries</a>
+</div>
+<div class="flex items-center gap-4 ml-4">
+<button class="relative p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors active:scale-95 duration-150 transition-transform">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="absolute top-0 right-0 bg-secondary text-on-secondary text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">0</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors active:scale-95 duration-150 transition-transform">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</nav>
+</div>
+</header>
+<main>
+<!-- Hero Banner Carousel -->
+<section class="relative w-full overflow-hidden h-[400px] md:h-[500px]">
+<div class="carousel-track h-full" id="hero-carousel">
+<!-- Slide 1 -->
+<div class="min-w-full h-full relative">
+<div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida/AP1WRLtxwgOBh5A2MQ4Jr0aOsNGq_Y6Suqv4YtckLvEGJ7Up9dl-EkOgR87pc5rzkYkWh3Phthvs8KGzX1aA_ZTa2uUs0Dh1OJ37vextu0PnkCHymAvBql8XzrdOCCN7sDtx6djxo2nMWNW91LC69lHidU237G_sq49UVDSY1qMblz_x0m8NQ0EiY3p9T2lU9hGOSd49mZSLpypVsYgCKZ5hQKHHpgIudowIa0bacM2M3FkNo4T38hoJPMQyK0Cj')">
+<div class="absolute inset-0 bg-black/20 flex items-center">
+<div class="max-w-container-max mx-auto px-gutter w-full">
+<div class="max-w-xl bg-surface/90 backdrop-blur-md p-stack-lg rounded-xl shadow-lg animate-in slide-in-from-left duration-700">
+<span class="font-label-caps text-primary mb-2 block tracking-widest">ESTABLISHED QUALITY</span>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-4">Pure & Traditional Ghee</h1>
+<p class="text-body-lg text-on-surface-variant mb-6">Experience the richness of tradition with our hand-churned, aromatic cow ghee. Perfect for your health and home.</p>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-lg font-bold hover:shadow-lg transition-all active:scale-95">Shop Collection</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Slide 2 -->
+<div class="min-w-full h-full relative">
+<div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida/AP1WRLstBZCefZLdejYMbxSrZYYYxJ_3TU6hu2M2huCjPk7dfwMidoy14W1DtTgPFDrNlq1N1xE0bZTHFOENDVQdqT6xDvupwG9hJV-eFQ74vih4GCt9215Bya97ry28DeTYp0X47PLGaWG99V6OXeef6zvRu_ZI36VB4A8e52hs-ykGyuUrbW8V9HHUrZc2a4qneVmDHODrReQyX4lsUK_o3J6nIrfWjjNGV8d9olPrHysa0R1jn7ei4tKXxUVH')">
+<div class="absolute inset-0 bg-black/20 flex items-center">
+<div class="max-w-container-max mx-auto px-gutter w-full text-right flex justify-end">
+<div class="max-w-xl bg-surface/90 backdrop-blur-md p-stack-lg rounded-xl shadow-lg">
+<span class="font-label-caps text-secondary mb-2 block tracking-widest">NATURAL & HEALTHY</span>
+<h2 class="font-display-lg text-display-lg text-on-surface mb-4">Premium Cold Pressed Oils</h2>
+<p class="text-body-lg text-on-surface-variant mb-6">Nutrient-rich oils extracted with traditional methods to preserve natural goodness and flavor.</p>
+<button class="bg-secondary text-on-secondary px-8 py-3 rounded-lg font-bold hover:shadow-lg transition-all active:scale-95">Explore Range</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<button class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/50 backdrop-blur-sm p-3 rounded-full hover:bg-white transition-all shadow-md z-10" onclick="moveCarousel(-1)">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/50 backdrop-blur-sm p-3 rounded-full hover:bg-white transition-all shadow-md z-10" onclick="moveCarousel(1)">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</section>
+<!-- Category Quick-Links -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-gutter py-section-gap">
+<div class="flex items-end justify-between mb-stack-lg">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Browse by Category</h2>
+<p class="text-on-surface-variant">Quality products for every household need</p>
+</div>
+<a class="text-primary font-bold flex items-center gap-1 hover:underline" href="#">
+                    View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-5 gap-stack-md">
+<!-- Ghee -->
+<a class="group relative aspect-square bg-white rounded-xl overflow-hidden shadow-sm product-card-hover flex flex-col items-center justify-center p-6 border border-border-subtle" href="#">
+<div class="w-20 h-20 bg-primary-container/20 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl text-primary" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+</div>
+<span class="font-title-md text-title-md text-on-surface">Ghee</span>
+</a>
+<!-- Oils -->
+<a class="group relative aspect-square bg-white rounded-xl overflow-hidden shadow-sm product-card-hover flex flex-col items-center justify-center p-6 border border-border-subtle" href="#">
+<div class="w-20 h-20 bg-secondary-container/20 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl text-secondary" style="font-variation-settings: 'FILL' 1;">opacity</span>
+</div>
+<span class="font-title-md text-title-md text-on-surface">Oils</span>
+</a>
+<!-- Fashion -->
+<a class="group relative aspect-square bg-white rounded-xl overflow-hidden shadow-sm product-card-hover flex flex-col items-center justify-center p-6 border border-border-subtle" href="#">
+<div class="w-20 h-20 bg-tertiary-container/20 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl text-tertiary" style="font-variation-settings: 'FILL' 1;">checkroom</span>
+</div>
+<span class="font-title-md text-title-md text-on-surface">Fashion</span>
+</a>
+<!-- Groceries -->
+<a class="group relative aspect-square bg-white rounded-xl overflow-hidden shadow-sm product-card-hover flex flex-col items-center justify-center p-6 border border-border-subtle" href="#">
+<div class="w-20 h-20 bg-warm-gray/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl text-warm-gray" style="font-variation-settings: 'FILL' 1;">local_grocery_store</span>
+</div>
+<span class="font-title-md text-title-md text-on-surface">Groceries</span>
+</a>
+<!-- Health -->
+<a class="group relative aspect-square bg-white rounded-xl overflow-hidden shadow-sm product-card-hover flex flex-col items-center justify-center p-6 border border-border-subtle" href="#">
+<div class="w-20 h-20 bg-error-container/20 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl text-error" style="font-variation-settings: 'FILL' 1;">health_and_safety</span>
+</div>
+<span class="font-title-md text-title-md text-on-surface">Health</span>
+</a>
+</div>
+</section>
+<!-- Best Sellers Grid -->
+<section class="bg-surface-container py-section-gap">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+<div class="mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Our Best Sellers</h2>
+<p class="text-on-surface-variant">Top-rated essentials loved by our customers</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Product 1 -->
+<div class="bg-white rounded-xl overflow-hidden shadow-sm flex flex-col product-card-hover border border-border-subtle relative group">
+<span class="absolute top-3 left-3 bg-sale-red text-white font-label-caps px-2 py-1 rounded-md z-10">BEST SELLER</span>
+<div class="aspect-[0.71] bg-white p-4 flex items-center justify-center overflow-hidden">
+<img alt="Pure Cow Ghee 1 Ltr" class="max-h-full object-contain group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AP1WRLtiuXBmfvuOTmtXBTA4CKw9LtVg9KP2EmKkRCCmJytm1XKAaWm0nq02SsgqvKmPG_kj-gTm3sYF6rwcP73BueHaOqrHewf1c_yJIvuE3zHemP05ADiHObZ6r9qM3snv2dHaAQJg6GhhlSU9Mtog0IhGCDJMMa-MwXV3Bg0GT2UGfB946B7uaEC409LLIi6QOdQ5WyOOxJR2Vfo97exsPciqrN3XRcbPNagw2nRTnOivwicte7B8ZABT9iJE"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex items-center gap-1 mb-2">
+<div class="flex text-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star_half</span>
+</div>
+<span class="text-body-sm text-on-surface-variant">(128)</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-1">Pure Cow Ghee - 1 Ltr</h3>
+<p class="text-body-sm text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="w-2 h-2 bg-secondary rounded-full"></span> In Stock
+                            </p>
+<div class="mt-auto flex items-center justify-between">
+<span class="font-price-display text-price-display text-price-green">₹649</span>
+<button class="bg-secondary text-on-secondary hover:bg-on-secondary-container px-4 py-2 rounded-lg font-bold text-body-sm transition-colors flex items-center gap-2">
+                                    ADD <span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="bg-white rounded-xl overflow-hidden shadow-sm flex flex-col product-card-hover border border-border-subtle relative group">
+<div class="aspect-[0.71] bg-white p-4 flex items-center justify-center overflow-hidden">
+<img alt="Pure Cow Ghee 500 ML" class="max-h-full object-contain group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AP1WRLvc9jVoJWCC5xBaL7PQq196mUiPleGDXeBxyzgjuzfc6PKwlCOAWaVFAjVtnu8oI7Pqmm0xI_vwIQkG3DIGpK7wYaDvxx_kHhDnEc7yfmF7Wll15KdDMaikhMLae3W_RLROLPtMXn9dHDIXtkI7D8sPsD0ie5_DBWS3pSxBX1_zy_lhwfiCfELHpgVyAIYcYjAUu0bhfPYpTv41M-hTwElFIeuEOhOfI2ocF5OjQolqnKgpf-7tFQK9UlM"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex items-center gap-1 mb-2">
+<div class="flex text-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+</div>
+<span class="text-body-sm text-on-surface-variant">(84)</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-1">Pure Cow Ghee - 500 ML</h3>
+<p class="text-body-sm text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="w-2 h-2 bg-secondary rounded-full"></span> In Stock
+                            </p>
+<div class="mt-auto flex items-center justify-between">
+<span class="font-price-display text-price-display text-price-green">₹340</span>
+<button class="bg-secondary text-on-secondary hover:bg-on-secondary-container px-4 py-2 rounded-lg font-bold text-body-sm transition-colors flex items-center gap-2">
+                                    ADD <span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="bg-white rounded-xl overflow-hidden shadow-sm flex flex-col product-card-hover border border-border-subtle relative group">
+<div class="aspect-[0.71] bg-white p-4 flex items-center justify-center overflow-hidden">
+<img alt="Sabari Heritage Pack" class="max-h-full object-contain group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AP1WRLvPEU5xs4YDbCbp1VyHxLJ1nwrBi4fcyoJF8MBizrZuH2d957WCeYRV3GDlA_-afBufHifZrhs4s01i3_Ko6_IqzRuPQihtRyrPxmv4KaZq5oZj2ApsUrR99n-x94ov-f4J3pR9yMq7-WjmmD1PHtY5GuQIhsNuZr8t8hwnbceBH4Brr5PoZbjofgvuQ92euC8Fz4WnlZQB5ADmZwh7K0aKDGpAi9rw_HVa24zahGDL2r-Wk025tlttKtwA"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex items-center gap-1 mb-2">
+<div class="flex text-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+</div>
+<span class="text-body-sm text-on-surface-variant">(210)</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-1">Traditional Cow Ghee - 200 ML</h3>
+<p class="text-body-sm text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="w-2 h-2 bg-secondary rounded-full"></span> In Stock
+                            </p>
+<div class="mt-auto flex items-center justify-between">
+<span class="font-price-display text-price-display text-price-green">₹145</span>
+<button class="bg-secondary text-on-secondary hover:bg-on-secondary-container px-4 py-2 rounded-lg font-bold text-body-sm transition-colors flex items-center gap-2">
+                                    ADD <span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product 4 -->
+<div class="bg-white rounded-xl overflow-hidden shadow-sm flex flex-col product-card-hover border border-border-subtle relative group">
+<div class="aspect-[0.71] bg-white p-4 flex items-center justify-center overflow-hidden">
+<img alt="Premium Jar Ghee" class="max-h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AP1WRLt-Dg3s6viFL70Piso3gUqi6T6KaTeZg0S8EzCk8DFjiJoy-fyap-R01OpxV1lGYT7adbpWpIVh0R9rMNfziNvezQr1tsT8wzUNR2ZUOQ-uRxm5y3QyMzkBy1wZNC4HRfjbZ5eaREm6rRhwoE0H_MAO2ozTg9hvIyVOJatFkBiX3hFKaaPtVQWPEvSBnZCA9pJyiySrbclLwAxn4wxfKNXc9OpPyeO2T4q9JRZRe4LszDWkWbvBjo5UPes"/>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="flex items-center gap-1 mb-2">
+<div class="flex text-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="text-body-sm text-on-surface-variant">(315)</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-1">Authentic Ghee Glass Jar</h3>
+<p class="text-body-sm text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="w-2 h-2 bg-secondary rounded-full"></span> Limited Stock
+                            </p>
+<div class="mt-auto flex items-center justify-between">
+<span class="font-price-display text-price-display text-price-green">₹799</span>
+<button class="bg-secondary text-on-secondary hover:bg-on-secondary-container px-4 py-2 rounded-lg font-bold text-body-sm transition-colors flex items-center gap-2">
+                                    ADD <span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Brand Trust Strip -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-gutter py-section-gap overflow-hidden">
+<div class="flex flex-col md:flex-row items-center gap-12 bg-white rounded-3xl p-8 md:p-16 shadow-lg">
+<div class="flex-1 space-y-6">
+<div class="inline-flex items-center gap-2 bg-primary-container/10 px-4 py-2 rounded-full text-primary font-bold text-sm">
+<span class="material-symbols-outlined text-lg">verified_user</span>
+                        A Legacy of Trust
+                    </div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface leading-tight">Our Heritage: Bridging Tradition with Modern Purity</h2>
+<p class="text-body-lg text-on-surface-variant leading-relaxed">
+                        At Sabari Krishna, we believe that quality is not just a standard, but a promise. For generations, we have sourced the finest ingredients from local farmers, ensuring that every drop of ghee and every item in our catalog reflects the purity of our heritage.
+                    </p>
+<div class="grid grid-cols-2 gap-8 pt-4">
+<div class="flex flex-col gap-1">
+<span class="font-display-lg text-headline-lg text-primary">100%</span>
+<span class="text-body-sm font-bold uppercase tracking-wider text-warm-gray">Natural Process</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-display-lg text-headline-lg text-primary">50k+</span>
+<span class="text-body-sm font-bold uppercase tracking-wider text-warm-gray">Happy Families</span>
+</div>
+</div>
+<button class="border border-primary text-primary px-8 py-3 rounded-lg font-bold hover:bg-primary/5 transition-all">Read Our Story</button>
+</div>
+<div class="flex-1 w-full relative">
+<div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
+<img alt="Traditional Sourcing" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AP1WRLskwxHo3YCYOSfIbl9mTOlJ19PsRjzbW18Z9oqp-2xNrTvdLBLtEb2NaGlDQ7kpdA3Yw7TwcAwhtBi50Q_L0sb2CAihmxWiW4WpPjUQyfwGzF8uls5wEvn5gSCTS6M2dxVpaAIKVSIkdlER78QhjDsR88cRUpU2nUPAiKjGAidzSXfvy7n5MuSKrE_rXCmzwuhDriX5-F0Noth8GszcmubhYsu0YYtRCzuU7zvQhTw6akRrUTaotHZ9siIg"/>
+</div>
+<!-- Decorative Element -->
+<div class="absolute -bottom-6 -right-6 w-32 h-32 bg-primary-container rounded-full -z-10 opacity-20 blur-2xl"></div>
+</div>
+</div>
+</section>
+<!-- Testimonials Carousel -->
+<section class="bg-surface-container-low py-section-gap">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter">
+<h2 class="font-headline-lg text-headline-lg text-on-surface text-center mb-stack-lg">What Our Customers Say</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-stack-lg">
+<!-- Testimonial 1 -->
+<div class="bg-white p-8 rounded-xl shadow-sm border border-border-subtle">
+<div class="flex text-primary mb-4">
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+</div>
+<p class="text-body-lg italic mb-6">"The aroma of Sabari Krishna Ghee takes me back to my childhood. It's the purest ghee I've found in years. Truly authentic."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">AK</div>
+<div>
+<h4 class="font-bold text-on-surface">Ananya K.</h4>
+<p class="text-body-sm text-on-surface-variant">Verified Buyer</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 2 -->
+<div class="bg-white p-8 rounded-xl shadow-sm border border-border-subtle">
+<div class="flex text-primary mb-4">
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+</div>
+<p class="text-body-lg italic mb-6">"Excellent delivery speed and the packaging was top-notch. The quality of cold-pressed oils is remarkably consistent."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold">RS</div>
+<div>
+<h4 class="font-bold text-on-surface">Rajesh S.</h4>
+<p class="text-body-sm text-on-surface-variant">Monthly Subscriber</p>
+</div>
+</div>
+</div>
+<!-- Testimonial 3 -->
+<div class="bg-white p-8 rounded-xl shadow-sm border border-border-subtle">
+<div class="flex text-primary mb-4">
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+<span class="material-symbols-outlined">star</span>
+</div>
+<p class="text-body-lg italic mb-6">"Great customer service! I had an issue with my order and it was resolved within hours. And the ghee is just superb."</p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-bold">MP</div>
+<div>
+<h4 class="font-bold text-on-surface">Meera P.</h4>
+<p class="text-body-sm text-on-surface-variant">Loyal Customer</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter Section -->
+<section class="bg-primary py-section-gap relative overflow-hidden">
+<!-- Decorative circle -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full translate-x-1/2 -translate-y-1/2"></div>
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter text-center relative z-10">
+<div class="max-w-2xl mx-auto text-on-primary">
+<h2 class="font-headline-lg text-headline-lg mb-4">Join Our Community</h2>
+<p class="text-body-lg mb-8 opacity-90">Subscribe to receive updates on new arrivals, exclusive offers, and traditional recipes delivered straight to your inbox.</p>
+<form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto" onsubmit="event.preventDefault(); alert('Subscribed!')">
+<input class="flex-1 px-6 py-4 rounded-xl text-on-surface focus:ring-4 focus:ring-primary-container/30 border-none" placeholder="Enter your email address" required="" type="email"/>
+<button class="bg-on-primary-fixed text-primary-fixed-dim px-8 py-4 rounded-xl font-bold hover:scale-105 transition-transform active:scale-95 shadow-lg" type="submit">Subscribe</button>
+</form>
+<p class="text-body-sm mt-6 opacity-70 italic">We respect your privacy. Unsubscribe at any time.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-inverse-surface border-t border-border-subtle dark:border-outline-variant full-width flat no shadows">
+<div class="w-full py-stack-lg px-margin-mobile md:px-gutter max-w-container-max mx-auto flex flex-col md:flex-row justify-between gap-stack-lg">
+<div class="flex flex-col gap-4 max-w-md">
+<span class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed-dim">Sabari Krishna</span>
+<p class="text-on-surface-variant dark:text-surface-variant font-body-sm text-body-sm leading-relaxed">
+                    © 2024 Sabari Krishna Consumables India Private Limited. CIN: U15400TN2022PTC154321. FSSAI Lic. No. 12422999000432. All rights reserved.
+                </p>
+<div class="flex gap-4 mt-2">
+<a class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-lg">public</span></a>
+<a class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-lg">thumb_up</span></a>
+<a class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center hover:bg-primary-container transition-colors" href="#"><span class="material-symbols-outlined text-lg">mail</span></a>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-2 gap-x-12 gap-y-8">
+<div class="flex flex-col gap-4">
+<h4 class="font-bold text-on-surface dark:text-inverse-on-surface">Company</h4>
+<div class="flex flex-col gap-2">
+<a class="text-on-surface-variant dark:text-surface-variant font-body-sm text-body-sm hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">About Us</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-body-sm text-body-sm hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Contact Us</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-body-sm text-body-sm hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Careers</a>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-bold text-on-surface dark:text-inverse-on-surface">Support</h4>
+<div class="flex flex-col gap-2">
+<a class="text-on-surface-variant dark:text-surface-variant font-body-sm text-body-sm hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-body-sm text-body-sm hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Terms of Service</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-body-sm text-body-sm hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Shipping Policy</a>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full border-t border-border-subtle dark:border-outline-variant py-6">
+<div class="max-w-container-max mx-auto px-gutter text-center text-on-surface-variant dark:text-surface-variant font-body-sm text-body-sm">
+                Authentically Pure. Traditionally Healthy. Designed with care for your family.
+            </div>
+</div>
+</footer>
+<script>
+        // Simple Carousel Logic
+        let currentSlide = 0;
+        const totalSlides = 2;
+        const carousel = document.getElementById('hero-carousel');
+
+        function moveCarousel(direction) {
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        // Auto play carousel
+        setInterval(() => {
+            moveCarousel(1);
+        }, 5000);
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body></html>

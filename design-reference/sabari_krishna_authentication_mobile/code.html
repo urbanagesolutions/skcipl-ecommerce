@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login | Sabari Krishna</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#75dc88",
+                        "on-tertiary-fixed": "#1c1c17",
+                        "surface-container-highest": "#e2e2e5",
+                        "on-tertiary-fixed-variant": "#484741",
+                        "primary-container": "#f5a623",
+                        "outline-variant": "#d7c3ae",
+                        "outline": "#857462",
+                        "surface-container-low": "#f3f3f6",
+                        "on-primary-fixed": "#291800",
+                        "on-surface": "#1a1c1e",
+                        "surface-container-high": "#e8e8ea",
+                        "background": "#f9f9fc",
+                        "warm-gray": "#636B74",
+                        "surface-container": "#eeeef0",
+                        "price-green": "#1D8B42",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#633f00",
+                        "on-error-container": "#93000a",
+                        "sale-red": "#E02020",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#f0f0f3",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#e2e2e5",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c9c6be",
+                        "primary-fixed": "#ffddb4",
+                        "inverse-surface": "#2f3133",
+                        "on-secondary-fixed": "#002109",
+                        "surface-bright": "#f9f9fc",
+                        "surface-dim": "#dadadc",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#524534",
+                        "secondary": "#006e2f",
+                        "error": "#ba1a1a",
+                        "secondary-fixed": "#91f9a2",
+                        "inverse-primary": "#ffb955",
+                        "border-subtle": "#E5E7EB",
+                        "tertiary-container": "#b9b6ae",
+                        "on-primary-container": "#644000",
+                        "on-background": "#1a1c1e",
+                        "on-secondary-fixed-variant": "#005321",
+                        "secondary-container": "#91f9a2",
+                        "primary-fixed-dim": "#ffb955",
+                        "on-secondary-container": "#007432",
+                        "tertiary-fixed": "#e6e2d9",
+                        "primary": "#835500",
+                        "surface-tint": "#835500",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#f9f9fc",
+                        "tertiary": "#605e58",
+                        "on-tertiary-container": "#494741"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "container-max": "1280px",
+                        "section-gap": "80px",
+                        "margin-mobile": "16px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Public Sans"],
+                        "title-md": ["Public Sans"],
+                        "headline-lg": ["Public Sans"],
+                        "display-lg": ["Public Sans"],
+                        "body-lg": ["Public Sans"],
+                        "price-display": ["Public Sans"],
+                        "label-caps": ["Public Sans"],
+                        "body-sm": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "price-display": ["20px", {"lineHeight": "24px", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #f9f9fc;
+            font-family: 'Public Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .otp-input:focus {
+            border-color: #835500;
+            box-shadow: 0 0 0 2px rgba(131, 85, 0, 0.1);
+            outline: none;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="text-on-surface">
+<!-- Auth Canvas -->
+<main class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
+<!-- Animated Background Decor -->
+<div class="absolute inset-0 z-0 pointer-events-none">
+
+<!-- Decorative Blobs (fallback for style depth) -->
+<div class="absolute -top-24 -right-24 w-96 h-96 bg-primary-fixed-dim/20 rounded-full blur-[100px]"></div>
+<div class="absolute -bottom-24 -left-24 w-96 h-96 bg-secondary-fixed/20 rounded-full blur-[100px]"></div>
+</div>
+<!-- Branding Section (Fixed at Top) -->
+<div class="z-10 text-center mb-stack-lg">
+<h1 class="font-display-lg text-display-lg text-primary tracking-tight">Sabari Krishna</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-stack-sm tracking-wide uppercase">Premium E-Commerce Experience</p>
+</div>
+<!-- Form Card Container -->
+<section class="z-10 w-full max-w-[400px] px-margin-mobile" id="auth-card">
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl shadow-lg p-8 flex flex-col transition-all duration-500 transform scale-100">
+<!-- Step 1: Login / Phone Number -->
+<div class="space-y-stack-lg" id="step-phone">
+<div class="text-center">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Welcome Back</h2>
+<p class="font-body-sm text-body-sm text-warm-gray mt-1">Enter your phone number to continue</p>
+</div>
+<div class="space-y-4">
+<div class="relative group">
+<label class="font-body-sm text-body-sm font-bold text-on-surface-variant mb-1 block">Phone Number</label>
+<div class="flex items-center border border-outline rounded-lg bg-white overflow-hidden focus-within:border-primary transition-all">
+<span class="px-4 py-3 bg-surface-container-low text-on-surface-variant border-r border-outline-variant font-medium">+91</span>
+<input class="w-full px-4 py-3 bg-transparent outline-none font-body-lg text-body-lg" maxlength="10" placeholder="00000 00000" type="tel"/>
+</div>
+</div>
+<button class="w-full bg-primary-container text-on-primary-container font-title-md text-title-md py-4 rounded-xl shadow-md hover:shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2" onclick="transitionToOtp()">
+<span>Get Verification Code</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+<div class="relative flex items-center py-2">
+<div class="flex-grow border-t border-outline-variant"></div>
+<span class="flex-shrink mx-4 font-body-sm text-body-sm text-warm-gray">OR</span>
+<div class="flex-grow border-t border-outline-variant"></div>
+</div>
+<div class="grid grid-cols-2 gap-stack-md">
+<button class="flex items-center justify-center gap-2 border border-outline rounded-xl py-3 hover:bg-surface-container-low active:scale-95 transition-all">
+<img alt="Google" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3HbAFGPt3NTM_pYJpQ87JYQksyyv0PNFHLyFmN04GM-jllSCYImfbFqf2opqjfp1CEGk3HqBEvHuIRnbc4P7h9riIWx1lzEFqFBKTolmB14sLZPXS8gK4b48Bpx4nmtF6Xivnp894QewvZX5AOZyfZ6DXm8wZwCuLfYSqBmMgfeqX7zBhRZ2nIT_-TSTasLE-1-aQ2aBldfM01Li7zDKpQz0b_Ueh4RL_QyFNmH2UxOepK8e4z9AV4g"/>
+<span class="font-label-caps text-label-caps">Google</span>
+</button>
+<button class="flex items-center justify-center gap-2 border border-outline rounded-xl py-3 hover:bg-surface-container-low active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">apps</span>
+<span class="font-label-caps text-label-caps">Apple</span>
+</button>
+</div>
+</div>
+<!-- Step 2: OTP (Hidden by default) -->
+<div class="hidden space-y-stack-lg" id="step-otp">
+<div class="text-center">
+<button class="flex items-center gap-1 text-primary mb-stack-md hover:underline mx-auto" onclick="transitionToPhone()">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span class="font-body-sm text-body-sm">Change Number</span>
+</button>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Verify Identity</h2>
+<p class="font-body-sm text-body-sm text-warm-gray mt-1">We've sent a 6-digit code to +91 98765 43210</p>
+</div>
+<div class="space-y-6">
+<div class="flex justify-between gap-2">
+<input class="otp-input w-12 h-14 border border-outline rounded-lg text-center font-display-lg text-headline-lg-mobile bg-white transition-all focus:border-primary" maxlength="1" type="text"/>
+<input class="otp-input w-12 h-14 border border-outline rounded-lg text-center font-display-lg text-headline-lg-mobile bg-white transition-all focus:border-primary" maxlength="1" type="text"/>
+<input class="otp-input w-12 h-14 border border-outline rounded-lg text-center font-display-lg text-headline-lg-mobile bg-white transition-all focus:border-primary" maxlength="1" type="text"/>
+<input class="otp-input w-12 h-14 border border-outline rounded-lg text-center font-display-lg text-headline-lg-mobile bg-white transition-all focus:border-primary" maxlength="1" type="text"/>
+<input class="otp-input w-12 h-14 border border-outline rounded-lg text-center font-display-lg text-headline-lg-mobile bg-white transition-all focus:border-primary" maxlength="1" type="text"/>
+<input class="otp-input w-12 h-14 border border-outline rounded-lg text-center font-display-lg text-headline-lg-mobile bg-white transition-all focus:border-primary" maxlength="1" type="text"/>
+</div>
+<button class="w-full bg-secondary text-on-secondary font-title-md text-title-md py-4 rounded-xl shadow-md hover:shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2">
+<span>Verify &amp; Login</span>
+<span class="material-symbols-outlined text-[20px]" data-weight="fill">verified_user</span>
+</button>
+<div class="text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                                Didn't receive code? <button class="text-primary font-bold hover:underline">Resend in 0:45</button>
+</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Meta Links (Internal to Main for Centering) -->
+<div class="mt-stack-lg text-center space-y-stack-sm">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    By continuing, you agree to our <br/>
+<a class="text-primary font-bold hover:underline" href="#">Terms of Service</a> &amp; 
+                    <a class="text-primary font-bold hover:underline" href="#">Privacy Policy</a>
+</p>
+</div>
+</section>
+</main>
+<!-- Script for Mock Interaction -->
+<script>
+        function transitionToOtp() {
+            const phoneStep = document.getElementById('step-phone');
+            const otpStep = document.getElementById('step-otp');
+            
+            phoneStep.classList.add('opacity-0', '-translate-x-10');
+            setTimeout(() => {
+                phoneStep.classList.add('hidden');
+                otpStep.classList.remove('hidden');
+                otpStep.classList.remove('opacity-0', 'translate-x-10');
+                otpStep.classList.add('opacity-100', 'translate-x-0');
+                
+                // Focus first OTP field
+                document.querySelector('.otp-input').focus();
+            }, 300);
+        }
+
+        function transitionToPhone() {
+            const phoneStep = document.getElementById('step-phone');
+            const otpStep = document.getElementById('step-otp');
+            
+            otpStep.classList.add('opacity-0', 'translate-x-10');
+            setTimeout(() => {
+                otpStep.classList.add('hidden');
+                phoneStep.classList.remove('hidden');
+                phoneStep.classList.remove('opacity-0', '-translate-x-10');
+                phoneStep.classList.add('opacity-100', 'translate-x-0');
+            }, 300);
+        }
+
+        // Auto-focus logic for OTP inputs
+        const inputs = document.querySelectorAll('.otp-input');
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                if (e.target.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && e.target.value === '' && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+    </script>
+</body></html>

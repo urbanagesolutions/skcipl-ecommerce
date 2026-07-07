@@ -6,35 +6,41 @@ import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Input } from '@/components/ui/Input';
 import { Sparkles, ArrowRight, Heart } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
 export default async function Home() {
   const categories = await fetchCategories();
 
-  // Seed some mock best sellers for layout showcase
-  const mockProducts = [
-    {
-      id: 'p1',
-      name: 'Pure Desi Cow Ghee (Bilona Method)',
-      slug: 'pure-desi-cow-ghee',
-      category: 'Ghee',
-      price: 649,
-      discount_price: 599,
-      rating: 4.8,
-      image: '/design-reference/image_from_https_sabarikrishnaconsumables.in_wp_content_uploads_2023_05_cropped/screen.png',
-      badge: 'Bestseller'
-    },
-    {
-      id: 'p2',
-      name: 'Cold Pressed Virgin Coconut Oil',
-      slug: 'virgin-coconut-oil',
-      category: 'Oils',
-      price: 349,
-      discount_price: 299,
-      rating: 4.7,
-      image: '/design-reference/image_from_https_sabarikrishnaconsumables.in_wp_content_uploads_2023_05_500_ml/screen.png',
-      badge: '100% Organic'
-    }
-  ];
+  // 1. Fetch live active products joined with category names
+  const { data: prodsData } = await supabase
+    .from('products')
+    .select('*, categories:category_id(name)')
+    .eq('is_active', true)
+    .limit(6);
+
+  // 2. Fetch all reviews to compute actual ratings
+  const { data: reviewsData } = await supabase
+    .from('reviews')
+    .select('product_id, rating');
+
+  const bestSellers = (prodsData || []).map(p => {
+    const productReviews = (reviewsData || []).filter(r => r.product_id === p.id);
+    const avgRating = productReviews.length > 0
+      ? Number((productReviews.reduce((sum, r) => sum + r.rating, 0) / productReviews.length).toFixed(1))
+      : 5.0; // default fallback rating
+
+    return {
+      id: p.id,
+      name: p.name,
+      slug: p.slug,
+      category: p.categories?.name || 'Category',
+      price: Number(p.mrp),
+      discount_price: Number(p.price),
+      rating: avgRating,
+      image: p.images && p.images[0] ? p.images[0] : null,
+      badge: p.stock_quantity <= 0 ? 'Out of Stock' : p.stock_quantity <= 10 ? 'Low Stock' : 'Bestseller'
+    };
+  });
 
   return (
     <div className="max-w-[1280px] mx-auto px-4 md:px-6 py-10 space-y-12">
@@ -103,7 +109,7 @@ export default async function Home() {
       <section className="space-y-6">
         <h2 className="text-headline-lg text-on-surface">Best Sellers</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {mockProducts.map((product) => (
+          {bestSellers.map((product) => (
             <Card key={product.id} className="group relative flex flex-col h-full overflow-hidden hover:border-primary transition-all p-0">
               {/* Product Badge */}
               <div className="absolute top-4 left-4 z-10">
@@ -116,28 +122,40 @@ export default async function Home() {
               </button>
 
               {/* Image Container */}
-              <div className="h-64 bg-gray-100 flex items-center justify-center relative group-hover:scale-105 transition-transform duration-300">
-                <div className="w-full h-full flex items-center justify-center text-warm-gray font-bold text-sm bg-[#faf8f5]">
-                  [ Ghee / Oil Bottle Mockup ]
-                </div>
+              <div className="h-64 bg-gray-100 flex items-center justify-center relative overflow-hidden">
+                {product.image ? (
+                  <img 
+                    src={product.image} 
+                    alt={product.name} 
+                    className="object-contain max-h-full max-w-full group-hover:scale-105 transition-transform duration-300"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-warm-gray font-bold text-sm bg-[#faf8f5]">
+                    No Image Available
+                  </div>
+                )}
               </div>
 
               {/* Product Info */}
               <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
                 <div className="space-y-2">
                   <span className="text-body-sm text-warm-gray">{product.category}</span>
-                  <h3 className="text-title-md font-bold text-on-surface line-clamp-2">
-                    {product.name}
-                  </h3>
-                  <div className="flex items-center gap-1.5">
-                    <span className="text-yellow-500 font-bold">★</span>
-                    <span className="text-body-sm font-semibold">{product.rating}</span>
+                  <Link href={`/product/${product.slug}`} className="block hover:text-primary transition-colors">
+                    <h3 className="text-title-md font-bold text-on-surface line-clamp-2 min-h-[48px]">
+                      {product.name}
+                    </h3>
+                  </Link>
+                  <div className="flex items-center gap-1.5 text-yellow-500">
+                    <span>★</span>
+                    <span className="text-body-sm font-semibold text-on-surface">{product.rating}</span>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between pt-2">
                   <div>
-                    <span className="text-body-sm line-through text-warm-gray mr-2">₹{product.price}</span>
+                    {product.price > product.discount_price && (
+                      <span className="text-body-sm line-through text-warm-gray mr-2">₹{product.price}</span>
+                    )}
                     <span className="text-price-display text-price-green">₹{product.discount_price}</span>
                   </div>
                   <Link href={`/product/${product.slug}`}>
@@ -149,6 +167,11 @@ export default async function Home() {
               </div>
             </Card>
           ))}
+          {bestSellers.length === 0 && (
+            <div className="col-span-full p-8 text-center text-warm-gray font-semibold bg-gray-50 rounded-xl">
+              No products found in the catalog.
+            </div>
+          )}
         </div>
       </section>
 

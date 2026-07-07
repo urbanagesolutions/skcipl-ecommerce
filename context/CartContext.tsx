@@ -91,10 +91,44 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   // Merge guest cart items into customer cart
   const mergeGuestCartToCustomer = async (userId: string) => {
-    const sessionId = getOrCreateSessionId();
-    if (!sessionId) return;
-
     try {
+      const sessionId = getOrCreateSessionId();
+      if (!sessionId) return;
+
+      // Ensure customer profile exists in public.customers to avoid foreign key violations
+      const { data: customerRecord, error: checkError } = await supabase
+        .from('customers')
+        .select('user_id')
+        .eq('user_id', userId)
+        .maybeSingle();
+
+      if (checkError) {
+        console.error('Error checking customer profile during merge:', checkError);
+        return;
+      }
+
+      if (!customerRecord) {
+        // Fetch current user details to create the fallback customer profile
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          const customerName = user.user_metadata?.name || user.user_metadata?.full_name || user.email?.split('@')[0] || 'Valued Customer';
+          const customerEmail = user.email || '';
+          
+          const { error: insertError } = await supabase
+            .from('customers')
+            .insert({
+              user_id: userId,
+              name: customerName,
+              email: customerEmail,
+            });
+            
+          if (insertError) {
+            console.error('Error creating fallback customer profile during merge:', insertError);
+            // Don't abort immediately, as the trigger may have just run concurrently
+          }
+        }
+      }
+
       // 1. Fetch guest items
       const { data: guestItems, error: guestError } = await supabase
         .from('cart_items')
@@ -102,7 +136,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         .eq('session_id', sessionId)
         .is('customer_id', null);
 
-      if (guestError || !guestItems || guestItems.length === 0) return;
+      if (guestError) {
+        console.error('Error fetching guest items during merge:', guestError);
+        return;
+      }
+      if (!guestItems || guestItems.length === 0) return;
 
       // 2. Fetch customer items
       const { data: customerItems, error: custError } = await supabase
@@ -110,7 +148,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         .select('*')
         .eq('customer_id', userId);
 
-      if (custError) return;
+      if (custError) {
+        console.error('Error fetching customer items during merge:', custError);
+        return;
+      }
 
       for (const guestItem of guestItems) {
         const match = customerItems?.find(
@@ -120,26 +161,39 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (match) {
           // Update customer quantity
           const newQty = match.quantity + guestItem.quantity;
-          await supabase
+          const { error: updateError } = await supabase
             .from('cart_items')
             .update({ quantity: newQty })
             .eq('id', match.id);
 
+          if (updateError) {
+            console.error('Error updating customer cart item quantity during merge:', updateError);
+            continue;
+          }
+
           // Delete guest item
-          await supabase
+          const { error: deleteError } = await supabase
             .from('cart_items')
             .delete()
             .eq('id', guestItem.id);
+
+          if (deleteError) {
+            console.error('Error deleting merged guest cart item:', deleteError);
+          }
         } else {
           // Convert guest item to customer item
-          await supabase
+          const { error: updateError } = await supabase
             .from('cart_items')
             .update({ customer_id: userId })
             .eq('id', guestItem.id);
+
+          if (updateError) {
+            console.error('Error converting guest cart item to customer during merge:', updateError);
+          }
         }
       }
     } catch (err) {
-      console.error('Error merging cart:', err);
+      console.error('Unexpected error merging cart:', err);
     }
   };
 
@@ -148,10 +202,14 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     refreshCart();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (session?.user) {
-        await mergeGuestCartToCustomer(session.user.id);
+      try {
+        if (session?.user) {
+          await mergeGuestCartToCustomer(session.user.id);
+        }
+        await refreshCart();
+      } catch (err) {
+        console.error('Error in auth state change handler:', err);
       }
-      await refreshCart();
     });
 
     return () => {

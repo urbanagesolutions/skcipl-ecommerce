@@ -66,8 +66,8 @@ export default function AuthenticationPortal() {
         setOtpSent(true);
         startCooldown();
       }
-    } catch (err: any) {
-      setErrorMessage(err.message || 'An unexpected error occurred.');
+    } catch (err: unknown) {
+      setErrorMessage(err instanceof Error ? err.message : 'An unexpected error occurred.');
     } finally {
       setLoading(false);
     }
@@ -92,7 +92,7 @@ export default function AuthenticationPortal() {
       } else if (data.user) {
         // Confirm user profile exists in customers table (created by migration trigger)
         let customer = null;
-        const { data: dbCustomer, error: dbError } = await supabase
+        const { data: dbCustomer } = await supabase
           .from('customers')
           .select('name, email')
           .eq('user_id', data.user.id)
@@ -143,8 +143,8 @@ export default function AuthenticationPortal() {
       } else {
         setErrorMessage('Verification completed but no user session was established.');
       }
-    } catch (err: any) {
-      setErrorMessage(err.message || 'An unexpected error occurred.');
+    } catch (err: unknown) {
+      setErrorMessage(err instanceof Error ? err.message : 'An unexpected error occurred.');
     } finally {
       setLoading(false);
     }
@@ -165,8 +165,8 @@ export default function AuthenticationPortal() {
       } else {
         startCooldown();
       }
-    } catch (err: any) {
-      setErrorMessage(err.message || 'An unexpected error occurred.');
+    } catch (err: unknown) {
+      setErrorMessage(err instanceof Error ? err.message : 'An unexpected error occurred.');
     } finally {
       setLoading(false);
     }

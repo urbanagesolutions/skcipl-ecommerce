@@ -9,11 +9,19 @@ import { Badge } from '@/components/ui/Badge';
 import { ShoppingBag, MapPin, Award, User, LogOut } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
+import { User as SupabaseUser } from '@supabase/supabase-js';
+
+interface Customer {
+  id?: string;
+  name?: string;
+  email?: string;
+}
+
 export default function AccountPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
-  const [customer, setCustomer] = useState<any>(null);
+  const [user, setUser] = useState<SupabaseUser | null>(null);
+  const [customer, setCustomer] = useState<Customer | null>(null);
 
   const loyaltyPoints = 340;
   

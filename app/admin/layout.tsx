@@ -15,7 +15,7 @@ import { supabase } from '@/lib/supabase';
 export default function AdminLayout({
   children,
 }: {
-  children: React.Node;
+  children: React.ReactNode;
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(true);

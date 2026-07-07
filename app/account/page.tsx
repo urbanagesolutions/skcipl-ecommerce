@@ -1,17 +1,71 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { ShoppingBag, MapPin, Award, User, LogOut } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
 export default function AccountPage() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<any>(null);
+  const [customer, setCustomer] = useState<any>(null);
+
   const loyaltyPoints = 340;
   
   const mockOrders = [
     { id: '#SK-120539', date: 'July 6, 2026', total: 1147, status: 'Processing' },
     { id: '#SK-119421', date: 'June 18, 2026', total: 599, status: 'Delivered' }
   ];
+
+  useEffect(() => {
+    async function checkUser() {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          router.push('/auth');
+          return;
+        }
+        setUser(session.user);
+
+        // Fetch customer profile
+        const { data } = await supabase
+          .from('customers')
+          .select('*')
+          .eq('user_id', session.user.id)
+          .maybeSingle();
+        
+        setCustomer(data);
+      } catch (error) {
+        console.error('Error fetching user session:', error);
+        router.push('/auth');
+      } finally {
+        setLoading(false);
+      }
+    }
+    checkUser();
+  }, [router]);
+
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      router.push('/auth');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-[50vh] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-primary border-solid"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-[1280px] mx-auto px-4 md:px-6 py-10">
@@ -31,7 +85,10 @@ export default function AccountPage() {
             <Link href="/account" className="flex items-center gap-3 p-2 text-on-surface-variant hover:bg-gray-50 rounded-md text-body-sm">
               <MapPin size={18} /> Saved Addresses
             </Link>
-            <button className="w-full flex items-center gap-3 p-2 text-sale-red hover:bg-red-50 rounded-md text-body-sm mt-4 text-left">
+            <button 
+              onClick={handleLogout}
+              className="w-full flex items-center gap-3 p-2 text-sale-red hover:bg-red-50 rounded-md text-body-sm mt-4 text-left font-bold"
+            >
               <LogOut size={18} /> Logout
             </button>
           </Card>
@@ -39,6 +96,12 @@ export default function AccountPage() {
 
         {/* Dashboard Panels */}
         <div className="flex-1 space-y-6">
+          {/* User profile overview */}
+          <div className="bg-white border border-border-subtle p-6 rounded-xl space-y-2">
+            <h2 className="text-title-md font-bold text-on-surface">Welcome, {customer?.name || user?.email?.split('@')[0] || 'Valued Customer'}</h2>
+            <p className="text-body-sm text-warm-gray">{user?.email}</p>
+          </div>
+
           {/* Metadata rewards banner */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card elevation={1} className="bg-primary bg-opacity-5 flex items-center gap-4 border border-primary border-opacity-20">

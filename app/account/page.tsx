@@ -12,9 +12,16 @@ import { supabase } from '@/lib/supabase';
 import { User as SupabaseUser } from '@supabase/supabase-js';
 
 interface Customer {
-  id?: string;
+  user_id?: string;
   name?: string;
   email?: string;
+}
+
+interface Order {
+  id: string;
+  created_at: string;
+  total: number;
+  status: string;
 }
 
 export default function AccountPage() {
@@ -22,13 +29,9 @@ export default function AccountPage() {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const [customer, setCustomer] = useState<Customer | null>(null);
+  const [orders, setOrders] = useState<Order[]>([]);
 
   const loyaltyPoints = 340;
-  
-  const mockOrders = [
-    { id: '#SK-120539', date: 'July 6, 2026', total: 1147, status: 'Processing' },
-    { id: '#SK-119421', date: 'June 18, 2026', total: 599, status: 'Delivered' }
-  ];
 
   useEffect(() => {
     async function checkUser() {
@@ -41,13 +44,21 @@ export default function AccountPage() {
         setUser(session.user);
 
         // Fetch customer profile
-        const { data } = await supabase
+        const { data: customerData } = await supabase
           .from('customers')
           .select('*')
           .eq('user_id', session.user.id)
           .maybeSingle();
-        
-        setCustomer(data);
+        setCustomer(customerData);
+
+        // Fetch real orders
+        const { data: ordersData } = await supabase
+          .from('orders')
+          .select('id, created_at, total, status')
+          .eq('customer_id', session.user.id)
+          .order('created_at', { ascending: false })
+          .limit(5);
+        setOrders((ordersData as Order[]) ?? []);
       } catch (error) {
         console.error('Error fetching user session:', error);
         router.push('/auth');
@@ -141,30 +152,40 @@ export default function AccountPage() {
               Recent Orders
             </h2>
             <div className="space-y-4">
-              {mockOrders.map((o) => (
-                <div key={o.id} className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 border border-border-subtle rounded-xl gap-4 hover:bg-gray-50/50">
-                  <div className="space-y-1">
-                    <span className="font-bold text-primary">{o.id}</span>
-                    <span className="block text-xs text-warm-gray">Placed on {o.date}</span>
-                  </div>
-
-                  <div className="flex items-center gap-6 w-full sm:w-auto justify-between sm:justify-start">
-                    <div className="text-left sm:text-right">
-                      <span className="text-body-sm font-semibold text-on-surface">Grand Total</span>
-                      <span className="block font-bold text-on-surface">₹{o.total}</span>
+              {orders.length === 0 ? (
+                <p className="text-body-sm text-warm-gray text-center py-4">No orders placed yet.</p>
+              ) : (
+                orders.map((o) => (
+                  <div key={o.id} className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 border border-border-subtle rounded-xl gap-4 hover:bg-gray-50/50">
+                    <div className="space-y-1">
+                      <span className="font-bold text-primary">#{o.id.substring(0, 8).toUpperCase()}</span>
+                      <span className="block text-xs text-warm-gray">
+                        Placed on {new Date(o.created_at).toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' })}
+                      </span>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                      <Badge variant={o.status === 'Processing' ? 'pending' : 'secondary'}>
-                        {o.status}
-                      </Badge>
-                      <Link href={`/account/track/120539`}>
-                        <Button variant="outline" size="sm">Track</Button>
-                      </Link>
+                    <div className="flex items-center gap-6 w-full sm:w-auto justify-between sm:justify-start">
+                      <div className="text-left sm:text-right">
+                        <span className="text-body-sm font-semibold text-on-surface">Grand Total</span>
+                        <span className="block font-bold text-on-surface">₹{o.total}</span>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <Badge variant={
+                          o.status === 'Delivered' ? 'secondary' :
+                          o.status === 'Cancelled' ? 'sale' :
+                          o.status === 'Shipped' ? 'primary' : 'pending'
+                        }>
+                          {o.status}
+                        </Badge>
+                        <Link href={`/account/track/${o.id}`}>
+                          <Button variant="outline" size="sm">Track</Button>
+                        </Link>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </Card>
         </div>

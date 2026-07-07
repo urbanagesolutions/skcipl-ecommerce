@@ -9,6 +9,7 @@ import { Filter, Star, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { Category } from '@/types';
+import { useCart } from '@/context/CartContext';
 
 interface ProductVariant {
   id: string;
@@ -47,6 +48,7 @@ interface CategoryPageProps {
 }
 
 export default function CategoryPage({ params }: CategoryPageProps) {
+  const { addToCart, syncing } = useCart();
   const [category, setCategory] = useState<Category | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<ClientProduct[]>([]);
@@ -152,8 +154,14 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     setSortBy('relevance');
   };
 
-  const handleAddToCartMock = (prodName: string) => {
-    alert(`Success: Added ${prodName} to Cart!`);
+  const handleAddToCart = async (productId: string, prodName: string) => {
+    try {
+      await addToCart(productId, null, 1);
+      alert(`Success: Added ${prodName} to Cart!`);
+    } catch (err) {
+      console.error(err);
+      alert('Failed to add item to cart. Please try again.');
+    }
   };
 
   // Filter & Sort Logic
@@ -440,7 +448,8 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                       <Button 
                         variant="secondary" 
                         size="sm"
-                        onClick={() => handleAddToCartMock(p.name)}
+                        onClick={() => handleAddToCart(p.id, p.name)}
+                        disabled={syncing}
                       >
                         ADD +
                       </Button>

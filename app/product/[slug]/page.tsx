@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/Input';
 import { ShieldCheck, Truck, Clock, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
+import { useCart } from '@/context/CartContext';
+import { useRouter } from 'next/navigation';
 
 interface CompanySettings {
   fssai_license_number: string;
@@ -72,6 +74,8 @@ interface ProductPageProps {
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
+  const router = useRouter();
+  const { addToCart, syncing } = useCart();
   const [product, setProduct] = useState<DBProduct | null>(null);
   const [category, setCategory] = useState<DBCategory | null>(null);
   const [variants, setVariants] = useState<ProductVariant[]>([]);
@@ -170,12 +174,29 @@ export default function ProductPage({ params }: ProductPageProps) {
     }
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     if (!product) return;
-    const name = selectedVariant 
-      ? `${product.name} (${selectedVariant.variant_name})`
-      : product.name;
-    alert(`Success: Added ${name} to your Cart!`);
+    try {
+      await addToCart(product.id, selectedVariant?.id || null, 1);
+      const name = selectedVariant 
+        ? `${product.name} (${selectedVariant.variant_name})`
+        : product.name;
+      alert(`Success: Added ${name} to your Cart!`);
+    } catch (err) {
+      console.error(err);
+      alert('Failed to add item to cart. Please try again.');
+    }
+  };
+
+  const handleBuyNow = async () => {
+    if (!product) return;
+    try {
+      await addToCart(product.id, selectedVariant?.id || null, 1);
+      router.push('/cart');
+    } catch (err) {
+      console.error(err);
+      alert('Failed to proceed to buy. Please try again.');
+    }
   };
 
   if (loading) {
@@ -345,7 +366,7 @@ export default function ProductPage({ params }: ProductPageProps) {
               variant="secondary" 
               fullWidth 
               size="lg" 
-              disabled={stockQty === 0}
+              disabled={stockQty === 0 || syncing}
               onClick={handleAddToCart}
             >
               {stockQty === 0 ? 'OUT OF STOCK' : 'ADD TO CART'}
@@ -355,8 +376,8 @@ export default function ProductPage({ params }: ProductPageProps) {
               variant="primary" 
               fullWidth 
               size="lg" 
-              disabled={stockQty === 0}
-              onClick={handleAddToCart}
+              disabled={stockQty === 0 || syncing}
+              onClick={handleBuyNow}
             >
               BUY NOW
             </Button>

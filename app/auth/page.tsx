@@ -1,145 +1,113 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { Badge } from '@/components/ui/Badge';
-import { KeyRound, ShieldAlert, Mail, CheckCircle, ArrowRight } from 'lucide-react';
+import { Lock, Eye, EyeOff, CheckCircle, ShieldAlert, Mail, ArrowRight } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import { User } from '@supabase/supabase-js';
 
 export default function AuthenticationPortal() {
   const router = useRouter();
   const [email, setEmail] = useState('');
-  const [otpSent, setOtpSent] = useState(false);
-  const [otpCode, setOtpCode] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [mode, setMode] = useState<'login' | 'signup' | 'forgot_password'>('login');
+  
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [cooldown, setCooldown] = useState(0);
+  
   const [isVerified, setIsVerified] = useState(false);
   const [customerInfo, setCustomerInfo] = useState<{ name: string; email: string } | null>(null);
 
-  // Future phone OTP integration variable
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [authMethod, setAuthMethod] = useState<'email' | 'phone'>('email');
+  const handleSuccessfulLogin = async (user: User) => {
+    // Confirm user profile exists in customers table (created by migration trigger)
+    let customer = null;
+    const { data: dbCustomer } = await supabase
+      .from('customers')
+      .select('name, email')
+      .eq('user_id', user.id)
+      .maybeSingle();
 
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+    if (dbCustomer) {
+      customer = dbCustomer;
+    } else {
+      // Retry once after 1 second in case trigger is slightly delayed
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const { data: dbCustomerRetry } = await supabase
+        .from('customers')
+        .select('name, email')
+        .eq('user_id', user.id)
+        .maybeSingle();
+      if (dbCustomerRetry) {
+        customer = dbCustomerRetry;
+      }
+    }
 
-  const startCooldown = () => {
-    setCooldown(30);
-    if (timerRef.current) clearInterval(timerRef.current);
-    timerRef.current = setInterval(() => {
-      setCooldown((prev) => {
-        if (prev <= 1) {
-          if (timerRef.current) clearInterval(timerRef.current);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+    const customerName = customer?.name || user.email?.split('@')[0] || 'Valued Customer';
+    const customerEmail = customer?.email || user.email || '';
+
+    // If customer record was missing entirely, create it as a fallback
+    if (!customer) {
+      const { error: insertError } = await supabase
+        .from('customers')
+        .insert({
+          user_id: user.id,
+          name: customerName,
+          email: customerEmail,
+        });
+      if (insertError) {
+        console.error('Fallback customer creation error:', insertError);
+      }
+    }
+
+    setCustomerInfo({
+      name: customerName,
+      email: customerEmail,
+    });
+    setIsVerified(true);
+    
+    // Auto-redirect to account page after 2.5 seconds
+    setTimeout(() => {
+      router.push('/account');
+    }, 2500);
   };
 
-  useEffect(() => {
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, []);
-
-  const handleSendOtp = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !email.includes('@')) {
       setErrorMessage('Please enter a valid email address.');
       return;
     }
+    if (!password) {
+      setErrorMessage('Please enter your password.');
+      return;
+    }
+
     setErrorMessage('');
+    setSuccessMessage('');
     setLoading(true);
+
     try {
-      const { error } = await supabase.auth.signInWithOtp({ email });
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
       if (error) {
-        if (error.status === 429) {
-          setErrorMessage('Too many requests. Please wait a moment before trying again.');
+        if (error.message.toLowerCase().includes('invalid login credentials') || error.message.toLowerCase().includes('invalid credentials')) {
+          setErrorMessage('Incorrect email or password. Please try again.');
+        } else if (error.message.toLowerCase().includes('email not confirmed') || error.message.toLowerCase().includes('confirm your email')) {
+          setErrorMessage('Your email address has not been confirmed yet. Please check your inbox for the confirmation email.');
         } else {
           setErrorMessage(error.message);
         }
-      } else {
-        setOtpSent(true);
-        startCooldown();
-      }
-    } catch (err: unknown) {
-      setErrorMessage(err instanceof Error ? err.message : 'An unexpected error occurred.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleVerifyOtp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (otpCode.length !== 6) {
-      setErrorMessage('Please enter a valid 6-digit OTP code.');
-      return;
-    }
-    setErrorMessage('');
-    setLoading(true);
-    try {
-      const { data, error } = await supabase.auth.verifyOtp({
-        email,
-        token: otpCode,
-        type: 'email',
-      });
-      if (error) {
-        setErrorMessage(error.message);
       } else if (data.user) {
-        // Confirm user profile exists in customers table (created by migration trigger)
-        let customer = null;
-        const { data: dbCustomer } = await supabase
-          .from('customers')
-          .select('name, email')
-          .eq('user_id', data.user.id)
-          .maybeSingle();
-
-        if (dbCustomer) {
-          customer = dbCustomer;
-        } else {
-          // Retry once after 1 second in case trigger is slightly delayed
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          const { data: dbCustomerRetry } = await supabase
-            .from('customers')
-            .select('name, email')
-            .eq('user_id', data.user.id)
-            .maybeSingle();
-          if (dbCustomerRetry) {
-            customer = dbCustomerRetry;
-          }
-        }
-
-        const customerName = customer?.name || data.user.email?.split('@')[0] || 'Valued Customer';
-        const customerEmail = customer?.email || data.user.email || '';
-
-        // If customer record was missing entirely, create it as a fallback
-        if (!customer) {
-          const { error: insertError } = await supabase
-            .from('customers')
-            .insert({
-              user_id: data.user.id,
-              name: customerName,
-              email: customerEmail,
-            });
-          if (insertError) {
-            console.error('Fallback customer creation error:', insertError);
-          }
-        }
-
-        setCustomerInfo({
-          name: customerName,
-          email: customerEmail,
-        });
-        setIsVerified(true);
-        
-        // Auto-redirect to account page after 2.5 seconds
-        setTimeout(() => {
-          router.push('/account');
-        }, 2500);
+        await handleSuccessfulLogin(data.user);
       } else {
         setErrorMessage('Verification completed but no user session was established.');
       }
@@ -150,20 +118,76 @@ export default function AuthenticationPortal() {
     }
   };
 
-  const handleResendOtp = async () => {
-    if (cooldown > 0) return;
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !email.includes('@')) {
+      setErrorMessage('Please enter a valid email address.');
+      return;
+    }
+    if (password.length < 8) {
+      setErrorMessage('Password must be at least 8 characters long.');
+      return;
+    }
+    if (password !== confirmPassword) {
+      setErrorMessage('Passwords do not match.');
+      return;
+    }
+
     setErrorMessage('');
+    setSuccessMessage('');
     setLoading(true);
+
     try {
-      const { error } = await supabase.auth.signInWithOtp({ email });
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+
       if (error) {
-        if (error.status === 429) {
-          setErrorMessage('Too many requests. Please wait a moment before trying again.');
+        if (error.message.toLowerCase().includes('user already registered') || error.message.toLowerCase().includes('already exists')) {
+          setErrorMessage('This email is already registered. Please sign in instead.');
         } else {
           setErrorMessage(error.message);
         }
+      } else if (data.user) {
+        if (data.session) {
+          // Logged in immediately (email confirmation disabled)
+          await handleSuccessfulLogin(data.user);
+        } else {
+          // Email confirmation enabled
+          setSuccessMessage('Registration successful! Please check your email to confirm your account before logging in.');
+          // Clear password fields on success
+          setPassword('');
+          setConfirmPassword('');
+        }
+      }
+    } catch (err: unknown) {
+      setErrorMessage(err instanceof Error ? err.message : 'An unexpected error occurred.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !email.includes('@')) {
+      setErrorMessage('Please enter a valid email address.');
+      return;
+    }
+
+    setErrorMessage('');
+    setSuccessMessage('');
+    setLoading(true);
+
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/auth/reset-password`,
+      });
+
+      if (error) {
+        setErrorMessage(error.message);
       } else {
-        startCooldown();
+        setSuccessMessage('A password reset link has been sent to your email address.');
       }
     } catch (err: unknown) {
       setErrorMessage(err instanceof Error ? err.message : 'An unexpected error occurred.');
@@ -201,78 +225,204 @@ export default function AuthenticationPortal() {
         
         {/* Header */}
         <div className="text-center space-y-2">
-          <h1 className="text-headline-lg text-on-surface">Welcome to Sabari Krishna</h1>
-          <p className="text-body-sm text-warm-gray">Sign in or register using your email address.</p>
+          <h1 className="text-headline-lg text-on-surface">
+            {mode === 'login' && 'Welcome to Sabari Krishna'}
+            {mode === 'signup' && 'Create an Account'}
+            {mode === 'forgot_password' && 'Reset Password'}
+          </h1>
+          <p className="text-body-sm text-warm-gray">
+            {mode === 'login' && 'Sign in to your account using your email and password.'}
+            {mode === 'signup' && 'Register with your email and password to start shopping.'}
+            {mode === 'forgot_password' && "Enter your email address and we'll send you a recovery link."}
+          </p>
         </div>
 
         {/* Error message */}
         {errorMessage && (
-          <div className="bg-red-50 text-sale-red text-xs p-3 rounded-lg border border-red-200 flex items-center gap-2 font-semibold">
+          <div className="bg-red-50 text-sale-red text-xs p-3 rounded-lg border border-red-200 flex items-center gap-2 font-semibold animate-fade-in">
             <ShieldAlert size={14} /> {errorMessage}
           </div>
         )}
 
-        {!otpSent ? (
-          // Step 1: Send OTP
-          <form onSubmit={handleSendOtp} className="space-y-4">
+        {/* Success message */}
+        {successMessage && (
+          <div className="bg-emerald-50 text-emerald-800 text-xs p-3 rounded-lg border border-emerald-200 flex items-center gap-2 font-semibold animate-fade-in">
+            <CheckCircle size={14} className="text-emerald-600" /> {successMessage}
+          </div>
+        )}
+
+        {mode === 'login' && (
+          <form onSubmit={handleLogin} className="space-y-4">
+            {/* Email field */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-on-surface-variant uppercase">Email Address</label>
+              <Input
+                required
+                type="email"
+                placeholder="Enter your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                icon={<Mail size={16} />}
+              />
+            </div>
+
+            {/* Password field */}
             <div className="space-y-1.5">
               <div className="flex justify-between items-center">
-                <label className="text-xs font-bold text-on-surface-variant uppercase">Email Address</label>
-                {/* TODO: add Phone OTP tab once SMS provider is configured */}
+                <label className="text-xs font-bold text-on-surface-variant uppercase">Password</label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setErrorMessage('');
+                    setSuccessMessage('');
+                    setMode('forgot_password');
+                  }}
+                  className="text-xs text-primary font-bold hover:underline"
+                >
+                  Forgot password?
+                </button>
               </div>
-              <div className="flex gap-2 items-center">
+              <div className="relative w-full">
                 <Input
                   required
-                  type="email"
-                  placeholder="Enter your email address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  icon={<Mail size={16} />}
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  icon={<Lock size={16} />}
+                  className="pr-10"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-warm-gray hover:text-on-surface z-10"
+                >
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
               </div>
             </div>
 
             <Button type="submit" variant="primary" fullWidth size="lg" disabled={loading}>
-              {loading ? 'Sending...' : 'Send Verification OTP'}
+              {loading ? 'Signing In...' : 'Sign In'}
             </Button>
+
+            <div className="text-center pt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setErrorMessage('');
+                  setSuccessMessage('');
+                  setMode('signup');
+                }}
+                className="text-xs text-primary font-bold hover:underline"
+              >
+                {"Don't have an account? Sign Up"}
+              </button>
+            </div>
           </form>
-        ) : (
-          // Step 2: Verify OTP
-          <form onSubmit={handleVerifyOtp} className="space-y-4">
-            <div className="space-y-2">
-              <Badge variant="secondary" className="mb-2">OTP Sent to {email}</Badge>
-              <label className="block text-xs font-bold text-on-surface-variant uppercase">One-Time Password (OTP)</label>
+        )}
+
+        {mode === 'signup' && (
+          <form onSubmit={handleSignup} className="space-y-4">
+            {/* Email field */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-on-surface-variant uppercase">Email Address</label>
               <Input
                 required
-                type="text"
-                maxLength={6}
-                placeholder="Enter 6-digit code"
-                value={otpCode}
-                onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ''))}
-                icon={<KeyRound size={16} />}
+                type="email"
+                placeholder="Enter your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                icon={<Mail size={16} />}
               />
             </div>
 
-            <Button type="submit" variant="secondary" fullWidth size="lg" disabled={loading}>
-              {loading ? 'Verifying...' : 'Verify & Complete Sign In'}
+            {/* Password field */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-on-surface-variant uppercase">Password (min 8 chars)</label>
+              <div className="relative w-full">
+                <Input
+                  required
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Create a password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  icon={<Lock size={16} />}
+                  className="pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-warm-gray hover:text-on-surface z-10"
+                >
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+              </div>
+            </div>
+
+            {/* Confirm Password field */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-on-surface-variant uppercase">Confirm Password</label>
+              <Input
+                required
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Re-enter password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                icon={<Lock size={16} />}
+              />
+            </div>
+
+            <Button type="submit" variant="primary" fullWidth size="lg" disabled={loading}>
+              {loading ? 'Creating Account...' : 'Create Account'}
             </Button>
 
-            <div className="flex flex-col gap-2 pt-2">
+            <div className="text-center pt-2">
               <button
                 type="button"
-                onClick={handleResendOtp}
-                disabled={cooldown > 0 || loading}
-                className={`w-full text-center text-xs font-bold hover:underline ${cooldown > 0 ? 'text-warm-gray cursor-not-allowed' : 'text-primary'}`}
+                onClick={() => {
+                  setErrorMessage('');
+                  setSuccessMessage('');
+                  setMode('login');
+                }}
+                className="text-xs text-primary font-bold hover:underline"
               >
-                {cooldown > 0 ? `Resend OTP (${cooldown}s)` : 'Resend OTP'}
+                Already have an account? Sign In
               </button>
+            </div>
+          </form>
+        )}
 
+        {mode === 'forgot_password' && (
+          <form onSubmit={handleForgotPassword} className="space-y-4">
+            {/* Email field */}
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-on-surface-variant uppercase">Email Address</label>
+              <Input
+                required
+                type="email"
+                placeholder="Enter your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                icon={<Mail size={16} />}
+              />
+            </div>
+
+            <Button type="submit" variant="primary" fullWidth size="lg" disabled={loading}>
+              {loading ? 'Sending Link...' : 'Send Reset Link'}
+            </Button>
+
+            <div className="text-center pt-2">
               <button
                 type="button"
-                onClick={() => setOtpSent(false)}
-                className="w-full text-center text-xs text-primary font-bold hover:underline"
+                onClick={() => {
+                  setErrorMessage('');
+                  setSuccessMessage('');
+                  setMode('login');
+                }}
+                className="text-xs text-primary font-bold hover:underline"
               >
-                Change Email Address
+                Back to Sign In
               </button>
             </div>
           </form>

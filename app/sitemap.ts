@@ -1,5 +1,7 @@
 import { MetadataRoute } from 'next';
-import { supabase } from '@/lib/supabase';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+
+export const dynamic = 'force-dynamic';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sabarikrishna.in';
@@ -15,17 +17,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: path === '' ? 1 : 0.8,
   }));
 
-  const { data: products } = await supabase
-    .from('products')
-    .select('slug, updated_at')
-    .eq('is_active', true);
+  let productPages: MetadataRoute.Sitemap = [];
 
-  const productPages = (products || []).map((p) => ({
-    url: `${baseUrl}/product/${p.slug}`,
-    lastModified: new Date(p.updated_at || Date.now()),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
-  }));
+  if (isSupabaseConfigured()) {
+    try {
+      const { data: products } = await supabase
+        .from('products')
+        .select('slug, updated_at')
+        .eq('is_active', true);
+
+      productPages = (products || []).map((p) => ({
+        url: `${baseUrl}/product/${p.slug}`,
+        lastModified: new Date(p.updated_at || Date.now()),
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
+      }));
+    } catch {
+      productPages = [];
+    }
+  }
 
   return [...staticPages, ...productPages];
 }

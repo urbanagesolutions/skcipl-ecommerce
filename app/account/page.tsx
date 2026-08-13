@@ -23,6 +23,8 @@ interface Order {
   created_at: string;
   total: number;
   status: string;
+  courier_name?: string | null;
+  tracking_number?: string | null;
 }
 
 interface Address {
@@ -60,7 +62,7 @@ export default function AccountPage() {
 
         const { data: ordersData } = await supabase
           .from('orders')
-          .select('id, created_at, total, status')
+          .select('id, created_at, total, status, courier_name, tracking_number')
           .eq('customer_id', session.user.id)
           .order('created_at', { ascending: false })
           .limit(5);
@@ -199,6 +201,11 @@ export default function AccountPage() {
                       <span className="block text-xs text-warm-gray">
                         Placed on {new Date(o.created_at).toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' })}
                       </span>
+                      {o.tracking_number && ['Shipped', 'Partially Shipped', 'Delivered'].includes(o.status) && (
+                        <span className="block text-[11px] text-primary font-semibold mt-1">
+                          {o.courier_name || 'Courier'} · AWB {o.tracking_number}
+                        </span>
+                      )}
                     </div>
 
                     <div className="flex items-center gap-6 w-full sm:w-auto justify-between sm:justify-start">
@@ -211,7 +218,7 @@ export default function AccountPage() {
                         <Badge variant={
                           o.status === 'Delivered' ? 'secondary' :
                           o.status === 'Cancelled' ? 'sale' :
-                          o.status === 'Shipped' ? 'primary' : 'pending'
+                          o.status.includes('Ship') ? 'primary' : 'pending'
                         }>
                           {o.status}
                         </Badge>

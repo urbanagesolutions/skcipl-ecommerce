@@ -6,13 +6,11 @@ import { useParams } from 'next/navigation';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
+import { TrackingWidget } from '@/components/TrackingWidget';
 import {
-  Truck, MapPin, ExternalLink,
-  Loader2, AlertCircle, Package
+  Truck, MapPin, Loader2, AlertCircle, Package
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-
-// ─── Types ────────────────────────────────────────────────────────────────────
 
 interface OrderDetail {
   id: string;
@@ -20,8 +18,29 @@ interface OrderDetail {
   status: string;
   payment_status: string;
   total: number;
-  courier_name: string | null;
-  tracking_number: string | null;
+  address_snapshot?: {
+    label?: string;
+    address_line?: string;
+    city?: string;
+    state?: string;
+    pincode?: string;
+  } | null;
+}
+
+interface Shipment {
+  id: string;
+  carrier_name: string | null;
+  tracking_number: string;
+  tracking_url: string | null;
+  status: string;
+  shipped_at: string | null;
+  tracking_events?: {
+    id: string;
+    event_code: string;
+    description: string;
+    location: string | null;
+    occurred_at: string;
+  }[];
 }
 
 interface OrderItem {
@@ -32,36 +51,15 @@ interface OrderItem {
   product_variants: { variant_name: string } | null;
 }
 
-interface DeliveryAddress {
-  label: string;
-  address_line: string;
-  city: string;
-  state: string;
-  pincode: string;
-}
-
-// ─── Status → stepper mapping ─────────────────────────────────────────────────
-
-const STEPS = [
-  { label: 'Order Placed', statuses: ['Pending', 'Processing', 'Shipped', 'Delivered'] },
-  { label: 'Processing', statuses: ['Processing', 'Shipped', 'Delivered'] },
-  { label: 'Packed & Dispatched', statuses: ['Shipped', 'Delivered'] },
-  { label: 'In Transit', statuses: ['Shipped', 'Delivered'] },
-  { label: 'Out for Delivery', statuses: ['Delivered'] },
-  { label: 'Delivered', statuses: ['Delivered'] },
-];
-
-
-// ─── Main Component ───────────────────────────────────────────────────────────
-
 function TrackingContent() {
   const { id } = useParams<{ id: string }>();
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [order, setOrder] = useState<OrderDetail | null>(null);
+  const [shipments, setShipments] = useState<Shipment[]>([]);
   const [items, setItems] = useState<OrderItem[]>([]);
-  const [address, setAddress] = useState<DeliveryAddress | null>(null);
+  const [widgetSettings, setWidgetSettings] = useState({ primaryColor: '#2D5016', accentColor: '#4A7C23' });
 
   useEffect(() => {
     if (!id) return;
@@ -71,7 +69,6 @@ function TrackingContent() {
         setLoading(true);
         setError('');
 
-        // Verify user owns this order
         const { data: { session } } = await supabase.auth.getSession();
         if (!session) {
           setError('Please log in to track your order.');
@@ -79,10 +76,9 @@ function TrackingContent() {
           return;
         }
 
-        // Fetch the order (RLS ensures customer can only read their own)
         const { data: orderData, error: orderErr } = await supabase
           .from('orders')
-          .select('id, created_at, status, payment_status, total, courier_name, tracking_number')
+          .select('id, created_at, status, payment_status, total, address_snapshot')
           .eq('id', id)
           .maybeSingle();
 
@@ -94,22 +90,25 @@ function TrackingContent() {
         }
         setOrder(orderData as OrderDetail);
 
-        // Fetch order items
         const { data: itemsData } = await supabase
           .from('order_items')
           .select('id, quantity, price_at_purchase, products(name, images), product_variants(variant_name)')
           .eq('order_id', id);
         setItems((itemsData as unknown as OrderItem[]) ?? []);
 
-        // Fetch delivery address (first/default address for this customer)
-        const { data: addrData } = await supabase
-          .from('addresses')
-          .select('label, address_line, city, state, pincode')
-          .eq('customer_id', session.user.id)
-          .order('is_default', { ascending: false })
-          .limit(1);
-        if (addrData && addrData.length > 0) setAddress(addrData[0] as DeliveryAddress);
+        const shipRes = await fetch(`/api/shipments?orderId=${id}`, {
+          headers: { Authorization: `Bearer ${session.access_token}` },
+        });
+        const shipData = await shipRes.json();
+        setShipments(shipData.shipments || []);
 
+        const { data: settings } = await supabase.from('tracking_settings').select('primary_color, accent_color').limit(1).maybeSingle();
+        if (settings) {
+          setWidgetSettings({
+            primaryColor: settings.primary_color || '#2D5016',
+            accentColor: settings.accent_color || '#4A7C23',
+          });
+        }
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : 'Failed to load order.';
         setError(msg);
@@ -146,18 +145,16 @@ function TrackingContent() {
   }
 
   const isCancelled = order.status === 'Cancelled';
+  const address = order.address_snapshot;
 
-  // Build stepper from current status
-  const stepStates = STEPS.map((step) => {
-    const isDone = step.statuses.includes(order.status);
-    const isActive = step.label === 'In Transit' && order.status === 'Shipped';
-    return { ...step, completed: isDone && !isActive, active: isActive };
-  });
+  const allEvents = shipments
+    .flatMap((s) => (s.tracking_events || []).map((e) => ({ ...e, carrier: s.carrier_name })))
+    .sort((a, b) => new Date(b.occurred_at).getTime() - new Date(a.occurred_at).getTime());
+
+  const hasLiveEvents = allEvents.length > 0;
 
   return (
     <div className="max-w-[800px] mx-auto px-4 py-10 space-y-8">
-
-      {/* Page Header */}
       <div className="border-b border-border-subtle pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-headline-lg text-on-surface">Track Shipment</h1>
@@ -170,7 +167,7 @@ function TrackingContent() {
           <Badge variant={
             order.status === 'Delivered' ? 'secondary' :
             order.status === 'Cancelled' ? 'sale' :
-            order.status === 'Shipped' ? 'primary' : 'pending'
+            order.status.includes('Ship') ? 'primary' : 'pending'
           }>
             {order.status}
           </Badge>
@@ -180,30 +177,19 @@ function TrackingContent() {
         </div>
       </div>
 
-      {/* Carrier info card */}
       <Card elevation={1} className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div>
-          <span className="block text-xs uppercase tracking-wider text-warm-gray font-bold">Courier Partner</span>
-          <span className="font-bold text-title-md text-on-surface flex items-center gap-1.5 mt-1">
-            {order.courier_name ?? '—'}
-            {order.courier_name && <ExternalLink size={14} className="text-primary" />}
-          </span>
-          <span className="text-xs text-warm-gray mt-1 block">
-            AWB: {order.tracking_number ?? 'Not yet assigned'}
-          </span>
+          <span className="block text-xs uppercase tracking-wider text-warm-gray font-bold">Shipments</span>
+          <span className="font-bold text-title-md text-on-surface mt-1">{shipments.length || 'Pending'}</span>
         </div>
         <div>
           <span className="block text-xs uppercase tracking-wider text-warm-gray font-bold">Payment</span>
-          <span className="font-bold text-title-md text-price-green mt-1 flex items-center gap-1.5">
-            ₹{order.total}
-          </span>
-          <span className="text-xs text-warm-gray mt-1 block">Status: {order.payment_status}</span>
+          <span className="font-bold text-title-md text-price-green mt-1">₹{order.total}</span>
+          <span className="text-xs text-warm-gray mt-1 block">{order.payment_status}</span>
         </div>
         <div>
-          <span className="block text-xs uppercase tracking-wider text-warm-gray font-bold">
-            {address ? 'Delivery Location' : 'Shipment Status'}
-          </span>
-          {address ? (
+          <span className="block text-xs uppercase tracking-wider text-warm-gray font-bold">Delivery Location</span>
+          {address?.city ? (
             <span className="font-bold text-body-sm text-on-surface mt-1 flex items-start gap-1.5">
               <MapPin size={16} className="text-primary flex-shrink-0 mt-0.5" />
               <span>{address.city}, {address.state} — {address.pincode}</span>
@@ -214,56 +200,61 @@ function TrackingContent() {
         </div>
       </Card>
 
-      {/* Stepper timeline */}
+      {!isCancelled && (
+        <Card elevation={1} className="p-6">
+          <h2 className="text-title-md font-bold text-on-surface mb-4 flex items-center gap-2">
+            <Truck size={18} /> Tracking Information
+          </h2>
+          <TrackingWidget
+            shipments={shipments.map((s) => ({
+              id: s.id,
+              carrierName: s.carrier_name || 'Courier',
+              trackingNumber: s.tracking_number,
+              trackingUrl: s.tracking_url || undefined,
+              status: s.status,
+              shippedAt: s.shipped_at || undefined,
+            }))}
+            primaryColor={widgetSettings.primaryColor}
+            accentColor={widgetSettings.accentColor}
+          />
+        </Card>
+      )}
+
       {isCancelled ? (
         <Card elevation={1} className="p-8 text-center space-y-3">
           <AlertCircle className="mx-auto text-sale-red" size={36} />
           <h2 className="text-title-md font-bold text-on-surface">Order Cancelled</h2>
-          <p className="text-body-sm text-warm-gray">This order has been cancelled. If you have questions, please contact support.</p>
+          <p className="text-body-sm text-warm-gray">This order has been cancelled.</p>
         </Card>
-      ) : (
+      ) : hasLiveEvents ? (
         <Card elevation={1} className="p-8">
-          <h2 className="text-title-md font-bold text-on-surface mb-6 flex items-center gap-2">
-            <Truck size={18} /> Transit Timeline
-          </h2>
-          <div className="relative pl-8 space-y-8 before:absolute before:left-3 before:top-2 before:bottom-2 before:w-[2px] before:bg-gray-200">
-            {stepStates.map((step, idx) => (
-              <div key={idx} className="relative flex flex-col sm:flex-row sm:justify-between items-start gap-1">
-                {/* Dot */}
+          <h2 className="text-title-md font-bold text-on-surface mb-6">Live Tracking Timeline</h2>
+          <div className="relative pl-8 space-y-6 before:absolute before:left-3 before:top-2 before:bottom-2 before:w-[2px] before:bg-gray-200">
+            {allEvents.map((ev, idx) => (
+              <div key={ev.id} className="relative">
                 <div className={`absolute -left-8 top-1 w-6 h-6 rounded-full border-2 flex items-center justify-center text-[10px] font-bold z-10 ${
-                  step.completed
-                    ? 'border-secondary bg-secondary text-white'
-                    : step.active
-                    ? 'border-primary bg-primary text-white animate-pulse'
-                    : 'border-gray-200 bg-white text-gray-400'
+                  idx === 0 ? 'border-primary bg-primary text-white' : 'border-secondary bg-secondary text-white'
                 }`}>
-                  {step.completed ? '✓' : idx + 1}
+                  {idx === 0 ? '●' : '✓'}
                 </div>
                 <div>
-                  <span className={`block font-bold text-body-sm ${step.active ? 'text-primary' : step.completed ? 'text-on-surface' : 'text-warm-gray'}`}>
-                    {step.label}
-                  </span>
-                  <span className="text-xs text-warm-gray mt-0.5 block">
-                    {step.completed ? '✓ Completed' : step.active ? 'In progress…' : 'Pending'}
+                  <span className="block font-bold text-body-sm text-on-surface">{ev.description}</span>
+                  {ev.location && <span className="text-xs text-warm-gray">{ev.location}</span>}
+                  <span className="text-[10px] text-warm-gray block mt-0.5">
+                    {new Date(ev.occurred_at).toLocaleString('en-IN')}
+                    {ev.carrier && ` · ${ev.carrier}`}
                   </span>
                 </div>
-                {step.active && (
-                  <Badge variant="secondary" className="text-[10px] mt-1 sm:mt-0">Live Update</Badge>
-                )}
               </div>
             ))}
           </div>
-          {order.tracking_number && order.courier_name && (
-            <div className="mt-6 pt-4 border-t border-border-subtle">
-              <p className="text-xs text-warm-gray">
-                Track directly with <strong>{order.courier_name}</strong> using AWB: <strong className="text-on-surface">{order.tracking_number}</strong>
-              </p>
-            </div>
-          )}
         </Card>
-      )}
+      ) : shipments.length > 0 ? (
+        <Card elevation={1} className="p-6 text-center text-sm text-warm-gray">
+          Live scan updates will appear here once the carrier reports progress.
+        </Card>
+      ) : null}
 
-      {/* Items Summary */}
       {items.length > 0 && (
         <Card elevation={1} className="space-y-4">
           <h2 className="text-title-md font-bold text-on-surface flex items-center gap-2 pb-3 border-b border-border-subtle">
@@ -290,8 +281,11 @@ function TrackingContent() {
         </Card>
       )}
 
-      <div className="text-center">
-        <Link href="/" className="text-body-sm text-primary font-bold hover:underline">
+      <div className="text-center space-y-2">
+        <Link href="/track" className="text-body-sm text-primary font-bold hover:underline block">
+          Track without logging in
+        </Link>
+        <Link href="/" className="text-body-sm text-warm-gray hover:underline block">
           Continue Shopping
         </Link>
       </div>
@@ -299,7 +293,6 @@ function TrackingContent() {
   );
 }
 
-// Suspense wrapper required for useParams in Next.js 14
 export default function TrackingPage() {
   return (
     <Suspense fallback={

@@ -61,6 +61,22 @@ export default function AdminDashboard() {
           min: '15 units min',
         }));
 
+      const { data: shipments } = await supabase
+        .from('shipments')
+        .select('status, shipped_at, delivered_at');
+
+      const allShipments = shipments || [];
+      const inTransit = allShipments.filter((s) => s.status === 'In Transit').length;
+      const deliveredShipments = allShipments.filter((s) => s.status === 'Delivered');
+      const avgTransitDays = deliveredShipments.length
+        ? Math.round(
+            deliveredShipments.reduce((sum, s) => {
+              if (!s.shipped_at || !s.delivered_at) return sum;
+              return sum + (new Date(s.delivered_at).getTime() - new Date(s.shipped_at).getTime()) / 86400000;
+            }, 0) / deliveredShipments.length
+          )
+        : 0;
+
       setKpiData([
         {
           label: 'Total Revenue',
@@ -85,6 +101,18 @@ export default function AdminDashboard() {
           value: `${(products || []).length} Listed`,
           change: `${(products || []).filter((p) => p.stock_quantity > 0).length} in stock`,
           type: 'channels',
+        },
+        {
+          label: 'Shipments In Transit',
+          value: `${inTransit}`,
+          change: `${allShipments.length} total shipments`,
+          type: 'shipments',
+        },
+        {
+          label: 'Avg Delivery Time',
+          value: avgTransitDays ? `${avgTransitDays} days` : '—',
+          change: `${deliveredShipments.length} delivered`,
+          type: 'delivery',
         },
       ]);
 

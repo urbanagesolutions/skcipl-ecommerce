@@ -35,10 +35,64 @@ export interface Product {
   is_active: boolean;
 }
 
+export type OrderStatus =
+  | 'Pending'
+  | 'Processing'
+  | 'Partially Shipped'
+  | 'Shipped'
+  | 'Delivered'
+  | 'Cancelled'
+  | 'Returned';
+
 export interface Order {
   id: string;
   customer_name: string;
   date: string;
   amount: number;
-  status: 'Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
+  status: OrderStatus;
+  courier_name?: string | null;
+  tracking_number?: string | null;
+}
+
+export interface ShippingCarrier {
+  id: string;
+  name: string;
+  slug: string;
+  tracking_url_template: string;
+  logo_url?: string | null;
+  is_enabled: boolean;
+  is_custom: boolean;
+}
+
+export interface Shipment {
+  id: string;
+  order_id: string;
+  carrier_id?: string | null;
+  carrier_name: string | null;
+  tracking_number: string;
+  tracking_url: string | null;
+  status: 'Label Created' | 'In Transit' | 'Out for Delivery' | 'Delivered' | 'Exception' | 'Returned';
+  shipped_at: string | null;
+  delivered_at: string | null;
+  estimated_delivery: string | null;
+  created_at: string;
+}
+
+export interface TrackingEvent {
+  id: string;
+  shipment_id: string;
+  event_code: string;
+  description: string;
+  location: string | null;
+  occurred_at: string;
+}
+
+export interface TrackingSettings {
+  primary_color: string;
+  accent_color: string;
+  show_carrier_logo: boolean;
+  show_estimated_delivery: boolean;
+  notify_in_transit: boolean;
+  notify_out_for_delivery: boolean;
+  notify_delivered: boolean;
 }

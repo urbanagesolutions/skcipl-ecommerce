@@ -9,11 +9,12 @@ import {
   Search, ArrowUpRight, X, Printer, Loader2,
   Package, Truck, MapPin, User, CreditCard, Check
 } from 'lucide-react';
+import { AddShipmentForm, ShipmentList } from '@/components/admin/ShipmentPanel';
 import { supabase } from '@/lib/supabase';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type OrderStatus = 'Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
+type OrderStatus = 'Pending' | 'Processing' | 'Partially Shipped' | 'Shipped' | 'Delivered' | 'Cancelled' | 'Returned';
 type PaymentStatus = 'Pending' | 'Paid' | 'Failed' | 'Refunded';
 
 type TabFilter = 'All' | OrderStatus | 'Returned';
@@ -56,12 +57,13 @@ interface DeliveryAddress {
 
 // ─── Status helpers ───────────────────────────────────────────────────────────
 
-const ALL_STATUSES: OrderStatus[] = ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'];
-const TABS: TabFilter[] = ['All', 'Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled', 'Returned'];
+const ALL_STATUSES: OrderStatus[] = ['Pending', 'Processing', 'Partially Shipped', 'Shipped', 'Delivered', 'Cancelled', 'Returned'];
+const TABS: TabFilter[] = ['All', 'Pending', 'Processing', 'Partially Shipped', 'Shipped', 'Delivered', 'Cancelled', 'Returned'];
 
 const STATUS_BADGE: Record<string, 'pending' | 'primary' | 'secondary' | 'sale' | 'gray'> = {
   Pending: 'pending',
   Processing: 'primary',
+  'Partially Shipped': 'primary',
   Shipped: 'primary',
   Delivered: 'secondary',
   Cancelled: 'sale',
@@ -120,9 +122,8 @@ export default function AdminOrdersPage() {
   const [loadingDetail, setLoadingDetail] = useState(false);
   const [savingStatus, setSavingStatus] = useState(false);
   const [editStatus, setEditStatus] = useState<OrderStatus>('Pending');
-  const [editCourierName, setEditCourierName] = useState('');
-  const [editTrackingNumber, setEditTrackingNumber] = useState('');
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [shipmentRefresh, setShipmentRefresh] = useState(0);
 
   // ── Fetch orders list ────────────────────────────────────────────────────────
   const fetchOrders = useCallback(async () => {
@@ -187,9 +188,8 @@ export default function AdminOrdersPage() {
   const openDetail = async (order: OrderRow) => {
     setSelectedOrder(order);
     setEditStatus(order.status);
-    setEditCourierName(order.courier_name ?? '');
-    setEditTrackingNumber(order.tracking_number ?? '');
     setSaveSuccess(false);
+    setShipmentRefresh((k) => k + 1);
     setLoadingDetail(true);
     setOrderItems([]);
     setDeliveryAddress(null);
@@ -198,19 +198,16 @@ export default function AdminOrdersPage() {
       const isDev = process.env.NODE_ENV === 'development';
       const hasBypass = typeof window !== 'undefined' && window.location.search.includes('bypass=true');
 
-      const [itemsRes, addrRes] = await Promise.all([
+      const [itemsRes, orderRes] = await Promise.all([
         supabase
           .from('order_items')
           .select('id, quantity, price_at_purchase, products(name, images), product_variants(variant_name)')
           .eq('order_id', order.id),
-        order.customers
-          ? supabase
-              .from('addresses')
-              .select('label, address_line, city, state, pincode')
-              .eq('customer_id', (order as { customer_id?: string }).customer_id ?? '')
-              .order('is_default', { ascending: false })
-              .limit(1)
-          : Promise.resolve({ data: null, error: null }),
+        supabase
+          .from('orders')
+          .select('address_snapshot, customer_id')
+          .eq('id', order.id)
+          .maybeSingle(),
       ]);
 
       if (itemsRes.data && itemsRes.data.length > 0) {
@@ -234,8 +231,17 @@ export default function AdminOrdersPage() {
         ]);
       }
 
-      if (addrRes.data && addrRes.data.length > 0) {
-        setDeliveryAddress(addrRes.data[0] as DeliveryAddress);
+      const snapshot = orderRes.data?.address_snapshot as DeliveryAddress | null;
+      if (snapshot?.address_line) {
+        setDeliveryAddress(snapshot);
+      } else if (orderRes.data?.customer_id) {
+        const { data: addrData } = await supabase
+          .from('addresses')
+          .select('label, address_line, city, state, pincode')
+          .eq('customer_id', orderRes.data.customer_id)
+          .order('is_default', { ascending: false })
+          .limit(1);
+        if (addrData?.[0]) setDeliveryAddress(addrData[0] as DeliveryAddress);
       } else if (hasBypass || isDev) {
         setDeliveryAddress({
           label: 'Home',
@@ -260,11 +266,7 @@ export default function AdminOrdersPage() {
       setSaveSuccess(false);
       const { error } = await supabase
         .from('orders')
-        .update({
-          status: editStatus,
-          courier_name: editCourierName || null,
-          tracking_number: editTrackingNumber || null,
-        })
+        .update({ status: editStatus })
         .eq('id', selectedOrder.id);
 
       if (error) throw error;
@@ -272,13 +274,11 @@ export default function AdminOrdersPage() {
       // Optimistic update in list
       setOrders((prev) =>
         prev.map((o) =>
-          o.id === selectedOrder.id
-            ? { ...o, status: editStatus, courier_name: editCourierName || null, tracking_number: editTrackingNumber || null }
-            : o
+          o.id === selectedOrder.id ? { ...o, status: editStatus } : o
         )
       );
       setSelectedOrder((prev) =>
-        prev ? { ...prev, status: editStatus, courier_name: editCourierName || null, tracking_number: editTrackingNumber || null } : prev
+        prev ? { ...prev, status: editStatus } : prev
       );
       setSaveSuccess(true);
     } catch (err) {
@@ -558,10 +558,26 @@ export default function AdminOrdersPage() {
                       </div>
                     </section>
 
-                    {/* Status Update */}
+                    {/* Shipments */}
                     <section>
                       <h3 className="text-[10px] font-bold text-warm-gray uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                        <Truck size={12} /> Fulfillment Update
+                        <Truck size={12} /> Shipments
+                      </h3>
+                      <ShipmentList orderId={selectedOrder.id} refreshKey={shipmentRefresh} />
+                      <AddShipmentForm
+                        orderId={selectedOrder.id}
+                        orderItems={orderItems}
+                        onAdded={() => {
+                          setShipmentRefresh((k) => k + 1);
+                          fetchOrders();
+                        }}
+                      />
+                    </section>
+
+                    {/* Status Update */}
+                    <section>
+                      <h3 className="text-[10px] font-bold text-warm-gray uppercase tracking-wider mb-2">
+                        Order Status
                       </h3>
                       <div className="space-y-3">
                         <div className="space-y-1">
@@ -576,29 +592,9 @@ export default function AdminOrdersPage() {
                             ))}
                           </select>
                         </div>
-                        <div className="space-y-1">
-                          <label className="text-[10px] font-bold text-warm-gray">Courier Name</label>
-                          <input
-                            type="text"
-                            value={editCourierName}
-                            onChange={(e) => setEditCourierName(e.target.value)}
-                            placeholder="e.g. BlueDart Express"
-                            className="w-full border border-border-subtle rounded-md px-3 py-2 text-xs bg-white focus:outline-none focus:border-primary"
-                          />
-                        </div>
-                        <div className="space-y-1">
-                          <label className="text-[10px] font-bold text-warm-gray">Tracking Number / AWB</label>
-                          <input
-                            type="text"
-                            value={editTrackingNumber}
-                            onChange={(e) => setEditTrackingNumber(e.target.value)}
-                            placeholder="e.g. BD-924058209"
-                            className="w-full border border-border-subtle rounded-md px-3 py-2 text-xs bg-white focus:outline-none focus:border-primary"
-                          />
-                        </div>
 
                         <Button
-                          variant="primary"
+                          variant="outline"
                           fullWidth
                           onClick={handleSaveChanges}
                           disabled={savingStatus}
@@ -609,7 +605,7 @@ export default function AdminOrdersPage() {
                           ) : saveSuccess ? (
                             <><Check size={14} /> Saved!</>
                           ) : (
-                            'Save Changes'
+                            'Update Status Only'
                           )}
                         </Button>
                       </div>

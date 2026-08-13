@@ -10,6 +10,8 @@ import {
   Store,
   Grid,
   Ticket,
+  Truck,
+  Settings,
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
@@ -28,6 +30,8 @@ export default function AdminLayout({
     { label: 'Dashboard Overview', href: '/admin', icon: <LayoutDashboard size={18} /> },
     { label: 'Products & Inventory', href: '/admin/products', icon: <Grid size={18} /> },
     { label: 'Order Processing', href: '/admin/orders', icon: <ShoppingBag size={18} /> },
+    { label: 'Fulfillment & Shipments', href: '/admin/shipments', icon: <Truck size={18} /> },
+    { label: 'Shipping Carriers', href: '/admin/settings/carriers', icon: <Settings size={18} /> },
     { label: 'Coupon Management', href: '/admin/coupons', icon: <Ticket size={18} /> },
     { label: 'Marketplace Sync', href: '/admin/marketplace', icon: <Store size={18} /> },
   ];

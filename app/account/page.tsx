@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
-import { ShoppingBag, MapPin, Award, User, LogOut } from 'lucide-react';
+import { ShoppingBag, MapPin, Award, User, LogOut, Heart, RotateCcw, FileText } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
 import { User as SupabaseUser } from '@supabase/supabase-js';
@@ -15,6 +15,7 @@ interface Customer {
   user_id?: string;
   name?: string;
   email?: string;
+  loyalty_points?: number;
 }
 
 interface Order {
@@ -24,14 +25,21 @@ interface Order {
   status: string;
 }
 
+interface Address {
+  label: string;
+  address_line: string;
+  city: string;
+  state: string;
+  pincode: string;
+}
+
 export default function AccountPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
-
-  const loyaltyPoints = 340;
+  const [defaultAddress, setDefaultAddress] = useState<Address | null>(null);
 
   useEffect(() => {
     async function checkUser() {
@@ -43,7 +51,6 @@ export default function AccountPage() {
         }
         setUser(session.user);
 
-        // Fetch customer profile
         const { data: customerData } = await supabase
           .from('customers')
           .select('*')
@@ -51,7 +58,6 @@ export default function AccountPage() {
           .maybeSingle();
         setCustomer(customerData);
 
-        // Fetch real orders
         const { data: ordersData } = await supabase
           .from('orders')
           .select('id, created_at, total, status')
@@ -59,6 +65,23 @@ export default function AccountPage() {
           .order('created_at', { ascending: false })
           .limit(5);
         setOrders((ordersData as Order[]) ?? []);
+
+        const { data: addrData } = await supabase
+          .from('addresses')
+          .select('*')
+          .eq('customer_id', session.user.id)
+          .eq('is_default', true)
+          .maybeSingle();
+        if (addrData) setDefaultAddress(addrData as Address);
+        else {
+          const { data: firstAddr } = await supabase
+            .from('addresses')
+            .select('*')
+            .eq('customer_id', session.user.id)
+            .limit(1)
+            .maybeSingle();
+          if (firstAddr) setDefaultAddress(firstAddr as Address);
+        }
       } catch (error) {
         console.error('Error fetching user session:', error);
         router.push('/auth');
@@ -86,13 +109,14 @@ export default function AccountPage() {
     );
   }
 
+  const loyaltyPoints = customer?.loyalty_points ?? 0;
+
   return (
     <div className="max-w-[1280px] mx-auto px-4 md:px-6 py-10">
       <h1 className="text-headline-lg text-on-surface mb-8">My Account</h1>
 
       <div className="flex flex-col lg:flex-row gap-8">
-        
-        {/* Navigation Sidebar */}
+
         <aside className="w-full lg:w-64 flex-shrink-0 space-y-4">
           <Card elevation={0} className="p-4 space-y-2">
             <Link href="/account" className="flex items-center gap-3 p-2 bg-primary bg-opacity-5 text-primary rounded-md font-bold text-body-sm">
@@ -101,10 +125,16 @@ export default function AccountPage() {
             <Link href="/account" className="flex items-center gap-3 p-2 text-on-surface-variant hover:bg-gray-50 rounded-md text-body-sm">
               <ShoppingBag size={18} /> My Orders
             </Link>
-            <Link href="/account" className="flex items-center gap-3 p-2 text-on-surface-variant hover:bg-gray-50 rounded-md text-body-sm">
+            <Link href="/account/wishlist" className="flex items-center gap-3 p-2 text-on-surface-variant hover:bg-gray-50 rounded-md text-body-sm">
+              <Heart size={18} /> Wishlist
+            </Link>
+            <Link href="/account/addresses" className="flex items-center gap-3 p-2 text-on-surface-variant hover:bg-gray-50 rounded-md text-body-sm">
               <MapPin size={18} /> Saved Addresses
             </Link>
-            <button 
+            <Link href="/account/returns" className="flex items-center gap-3 p-2 text-on-surface-variant hover:bg-gray-50 rounded-md text-body-sm">
+              <RotateCcw size={18} /> Returns
+            </Link>
+            <button
               onClick={handleLogout}
               className="w-full flex items-center gap-3 p-2 text-sale-red hover:bg-red-50 rounded-md text-body-sm mt-4 text-left font-bold"
             >
@@ -113,15 +143,12 @@ export default function AccountPage() {
           </Card>
         </aside>
 
-        {/* Dashboard Panels */}
         <div className="flex-1 space-y-6">
-          {/* User profile overview */}
           <div className="bg-white border border-border-subtle p-6 rounded-xl space-y-2">
             <h2 className="text-title-md font-bold text-on-surface">Welcome, {customer?.name || user?.email?.split('@')[0] || 'Valued Customer'}</h2>
             <p className="text-body-sm text-warm-gray">{user?.email}</p>
           </div>
 
-          {/* Metadata rewards banner */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card elevation={1} className="bg-primary bg-opacity-5 flex items-center gap-4 border border-primary border-opacity-20">
               <div className="w-12 h-12 bg-primary-container text-primary rounded-full flex items-center justify-center">
@@ -130,7 +157,7 @@ export default function AccountPage() {
               <div>
                 <span className="block text-xs uppercase tracking-wider text-warm-gray font-bold">Loyalty Rewards</span>
                 <span className="text-headline-lg font-bold text-on-surface">{loyaltyPoints} Points</span>
-                <span className="block text-[10px] text-primary mt-0.5">Use points to claim discounts at checkout</span>
+                <span className="block text-[10px] text-primary mt-0.5">Earn 1 point per ₹10 spent · Redeem 100 pts = ₹10 off</span>
               </div>
             </Card>
 
@@ -140,13 +167,23 @@ export default function AccountPage() {
               </div>
               <div>
                 <span className="block text-xs uppercase tracking-wider text-warm-gray font-bold">Primary Address</span>
-                <span className="block font-semibold text-body-sm text-on-surface">Anna Salai, Chennai</span>
-                <Link href="/account" className="text-xs text-primary hover:underline">Manage Addresses</Link>
+                {defaultAddress ? (
+                  <>
+                    <span className="block font-semibold text-body-sm text-on-surface">
+                      {defaultAddress.address_line}, {defaultAddress.city}
+                    </span>
+                    <Link href="/account/addresses" className="text-xs text-primary hover:underline">Manage Addresses</Link>
+                  </>
+                ) : (
+                  <>
+                    <span className="block text-sm text-warm-gray">No address saved</span>
+                    <Link href="/account/addresses" className="text-xs text-primary hover:underline">Add Address</Link>
+                  </>
+                )}
               </div>
             </Card>
           </div>
 
-          {/* Orders History list */}
           <Card elevation={1} className="space-y-4">
             <h2 className="text-title-md font-bold text-on-surface pb-3 border-b border-border-subtle">
               Recent Orders
@@ -180,6 +217,9 @@ export default function AccountPage() {
                         </Badge>
                         <Link href={`/account/track/${o.id}`}>
                           <Button variant="outline" size="sm">Track</Button>
+                        </Link>
+                        <Link href={`/account/invoice/${o.id}`}>
+                          <Button variant="ghost" size="sm"><FileText size={14} /></Button>
                         </Link>
                       </div>
                     </div>

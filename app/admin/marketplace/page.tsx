@@ -12,47 +12,59 @@ export default function MarketplaceSync() {
   const [amazonSyncing, setAmazonSyncing] = useState(false);
   const [amazonProgress, setAmazonProgress] = useState(0);
   const [amazonLastSync, setAmazonLastSync] = useState('06 July 2026 14:30');
+  const [amazonSyncedCount, setAmazonSyncedCount] = useState(0);
 
   // Flipkart Sync States
   const [flipkartActive, setFlipkartActive] = useState(false);
   const [flipkartSyncing, setFlipkartSyncing] = useState(false);
   const [flipkartProgress, setFlipkartProgress] = useState(0);
   const [flipkartLastSync, setFlipkartLastSync] = useState('05 July 2026 18:22');
+  const [flipkartSyncedCount, setFlipkartSyncedCount] = useState(0);
 
-  const triggerAmazonSync = () => {
+  const triggerAmazonSync = async () => {
     if (!amazonActive) return;
     setAmazonSyncing(true);
     setAmazonProgress(0);
-    const interval = setInterval(() => {
-      setAmazonProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setAmazonSyncing(false);
-          const now = new Date();
-          setAmazonLastSync(now.toLocaleString('en-IN', { hour12: false }));
-          return 100;
-        }
-        return prev + 20;
+    try {
+      const res = await fetch('/api/marketplace/sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ channel: 'amazon' }),
       });
-    }, 300);
+      const data = await res.json();
+      setAmazonProgress(100);
+      if (data.success) {
+        setAmazonLastSync(new Date().toLocaleString('en-IN', { hour12: false }));
+        setAmazonSyncedCount(data.syncedCount || 0);
+      }
+    } catch {
+      setAmazonProgress(0);
+    } finally {
+      setAmazonSyncing(false);
+    }
   };
 
-  const triggerFlipkartSync = () => {
+  const triggerFlipkartSync = async () => {
     if (!flipkartActive) return;
     setFlipkartSyncing(true);
     setFlipkartProgress(0);
-    const interval = setInterval(() => {
-      setFlipkartProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setFlipkartSyncing(false);
-          const now = new Date();
-          setFlipkartLastSync(now.toLocaleString('en-IN', { hour12: false }));
-          return 100;
-        }
-        return prev + 25;
+    try {
+      const res = await fetch('/api/marketplace/sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ channel: 'flipkart' }),
       });
-    }, 250);
+      const data = await res.json();
+      setFlipkartProgress(100);
+      if (data.success) {
+        setFlipkartLastSync(new Date().toLocaleString('en-IN', { hour12: false }));
+        setFlipkartSyncedCount(data.syncedCount || 0);
+      }
+    } catch {
+      setFlipkartProgress(0);
+    } finally {
+      setFlipkartSyncing(false);
+    }
   };
 
   return (
@@ -91,7 +103,7 @@ export default function MarketplaceSync() {
 
           <div className="text-xs text-on-surface-variant space-y-1 bg-gray-50 p-3 rounded-lg">
             <div>Last catalog sync: <strong>{amazonLastSync}</strong></div>
-            <div>Synced Items: <strong>14/14 Products matches</strong></div>
+            <div>Synced Items: <strong>{amazonSyncedCount || '14/14'} Products matches</strong></div>
           </div>
 
           {/* Sync Progress Bar */}
@@ -151,7 +163,7 @@ export default function MarketplaceSync() {
 
           <div className="text-xs text-on-surface-variant space-y-1 bg-gray-50 p-3 rounded-lg">
             <div>Last catalog sync: <strong>{flipkartLastSync}</strong></div>
-            <div>Synced Items: <strong>12/14 Products matches</strong></div>
+            <div>Synced Items: <strong>{flipkartSyncedCount || '12/14'} Products matches</strong></div>
           </div>
 
           {/* Sync Progress Bar */}

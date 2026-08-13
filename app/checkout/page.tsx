@@ -94,6 +94,31 @@ export default function CheckoutPage() {
   const [placingOrder, setPlacingOrder] = useState(false);
   const [companySettings, setCompanySettings] = useState<CompanySettings | null>(null);
 
+  // Cash on Delivery SMS/OTP States
+  const [paymentMethod, setPaymentMethod] = useState<'Razorpay' | 'COD'>('Razorpay');
+  const [codPhone, setCodPhone] = useState('');
+  const [showOtpModal, setShowOtpModal] = useState(false);
+  const [otpVal, setOtpVal] = useState('');
+  const [verifyingOtp, setVerifyingOtp] = useState(false);
+  const [cooldown, setCooldown] = useState(0);
+  const [otpAttempts, setOtpAttempts] = useState(1);
+
+  // Sync profile phone to codPhone
+  useEffect(() => {
+    if (profile?.phone) {
+      setCodPhone(profile.phone);
+    }
+  }, [profile]);
+
+  // Cooldown timer
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const timer = setInterval(() => {
+      setCooldown(c => c - 1);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [cooldown]);
+
   // Check auth status & fetch addresses + settings
   useEffect(() => {
     async function initCheckout() {
@@ -268,6 +293,157 @@ export default function CheckoutPage() {
 
   // Grand total
   const total = Number((taxableAmount + shippingFee + tax).toFixed(2));
+
+  // COD Payment Handlers
+  const handleInitiateCod = async () => {
+    if (!selectedAddressId) {
+      setPaymentError('Please select a delivery address first.');
+      setStep(1);
+      return;
+    }
+    if (!codPhone || codPhone.length < 10) {
+      setPaymentError('Please enter a valid 10-digit mobile number for COD verification.');
+      return;
+    }
+
+    try {
+      setPlacingOrder(true);
+      setPaymentError('');
+
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        router.push('/auth');
+        return;
+      }
+
+      // 1. If phone number has changed, update customer profile
+      if (codPhone !== profile?.phone) {
+        const { error: profileError } = await supabase
+          .from('customers')
+          .update({ phone: codPhone })
+          .eq('user_id', session.user.id);
+        
+        if (profileError) {
+          console.error('Error updating customer phone:', profileError);
+        } else {
+          setProfile(prev => prev ? { ...prev, phone: codPhone } : { phone: codPhone });
+        }
+      }
+
+      // 2. Call send-otp API
+      const res = await fetch('/api/send-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({ phone: codPhone })
+      });
+
+      const data = await res.json();
+      if (!data.success) {
+        throw new Error(data.error || 'Failed to send verification code.');
+      }
+
+      // 3. Show OTP Modal & set cooldown
+      setCooldown(30);
+      setOtpAttempts(1);
+      setOtpVal('');
+      setShowOtpModal(true);
+
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'An error occurred while sending verification code.';
+      setPaymentError(msg);
+    } finally {
+      setPlacingOrder(false);
+    }
+  };
+
+  const handleResendOtp = async () => {
+    if (cooldown > 0) return;
+    if (otpAttempts >= 5) {
+      setPaymentError('Maximum OTP verification attempts reached. Please start over.');
+      setShowOtpModal(false);
+      return;
+    }
+
+    try {
+      setPaymentError('');
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      const res = await fetch('/api/send-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({ phone: codPhone })
+      });
+
+      const data = await res.json();
+      if (!data.success) {
+        setPaymentError(data.error || 'Failed to resend OTP.');
+        if (data.error?.includes('Maximum OTP')) {
+          setShowOtpModal(false);
+        }
+        return;
+      }
+
+      setCooldown(30);
+      setOtpAttempts(prev => prev + 1);
+      setOtpVal('');
+    } catch (err) {
+      console.error(err);
+      setPaymentError('Failed to resend OTP.');
+    }
+  };
+
+  const handleVerifyOtpAndCreateOrder = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (otpVal.length !== 6) {
+      setPaymentError('Please enter a 6-digit OTP code.');
+      return;
+    }
+
+    try {
+      setVerifyingOtp(true);
+      setPaymentError('');
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      const res = await fetch('/api/create-order-cod', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({
+          phone: codPhone,
+          otp: otpVal,
+          couponCode: appliedCoupon?.code || null,
+          addressId: selectedAddressId
+        })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setShowOtpModal(false);
+        await refreshCart();
+        router.push(`/order-success?orderId=${data.orderId}`);
+      } else {
+        setPaymentError(data.error || 'Invalid OTP verification.');
+        if (data.error?.includes('Maximum attempts') || data.error?.includes('expired')) {
+          setShowOtpModal(false);
+        }
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'An unexpected error occurred during OTP verification.';
+      setPaymentError(msg);
+    } finally {
+      setVerifyingOtp(false);
+    }
+  };
 
   // Step 3 Payment Handler
   const handlePayment = async () => {
@@ -747,37 +923,231 @@ export default function CheckoutPage() {
                     </div>
                   )}
 
-                  {/* Payment instruction */}
-                  <div className="bg-[#FAF8F5] p-4 rounded-xl border border-border-subtle flex items-start gap-3">
-                    <Info className="text-primary flex-shrink-0 mt-0.5" size={16} />
-                    <p className="text-[11px] text-warm-gray leading-relaxed">
-                      You are executing a secure transaction via Razorpay. We support Credit/Debit Cards, UPI, Netbanking, and Wallets. Do not refresh this page once payment starts.
-                    </p>
+                  {/* Payment Method Selector */}
+                  <div className="space-y-3 pt-2">
+                    <label className="text-[10px] font-bold text-warm-gray uppercase tracking-wider block">
+                      Select Payment Method
+                    </label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPaymentMethod('Razorpay');
+                          setPaymentError('');
+                        }}
+                        className={`p-4 rounded-xl border text-left flex flex-col justify-between transition-all ${
+                          paymentMethod === 'Razorpay'
+                            ? 'border-primary bg-primary/5 ring-1 ring-primary'
+                            : 'border-border-subtle hover:border-warm-gray'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between w-full">
+                          <span className="font-bold text-xs text-on-surface">Prepaid (Razorpay)</span>
+                          {paymentMethod === 'Razorpay' && <CheckCircle size={16} className="text-primary" />}
+                        </div>
+                        <p className="text-[10px] text-warm-gray mt-1 leading-relaxed">
+                          Cards, UPI, Netbanking, Wallets. Skip SMS verification.
+                        </p>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPaymentMethod('COD');
+                          setPaymentError('');
+                        }}
+                        className={`p-4 rounded-xl border text-left flex flex-col justify-between transition-all ${
+                          paymentMethod === 'COD'
+                            ? 'border-primary bg-primary/5 ring-1 ring-primary'
+                            : 'border-border-subtle hover:border-warm-gray'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between w-full">
+                          <span className="font-bold text-xs text-on-surface">Cash on Delivery (COD)</span>
+                          {paymentMethod === 'COD' && <CheckCircle size={16} className="text-primary" />}
+                        </div>
+                        <p className="text-[10px] text-warm-gray mt-1 leading-relaxed">
+                          Pay with cash on delivery. SMS verification required.
+                        </p>
+                      </button>
+                    </div>
                   </div>
+
+                  {paymentMethod === 'Razorpay' ? (
+                    <div className="bg-[#FAF8F5] p-4 rounded-xl border border-border-subtle flex items-start gap-3">
+                      <Info className="text-primary flex-shrink-0 mt-0.5" size={16} />
+                      <p className="text-[11px] text-warm-gray leading-relaxed">
+                        You are executing a secure transaction via Razorpay. We support Credit/Debit Cards, UPI, Netbanking, and Wallets. Do not refresh this page once payment starts.
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="bg-[#FAF8F5] p-4 rounded-xl border border-border-subtle space-y-3">
+                      <div className="flex items-start gap-3">
+                        <Phone className="text-primary flex-shrink-0 mt-0.5" size={16} />
+                        <div className="space-y-1">
+                          <p className="text-[11px] font-bold text-on-surface">Mobile Number Verification</p>
+                          <p className="text-[10px] text-warm-gray leading-relaxed">
+                            For security, Cash on Delivery orders require mobile phone verification. We will send a 6-digit OTP to the number below.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="space-y-1.5 max-w-xs pl-7">
+                        <label className="text-[9px] font-bold text-warm-gray uppercase block">Mobile Number</label>
+                        <div className="relative">
+                          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-warm-gray">+91</span>
+                          <Input
+                            type="tel"
+                            maxLength={10}
+                            placeholder="9876543210"
+                            value={codPhone}
+                            onChange={(e) => setCodPhone(e.target.value.replace(/\D/g, ''))}
+                            className="pl-12 text-xs font-semibold"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {paymentError && (
+                    <div className="flex items-center gap-2 p-3 rounded-lg bg-error-container text-error text-xs font-semibold">
+                      <AlertCircle size={14} className="flex-shrink-0" />
+                      <span>{paymentError}</span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex justify-between pt-4 border-t border-border-subtle">
                   <Button variant="outline" onClick={() => setStep(2)}>
                     Back
                   </Button>
-                  <Button 
-                    variant="secondary" 
-                    onClick={handlePayment}
-                    disabled={placingOrder}
-                    className="flex items-center gap-2"
-                  >
-                    {placingOrder ? (
-                      <>
-                        <Loader2 className="animate-spin" size={16} /> Verifying Transaction...
-                      </>
-                    ) : (
-                      <>
-                        Proceed to Pay ₹{total}
-                      </>
-                    )}
-                  </Button>
+                  
+                  {paymentMethod === 'Razorpay' ? (
+                    <Button 
+                      variant="secondary" 
+                      onClick={handlePayment}
+                      disabled={placingOrder}
+                      className="flex items-center gap-2"
+                    >
+                      {placingOrder ? (
+                        <>
+                          <Loader2 className="animate-spin" size={16} /> Verifying Transaction...
+                        </>
+                      ) : (
+                        <>
+                          Proceed to Pay ₹{total}
+                        </>
+                      )}
+                    </Button>
+                  ) : (
+                    <Button 
+                      variant="secondary" 
+                      onClick={handleInitiateCod}
+                      disabled={placingOrder}
+                      className="flex items-center gap-2"
+                    >
+                      {placingOrder ? (
+                        <>
+                          <Loader2 className="animate-spin" size={16} /> Sending OTP...
+                        </>
+                      ) : (
+                        <>
+                          Verify & Place COD Order (₹{total})
+                        </>
+                      )}
+                    </Button>
+                  )}
                 </div>
               </Card>
+            )}
+
+            {/* OTP MODAL OVERLAY */}
+            {showOtpModal && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+                <Card className="max-w-md w-full p-6 space-y-6 relative border border-border-subtle bg-surface shadow-2xl animate-in fade-in zoom-in duration-200">
+                  <div className="text-center space-y-2">
+                    <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-2">
+                      <Phone size={24} className="text-primary" />
+                    </div>
+                    <h3 className="text-title-md font-bold text-on-surface">Enter Verification Code</h3>
+                    <p className="text-xs text-warm-gray">
+                      We sent a 6-digit OTP code to the mobile number:
+                      <span className="block font-bold text-on-surface mt-1">+91 {codPhone}</span>
+                    </p>
+                  </div>
+
+                  <form onSubmit={handleVerifyOtpAndCreateOrder} className="space-y-4">
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-warm-gray uppercase tracking-wider block text-center">
+                        6-Digit OTP Code
+                      </label>
+                      <Input
+                        type="text"
+                        maxLength={6}
+                        pattern="\d{6}"
+                        placeholder="000000"
+                        value={otpVal}
+                        onChange={(e) => setOtpVal(e.target.value.replace(/\D/g, ''))}
+                        className="text-center text-title-lg font-bold tracking-[0.5em] max-w-[200px] mx-auto py-3 text-on-surface focus:ring-primary focus:border-primary"
+                        required
+                        autoFocus
+                      />
+                    </div>
+
+                    {paymentError && (
+                      <div className="flex items-center gap-2 p-3 rounded-lg bg-error-container text-error text-xs font-semibold">
+                        <AlertCircle size={14} className="flex-shrink-0" />
+                        <span>{paymentError}</span>
+                      </div>
+                    )}
+
+                    <div className="text-center">
+                      {cooldown > 0 ? (
+                        <p className="text-[11px] text-warm-gray font-medium">
+                          Resend code in <span className="font-bold text-primary">{cooldown}s</span>
+                        </p>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={handleResendOtp}
+                          className="text-[11px] text-primary hover:text-primary-hover font-bold underline transition-colors"
+                        >
+                          Resend Verification Code
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="flex gap-3 pt-2">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="flex-1 text-xs"
+                        onClick={() => {
+                          setShowOtpModal(false);
+                          setPaymentError('');
+                        }}
+                        disabled={verifyingOtp}
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        type="submit"
+                        variant="secondary"
+                        className="flex-1 text-xs flex items-center justify-center gap-1.5"
+                        disabled={verifyingOtp || otpVal.length !== 6}
+                      >
+                        {verifyingOtp ? (
+                          <>
+                            <Loader2 className="animate-spin" size={14} /> Verifying...
+                          </>
+                        ) : (
+                          'Verify & Order'
+                        )}
+                      </Button>
+                    </div>
+                  </form>
+                </Card>
+              </div>
             )}
 
           </div>

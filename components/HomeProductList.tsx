@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Heart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useWishlist } from '@/context/WishlistContext';
 
 interface Product {
   id: string;
@@ -26,6 +27,7 @@ interface HomeProductListProps {
 
 export const HomeProductList: React.FC<HomeProductListProps> = ({ products }) => {
   const { addToCart, syncing } = useCart();
+  const { toggleWishlist, isWishlisted } = useWishlist();
 
   const handleAdd = async (productId: string, name: string) => {
     try {
@@ -41,22 +43,25 @@ export const HomeProductList: React.FC<HomeProductListProps> = ({ products }) =>
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
       {products.map((product) => (
         <Card key={product.id} className="group relative flex flex-col h-full overflow-hidden hover:border-primary transition-all p-0">
-          {/* Product Badge */}
           <div className="absolute top-4 left-4 z-10">
             <Badge variant="sale">{product.badge}</Badge>
           </div>
 
-          {/* Wishlist Icon */}
-          <button className="absolute top-4 right-4 z-10 bg-white p-2 rounded-full shadow hover:text-sale-red text-warm-gray transition-colors">
-            <Heart size={18} />
+          <button
+            className={`absolute top-4 right-4 z-10 bg-white p-2 rounded-full shadow transition-colors ${
+              isWishlisted(product.id) ? 'text-sale-red' : 'text-warm-gray hover:text-sale-red'
+            }`}
+            onClick={() => toggleWishlist(product.id)}
+            aria-label="Toggle wishlist"
+          >
+            <Heart size={18} fill={isWishlisted(product.id) ? 'currentColor' : 'none'} />
           </button>
 
-          {/* Image Container */}
           <div className="h-64 bg-gray-100 flex items-center justify-center relative overflow-hidden">
             {product.image ? (
-              <img 
-                src={product.image} 
-                alt={product.name} 
+              <img
+                src={product.image}
+                alt={product.name}
                 className="object-contain max-h-full max-w-full group-hover:scale-105 transition-transform duration-300"
               />
             ) : (
@@ -66,7 +71,6 @@ export const HomeProductList: React.FC<HomeProductListProps> = ({ products }) =>
             )}
           </div>
 
-          {/* Product Info */}
           <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
             <div className="space-y-2">
               <span className="text-body-sm text-warm-gray">{product.category}</span>
@@ -88,9 +92,9 @@ export const HomeProductList: React.FC<HomeProductListProps> = ({ products }) =>
                 )}
                 <span className="text-price-display text-price-green">₹{product.discount_price}</span>
               </div>
-              
-              <Button 
-                variant="secondary" 
+
+              <Button
+                variant="secondary"
                 size="sm"
                 onClick={() => handleAdd(product.id, product.name)}
                 disabled={syncing}

@@ -12,3 +12,30 @@
     scrollbar-width: none;
   }
 }
+
+/* Custom styles for printing and dedicated invoice pages */
+body.invoice-mode {
+  background-color: #ffffff !important;
+}
+
+body.invoice-mode header,
+body.invoice-mode footer,
+body.invoice-mode aside,
+body.invoice-mode .no-print {
+  display: none !important;
+}
+
+@media print {
+  header,
+  footer,
+  aside,
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+}
+

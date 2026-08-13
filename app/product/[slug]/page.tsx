@@ -165,12 +165,18 @@ export default function ProductPage({ params }: ProductPageProps) {
     loadProductDetails();
   }, [params.slug]);
 
-  // Handle Pincode check mock
-  const handlePincodeCheck = () => {
-    if (/^\d{6}$/.test(pincode)) {
-      setPincodeResult('Delivery available: Standard (2-3 days), Express (1-2 days).');
-    } else {
+  // Handle Pincode check via API
+  const handlePincodeCheck = async () => {
+    if (!/^\d{6}$/.test(pincode)) {
       setPincodeResult('Please enter a valid 6-digit PIN code.');
+      return;
+    }
+    try {
+      const res = await fetch(`/api/pincode?pincode=${pincode}`);
+      const data = await res.json();
+      setPincodeResult(data.message || 'Unable to check delivery.');
+    } catch {
+      setPincodeResult('Unable to check delivery. Please try again.');
     }
   };
 

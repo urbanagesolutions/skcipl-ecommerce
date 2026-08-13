@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/Input';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { HomeProductList } from '@/components/HomeProductList';
+import { PromotionalBanner } from '@/components/PromotionalBanner';
 
 export default async function Home() {
   const categories = await fetchCategories();
@@ -74,6 +75,8 @@ export default async function Home() {
           <Sparkles size={180} />
         </div>
       </section>
+
+      <PromotionalBanner />
 
       {/* 2. Data-driven Category Selection (Manifest Target 2) */}
       <section className="space-y-6">

@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { ChatbotWidget } from "@/components/ChatbotWidget";
 import { fetchCategories, fetchCompanySettings } from "@/lib/data";
 import { CartProvider } from "@/context/CartContext";
+import { WishlistProvider } from "@/context/WishlistContext";
 
 const publicSans = Public_Sans({
   subsets: ["latin"],
@@ -14,8 +15,18 @@ const publicSans = Public_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Sabari Krishna Consumables India Private Limited",
+  title: {
+    default: "Sabari Krishna Consumables India Private Limited",
+    template: "%s | Sabari Krishna Consumables",
+  },
   description: "Premium Indian consumables, authentic ghee, cold-pressed oils, and high-quality grocery items.",
+  openGraph: {
+    title: "Sabari Krishna Consumables",
+    description: "Premium Indian FMCG — ghee, oils, and groceries delivered across India.",
+    type: "website",
+    locale: "en_IN",
+  },
+  robots: { index: true, follow: true },
 };
 
 export default async function RootLayout({
@@ -33,17 +44,17 @@ export default async function RootLayout({
         className={`${publicSans.variable} font-sans bg-background text-on-surface antialiased min-h-screen flex flex-col`}
       >
         <CartProvider>
-          <Header categories={categories} />
-          
-          {/* Main content expands to fill space between header & footer */}
-          <main className="flex-1 bg-surface">
-            {children}
-          </main>
-          
-          <Footer categories={categories} companySettings={settings} />
-          
-          {/* Floating Chatbot overlay */}
-          <ChatbotWidget />
+          <WishlistProvider>
+            <Header categories={categories} />
+
+            <main className="flex-1 bg-surface">
+              {children}
+            </main>
+
+            <Footer categories={categories} companySettings={settings} />
+
+            <ChatbotWidget />
+          </WishlistProvider>
         </CartProvider>
       </body>
     </html>

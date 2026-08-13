@@ -1,80 +1,177 @@
-export const dynamic = 'force-dynamic';
+'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
-import { TrendingUp, ShieldAlert } from 'lucide-react';
+import { TrendingUp, ShieldAlert, Loader2 } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
+
+interface KpiData {
+  label: string;
+  value: string;
+  change: string;
+  type: string;
+}
+
+interface LowStockItem {
+  name: string;
+  stock: string;
+  min: string;
+}
 
 export default function AdminDashboard() {
-  const kpiData = [
-    { label: 'Total Revenue', value: '₹4,52,900', change: '+12.4% vs last week', type: 'revenue' },
-    { label: 'Pending Orders', value: '48 Orders', change: '8 require immediate dispatch', type: 'orders' },
-    { label: 'Stock Alerts', value: '3 Items Low', change: 'Ghee 500ml is at 10% safety margin', type: 'stock' },
-    { label: 'Active Channels', value: '2 Connected', change: 'Amazon, Flipkart syncing live', type: 'channels' }
-  ];
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [kpiData, setKpiData] = useState<KpiData[]>([]);
+  const [weeklySales, setWeeklySales] = useState<number[]>([]);
+  const [lowStock, setLowStock] = useState<LowStockItem[]>([]);
+
+  useEffect(() => {
+    async function loadDashboard() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) { router.push('/auth'); return; }
+
+      const { data: orders } = await supabase
+        .from('orders')
+        .select('total, status, created_at, payment_status')
+        .order('created_at', { ascending: false });
+
+      const allOrders = orders || [];
+      const paidOrders = allOrders.filter((o) => o.payment_status === 'Paid' || o.payment_status === 'Pending');
+      const totalRevenue = paidOrders.reduce((sum, o) => sum + Number(o.total), 0);
+      const pendingCount = allOrders.filter((o) => ['Pending', 'Processing'].includes(o.status)).length;
+
+      const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+      const lastWeekOrders = paidOrders.filter((o) => new Date(o.created_at) >= weekAgo);
+      const lastWeekRevenue = lastWeekOrders.reduce((sum, o) => sum + Number(o.total), 0);
+
+      const { data: products } = await supabase
+        .from('products')
+        .select('name, stock_quantity')
+        .eq('is_active', true)
+        .order('stock_quantity', { ascending: true });
+
+      const lowStockItems = (products || [])
+        .filter((p) => p.stock_quantity <= 15)
+        .slice(0, 5)
+        .map((p) => ({
+          name: p.name,
+          stock: p.stock_quantity <= 0 ? 'Out of Stock' : `${p.stock_quantity} units left`,
+          min: '15 units min',
+        }));
+
+      setKpiData([
+        {
+          label: 'Total Revenue',
+          value: `₹${totalRevenue.toLocaleString('en-IN')}`,
+          change: `₹${lastWeekRevenue.toLocaleString('en-IN')} this week`,
+          type: 'revenue',
+        },
+        {
+          label: 'Pending Orders',
+          value: `${pendingCount} Orders`,
+          change: `${allOrders.length} total orders`,
+          type: 'orders',
+        },
+        {
+          label: 'Stock Alerts',
+          value: `${lowStockItems.length} Items Low`,
+          change: lowStockItems[0]?.name ? `${lowStockItems[0].name} needs restock` : 'All stocked',
+          type: 'stock',
+        },
+        {
+          label: 'Active Products',
+          value: `${(products || []).length} Listed`,
+          change: `${(products || []).filter((p) => p.stock_quantity > 0).length} in stock`,
+          type: 'channels',
+        },
+      ]);
+
+      setLowStock(lowStockItems);
+
+      const dailySales = Array(7).fill(0);
+      for (let i = 0; i < 7; i++) {
+        const dayStart = new Date();
+        dayStart.setDate(dayStart.getDate() - (6 - i));
+        dayStart.setHours(0, 0, 0, 0);
+        const dayEnd = new Date(dayStart);
+        dayEnd.setHours(23, 59, 59, 999);
+        dailySales[i] = paidOrders
+          .filter((o) => {
+            const d = new Date(o.created_at);
+            return d >= dayStart && d <= dayEnd;
+          })
+          .reduce((sum, o) => sum + Number(o.total), 0);
+      }
+      const maxSale = Math.max(...dailySales, 1);
+      setWeeklySales(dailySales.map((v) => Math.round((v / maxSale) * 110)));
+      setLoading(false);
+    }
+    loadDashboard();
+  }, [router]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 size={32} className="animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">
-      {/* Welcome header */}
       <div>
         <h1 className="text-headline-lg text-on-surface">Console Dashboard Overview</h1>
-        <p className="text-body-sm text-warm-gray mt-1">Fulfillments, channels sync, and inventory overview.</p>
+        <p className="text-body-sm text-warm-gray mt-1">Live data from Supabase — fulfillments and inventory.</p>
       </div>
 
-      {/* KPI Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {kpiData.map((kpi, idx) => (
           <Card key={idx} elevation={1} className="space-y-3">
             <span className="text-xs uppercase tracking-wider text-warm-gray font-bold">{kpi.label}</span>
             <div className="text-headline-lg font-bold text-on-surface">{kpi.value}</div>
-            <span className={`block text-xs font-semibold ${
-              idx === 2 ? 'text-sale-red' : 'text-secondary'
-            }`}>
+            <span className={`block text-xs font-semibold ${idx === 2 ? 'text-sale-red' : 'text-secondary'}`}>
               {kpi.change}
             </span>
           </Card>
         ))}
       </div>
 
-      {/* Graph Mockup & System status split */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Weekly sales graph mock */}
         <Card elevation={1} className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-border-subtle">
             <h3 className="text-title-md font-bold text-on-surface flex items-center gap-2">
-              <TrendingUp size={18} /> Weekly Sales Distribution
+              <TrendingUp size={18} /> Weekly Sales (₹)
             </h3>
-            <Badge variant="primary">July 2026</Badge>
+            <Badge variant="primary">Live</Badge>
           </div>
-          
           <div className="h-64 flex items-end justify-between pt-6 px-4">
-            {[45, 80, 55, 90, 70, 110, 85].map((val, idx) => (
+            {weeklySales.map((val, idx) => (
               <div key={idx} className="w-8 sm:w-12 flex flex-col items-center gap-2">
-                <div 
+                <div
                   className="w-full bg-primary rounded-t-md hover:bg-primary-container transition-all"
-                  style={{ height: `${val * 1.5}px` }}
+                  style={{ height: `${Math.max(val, 4)}px` }}
                 />
-                <span className="text-[10px] text-warm-gray font-bold">Day {idx + 1}</span>
+                <span className="text-[10px] text-warm-gray font-bold">
+                  {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][idx]}
+                </span>
               </div>
             ))}
           </div>
         </Card>
 
-        {/* Low Stock Alerts */}
         <Card elevation={1} className="space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-border-subtle">
             <h3 className="text-title-md font-bold text-on-surface flex items-center gap-2">
-              <ShieldAlert size={18} /> Safety Warnings
+              <ShieldAlert size={18} /> Low Stock Alerts
             </h3>
-            <Badge variant="sale">Urgent</Badge>
+            {lowStock.length > 0 && <Badge variant="sale">Urgent</Badge>}
           </div>
-
           <div className="space-y-4">
-            {[
-              { name: 'Desi Cow Ghee (500 ml)', stock: '12 units left', min: '50 units min' },
-              { name: 'Coconut Oil (1L)', stock: '4 units left', min: '20 units min' },
-              { name: 'Mustard Oil (500 ml)', stock: '0 units (Out of Stock)', min: '15 units min' }
-            ].map((alert, idx) => (
+            {lowStock.length === 0 ? (
+              <p className="text-sm text-warm-gray">All products are well stocked.</p>
+            ) : lowStock.map((alert, idx) => (
               <div key={idx} className="p-3 border border-border-subtle rounded-lg bg-gray-50/50 space-y-1">
                 <span className="block font-bold text-body-sm text-on-surface">{alert.name}</span>
                 <div className="flex justify-between text-xs font-semibold">

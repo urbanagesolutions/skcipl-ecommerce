@@ -1,5 +1,20 @@
-import { supabase } from './supabase';
+import { supabase, isSupabaseConfigured } from './supabase';
 import { Category, CompanySettings } from '@/types';
+
+export const FALLBACK_CATEGORIES: Category[] = [
+  { id: '1', name: 'Ghee', slug: 'ghee', is_active: true, display_order: 1, requires_fssai_display: true },
+  { id: '2', name: 'Oils', slug: 'oils', is_active: true, display_order: 2, requires_fssai_display: true },
+  { id: '3', name: 'Groceries', slug: 'groceries', is_active: true, display_order: 3, requires_fssai_display: true },
+  { id: '4', name: 'Fashion', slug: 'fashion', is_active: true, display_order: 4, requires_fssai_display: false },
+];
+
+export const FALLBACK_COMPANY_SETTINGS: CompanySettings = {
+  id: 'fallback',
+  fssai_license_number: '12422027001241',
+  fssai_valid_until: '2029-08-28',
+  cin: 'U15400TN2023PTC159000',
+  gst_number: '33AACCS1242E1Z1',
+};
 
 export interface PromotionalBanner {
   id: string;
@@ -15,16 +30,23 @@ export interface PromotionalBanner {
 }
 
 export async function fetchCategories(): Promise<Category[]> {
-  const { data, error } = await supabase
-    .from('categories')
-    .select('*')
-    .order('display_order', { ascending: true });
+  if (!isSupabaseConfigured()) return FALLBACK_CATEGORIES;
 
-  if (error) {
-    console.error('Error fetching categories from database:', error);
-    throw error;
+  try {
+    const { data, error } = await supabase
+      .from('categories')
+      .select('*')
+      .order('display_order', { ascending: true });
+
+    if (error || !data?.length) {
+      console.error('Error fetching categories from database:', error);
+      return FALLBACK_CATEGORIES;
+    }
+    return data as Category[];
+  } catch (err) {
+    console.error('Error fetching categories from database:', err);
+    return FALLBACK_CATEGORIES;
   }
-  return data as Category[];
 }
 
 export async function addCategory(category: Omit<Category, 'id' | 'created_at' | 'updated_at'>): Promise<Category> {
@@ -54,13 +76,24 @@ export async function reorderCategories(updates: { id: string; display_order: nu
 }
 
 export async function fetchCompanySettings(): Promise<CompanySettings> {
-  const { data, error } = await supabase.from('company_settings').select('*').limit(1).maybeSingle();
-  if (error) throw error;
-  if (!data) throw new Error('No company settings row found in database.');
-  return data as CompanySettings;
+  if (!isSupabaseConfigured()) return FALLBACK_COMPANY_SETTINGS;
+
+  try {
+    const { data, error } = await supabase.from('company_settings').select('*').limit(1).maybeSingle();
+    if (error || !data) {
+      console.error('Error fetching company settings:', error);
+      return FALLBACK_COMPANY_SETTINGS;
+    }
+    return data as CompanySettings;
+  } catch (err) {
+    console.error('Error fetching company settings:', err);
+    return FALLBACK_COMPANY_SETTINGS;
+  }
 }
 
 export async function fetchActiveBanners(): Promise<PromotionalBanner[]> {
+  if (!isSupabaseConfigured()) return [];
+
   const now = new Date().toISOString();
   const { data, error } = await supabase
     .from('promotional_banners')
@@ -78,6 +111,8 @@ export async function fetchActiveBanners(): Promise<PromotionalBanner[]> {
 }
 
 export async function fetchRecommendedProducts(categoryId?: string | null, excludeId?: string) {
+  if (!isSupabaseConfigured()) return [];
+
   let query = supabase
     .from('products')
     .select('id, name, slug, price, mrp, images, categories(name)')

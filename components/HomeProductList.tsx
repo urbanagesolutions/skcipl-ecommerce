@@ -28,14 +28,17 @@ interface HomeProductListProps {
 export const HomeProductList: React.FC<HomeProductListProps> = ({ products }) => {
   const { addToCart, syncing } = useCart();
   const { toggleWishlist, isWishlisted } = useWishlist();
+  const [addedId, setAddedId] = React.useState<string | null>(null);
 
-  const handleAdd = async (productId: string, name: string) => {
+  const handleAdd = async (productId: string) => {
     try {
       await addToCart(productId, null, 1);
-      alert(`Success: Added ${name} to your Cart!`);
+      setAddedId(productId);
+      setTimeout(() => {
+        setAddedId((curr) => (curr === productId ? null : curr));
+      }, 2000);
     } catch (err) {
       console.error(err);
-      alert('Failed to add item to cart. Please try again.');
     }
   };
 
@@ -94,12 +97,12 @@ export const HomeProductList: React.FC<HomeProductListProps> = ({ products }) =>
               </div>
 
               <Button
-                variant="secondary"
+                variant={addedId === product.id ? 'primary' : 'secondary'}
                 size="sm"
-                onClick={() => handleAdd(product.id, product.name)}
+                onClick={() => handleAdd(product.id)}
                 disabled={syncing}
               >
-                ADD +
+                {addedId === product.id ? 'ADDED ✓' : 'ADD +'}
               </Button>
             </div>
           </div>

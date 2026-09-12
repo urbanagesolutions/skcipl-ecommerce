@@ -96,3 +96,37 @@ export interface TrackingSettings {
   notify_out_for_delivery: boolean;
   notify_delivered: boolean;
 }
+
+export interface PlatformInfo {
+  id: string;
+  name: string;
+  tagline: string;
+  domain?: string;
+  url?: string;
+  badge: string;
+  description: string;
+  features: string[];
+  image: string;
+  categories: string[];
+  ctaLabel: string;
+  ctaUrl: string;
+}
+
+export interface CorporateProfile {
+  name: string;
+  legalName: string;
+  shortName: string;
+  cin: string;
+  gstin: string;
+  fssai: string;
+  fssaiValidUntil: string;
+  incorporatedDate: string;
+  registeredOffice: string;
+  factoryAddress: string;
+  email: string;
+  phone: string;
+  whatsapp: string;
+  directors: { name: string; designation: string }[];
+  platforms: PlatformInfo[];
+}
+

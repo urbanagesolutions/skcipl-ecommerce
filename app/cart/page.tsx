@@ -14,7 +14,7 @@ export default function CartPage() {
     if (item.product_variants && item.product_variants.price_override !== null) {
       return Number(item.product_variants.price_override);
     }
-    return Number(item.products.price);
+    return Number(item.products?.price || 0);
   };
 
   const subtotal = cartItems.reduce((acc, item) => acc + (getItemPrice(item) * item.quantity), 0);
@@ -54,22 +54,23 @@ export default function CartPage() {
           <div className="flex-1 space-y-4">
             {cartItems.map((item) => {
               const price = getItemPrice(item);
-              const productName = item.products.name;
+              const productName = item.products?.name || 'Pure Cow Ghee';
+              const productSlug = item.products?.slug || 'pure-desi-cow-ghee';
               const variantName = item.product_variants?.variant_name;
               const displayName = variantName ? `${productName} (${variantName})` : productName;
-              const productImage = item.products.images && item.products.images[0]
+              const productImage = item.products?.images && item.products.images[0]
                 ? item.products.images[0]
-                : '/assets/placeholder-product.png';
+                : 'https://images.unsplash.com/photo-1628088062854-d1870b4553da?w=400&auto=format&fit=crop&q=80';
 
               return (
                 <Card key={item.id} elevation={1} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 bg-[#faf8f5] border border-border-subtle rounded-md flex items-center justify-center p-1.5">
-                      <img src={productImage} alt={productName} className="object-contain max-h-full max-w-full" />
+                    <div className="w-16 h-16 bg-[#faf8f5] border border-border-subtle rounded-md flex items-center justify-center p-1.5 overflow-hidden">
+                      <img src={productImage} alt={productName} className="object-cover w-full h-full rounded" />
                     </div>
                     <div>
                       <h3 className="font-bold text-on-surface text-body-lg">
-                        <Link href={`/product/${item.products.slug}`} className="hover:text-primary transition-colors">
+                        <Link href={`/product/${productSlug}`} className="hover:text-primary transition-colors">
                           {displayName}
                         </Link>
                       </h3>

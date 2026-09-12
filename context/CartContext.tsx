@@ -1,7 +1,8 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import { FALLBACK_PRODUCTS, STATIC_PRODUCTS } from '@/lib/data';
 
 export interface CartItem {
   id: string;
@@ -60,10 +61,25 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
-  // Load cart items from Supabase
+  // Load cart items
   const refreshCart = async () => {
     try {
       setSyncing(true);
+
+      if (!isSupabaseConfigured()) {
+        const raw = typeof window !== 'undefined' ? localStorage.getItem('skcipl_cart_items') : null;
+        if (raw) {
+          try {
+            setCartItems(JSON.parse(raw));
+          } catch {
+            setCartItems([]);
+          }
+        } else {
+          setCartItems([]);
+        }
+        return;
+      }
+
       const { data: { session } } = await supabase.auth.getSession();
       const sessionId = getOrCreateSessionId();
 
@@ -81,8 +97,16 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (error) throw error;
 
       setCartItems((data as unknown as CartItem[]) || []);
-    } catch (err) {
-      console.error('Error refreshing cart:', err);
+    } catch {
+      // Gracefully fallback to localStorage without throwing
+      const raw = typeof window !== 'undefined' ? localStorage.getItem('skcipl_cart_items') : null;
+      if (raw) {
+        try {
+          setCartItems(JSON.parse(raw));
+        } catch {
+          setCartItems([]);
+        }
+      }
     } finally {
       setLoading(false);
       setSyncing(false);
@@ -201,26 +225,68 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     refreshCart();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      try {
-        if (session?.user) {
-          await mergeGuestCartToCustomer(session.user.id);
-        }
-        await refreshCart();
-      } catch (err) {
-        console.error('Error in auth state change handler:', err);
-      }
-    });
+    if (!isSupabaseConfigured()) {
+      return;
+    }
 
-    return () => {
-      subscription.unsubscribe();
-    };
+    try {
+      const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+        try {
+          if (session?.user) {
+            await mergeGuestCartToCustomer(session.user.id);
+          }
+          await refreshCart();
+        } catch {
+          // ignore
+        }
+      });
+
+      return () => {
+        subscription.unsubscribe();
+      };
+    } catch {
+      // ignore
+    }
   }, []);
 
   // Add Item to Cart
   const addToCart = async (productId: string, variantId: string | null, quantity = 1) => {
     try {
       setSyncing(true);
+
+      if (!isSupabaseConfigured()) {
+        const current: CartItem[] = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('skcipl_cart_items') || '[]') : [];
+        const existingIdx = current.findIndex((i: CartItem) => i.product_id === productId && i.variant_id === variantId);
+        const foundProd = STATIC_PRODUCTS.find(p => p.id === productId || p.slug === productId) || FALLBACK_PRODUCTS.find(p => p.id === productId);
+
+        if (existingIdx >= 0) {
+          current[existingIdx].quantity += quantity;
+        } else {
+          current.push({
+            id: 'cart-' + Date.now(),
+            product_id: productId,
+            variant_id: variantId,
+            quantity,
+            created_at: new Date().toISOString(),
+            products: {
+              id: productId,
+              name: foundProd?.name || 'Pure Desi Cow Ghee',
+              slug: foundProd?.slug || 'pure-desi-cow-ghee',
+              price: foundProd?.price || 650,
+              mrp: foundProd?.mrp || 750,
+              images: foundProd?.images || ['https://images.unsplash.com/photo-1628088062854-d1870b4553da?w=800&auto=format&fit=crop&q=80'],
+              stock_quantity: foundProd?.stock_quantity || 25
+            },
+            product_variants: null
+          });
+        }
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('skcipl_cart_items', JSON.stringify(current));
+        }
+        setCartItems(current);
+        return;
+      }
+
       const { data: { session } } = await supabase.auth.getSession();
       const sessionId = getOrCreateSessionId();
 
@@ -285,6 +351,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     try {
       setSyncing(true);
+
+      if (!isSupabaseConfigured()) {
+        const current: CartItem[] = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('skcipl_cart_items') || '[]') : [];
+        const updated = current.map((item: CartItem) => item.id === cartItemId ? { ...item, quantity: newQuantity } : item);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('skcipl_cart_items', JSON.stringify(updated));
+        }
+        setCartItems(updated);
+        return;
+      }
+
       const { error } = await supabase
         .from('cart_items')
         .update({ quantity: newQuantity })
@@ -303,6 +380,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const removeFromCart = async (cartItemId: string) => {
     try {
       setSyncing(true);
+
+      if (!isSupabaseConfigured()) {
+        const current: CartItem[] = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('skcipl_cart_items') || '[]') : [];
+        const updated = current.filter((item: CartItem) => item.id !== cartItemId);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('skcipl_cart_items', JSON.stringify(updated));
+        }
+        setCartItems(updated);
+        return;
+      }
+
       const { error } = await supabase
         .from('cart_items')
         .delete()

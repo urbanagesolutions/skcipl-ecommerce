@@ -4,7 +4,6 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ChatbotWidget } from "@/components/ChatbotWidget";
-import { fetchCategories, fetchCompanySettings } from "@/lib/data";
 import { CartProvider } from "@/context/CartContext";
 import { WishlistProvider } from "@/context/WishlistContext";
 
@@ -19,12 +18,12 @@ const publicSans = Public_Sans({
 export const metadata: Metadata = {
   title: {
     default: "Sabari Krishna Consumables India Private Limited",
-    template: "%s | Sabari Krishna Consumables",
+    template: "%s | Sabari Krishna Consumables India Private Limited",
   },
-  description: "Premium Indian consumables, authentic ghee, cold-pressed oils, and high-quality grocery items.",
+  description: "Official corporate portal for Sabari Krishna Consumables India Private Limited — featuring Sabari GKS pure ghee & cold-pressed oils, GKS Mart (gksmart.in) retail network, and B2B institutional supply.",
   openGraph: {
-    title: "Sabari Krishna Consumables",
-    description: "Premium Indian FMCG — ghee, oils, and groceries delivered across India.",
+    title: "Sabari Krishna Consumables India Private Limited",
+    description: "Official corporate portal for Sabari Krishna Consumables India Private Limited — featuring Sabari GKS pure ghee & cold-pressed oils, GKS Mart (gksmart.in) retail network, and B2B institutional supply.",
     type: "website",
     locale: "en_IN",
   },
@@ -36,10 +35,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Fetch data-driven variables on the server side
-  const categories = await fetchCategories();
-  const settings = await fetchCompanySettings();
-
   return (
     <html lang="en">
       <body
@@ -47,13 +42,13 @@ export default async function RootLayout({
       >
         <CartProvider>
           <WishlistProvider>
-            <Header categories={categories} />
+            <Header />
 
             <main className="flex-1 bg-surface">
               {children}
             </main>
 
-            <Footer categories={categories} companySettings={settings} />
+            <Footer />
 
             <ChatbotWidget />
           </WishlistProvider>

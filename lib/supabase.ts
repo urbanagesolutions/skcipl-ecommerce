@@ -8,11 +8,15 @@ export function isSupabaseConfigured(): boolean {
     supabaseUrl &&
     supabaseAnonKey &&
     supabaseUrl.startsWith('https://') &&
-    !supabaseUrl.includes('placeholder')
+    !supabaseUrl.includes('placeholder') &&
+    !supabaseAnonKey.includes('placeholder') &&
+    !supabaseAnonKey.includes('your-anon-key') &&
+    supabaseAnonKey !== 'your-anon-key' &&
+    supabaseAnonKey.startsWith('eyJ')
   );
 }
 
 export const supabase = createClient(
-  supabaseUrl || 'https://placeholder.supabase.co',
-  supabaseAnonKey || 'placeholder-anon-key'
+  isSupabaseConfigured() ? supabaseUrl : 'https://placeholder.supabase.co',
+  isSupabaseConfigured() ? supabaseAnonKey : 'placeholder-anon-key'
 );

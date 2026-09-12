@@ -7,8 +7,6 @@ import { ChatbotWidget } from "@/components/ChatbotWidget";
 import { CartProvider } from "@/context/CartContext";
 import { WishlistProvider } from "@/context/WishlistContext";
 
-export const dynamic = 'force-dynamic';
-
 const publicSans = Public_Sans({
   subsets: ["latin"],
   variable: "--font-public-sans",
